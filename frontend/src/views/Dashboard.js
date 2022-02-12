@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable no-unused-vars
   ImageBackground, View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { useLocation } from 'react-router-dom';
@@ -14,7 +14,7 @@ const getInitialNameState = () => {
 };
 
 function Dashboard() {
-  const { initialName, initialRole } = getInitialNameState();
+  const { name, role } = getInitialNameState();
 
   const styles = StyleSheet.create({
     image: {
@@ -93,8 +93,8 @@ function Dashboard() {
     },
   });
 
-  // eslint-disable-next-line no-unused-vars
-  const [message, setMessage] = useState(`Welcome ${initialName}. Your role is ${initialRole}.`);
+
+  const [message, setMessage] = useState(`Welcome ${name}. Your role is ${role}.`);
   const getMessage = () => message;
 
   return (

@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable no-unneeded-ternary */
 import React, { useState } from 'react';
 import {
   ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput,
@@ -51,14 +50,10 @@ function LoginScreen() {
       const response = isLogin
         ? await loginService.login(payload)
         : await loginService.register(payload);
-      if (response.includes('error') || response.includes('Error')) {
-        setIsError(true);
-        setMessage(response);
-      } else {
+      if (response.status === 200) {
         setIsError(false);
-        const jsonResponse = response[0];
         if (isLogin) {
-          navigate('/dashboard', { state: { name: jsonResponse.firstName, role: jsonResponse.role } });
+          navigate('/dashboard', { state: { name: response.data.firstName, role: response.data.role } });
         } else {
           setMessage('Thank you for registering.');
           setIsLogin(true);
@@ -66,7 +61,7 @@ function LoginScreen() {
       }
     } catch (exception) {
       setIsError(true);
-      setMessage(exception);
+      setMessage('Error: Wrong Credentials');
     }
   };
 

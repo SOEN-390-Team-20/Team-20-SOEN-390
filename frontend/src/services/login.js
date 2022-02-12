@@ -12,18 +12,18 @@ const prodAxios = axios.create({
 const isDev = true; // manual switch
 const axiosService = isDev ? devAxios : prodAxios;
 
-const addUser = 'rest/api/add-user';
-const logUser = 'rest/api/login';
+const addUser = 'api/users';
+const logUser = 'api/login';
 
 // calls are this easy for json formatted https://github.com/axios/axios#example
 const register = async (payload) => {
   const response = await axiosService.post(addUser, payload);
-  return response.data;
+  return response;
 };
 
 const login = async (payload) => {
   const response = await axiosService.post(logUser, payload);
-  return response.data;
+  return response;
 };
 
 // For export
