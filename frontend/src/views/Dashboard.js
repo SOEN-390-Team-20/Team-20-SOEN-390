@@ -6,15 +6,15 @@ import {
 } from 'react-native';
 import { useLocation } from 'react-router-dom';
 
-function Dashboard() {
-  let initialName = 'N/A';
-  let initialRole = 'N/A';
-  const { state } = useLocation();
-  if (useLocation()?.state) {
-    const { name, role } = state;
-    initialName = name;
-    initialRole = role;
+const getInitialNameState = () => {
+  if (useLocation().state !== null) {
+    return { name: useLocation().state.name, role: useLocation().state.role };
   }
+  return { name: 'N/A', role: 'N/A' };
+};
+
+function Dashboard() {
+  const { initialName, initialRole } = getInitialNameState();
 
   const styles = StyleSheet.create({
     image: {

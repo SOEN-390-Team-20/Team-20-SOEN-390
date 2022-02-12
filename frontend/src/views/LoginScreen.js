@@ -7,10 +7,16 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 import loginService from '../services/login';
 
+const getInitialLoginState = () => {
+  if (useLocation().state !== null) {
+    return useLocation().state.isLogin;
+  }
+  return false;
+};
+
 function LoginScreen() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const initialLogin = location.state?.isLogin ? true : false;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hin, setHIN] = useState('');
@@ -20,6 +26,7 @@ function LoginScreen() {
 
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState('');
+  const initialLogin = getInitialLoginState();
   const [isLogin, setIsLogin] = useState(initialLogin);
 
   const onChange = () => {
