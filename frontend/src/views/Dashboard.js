@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import {
-  // eslint-disable no-unused-vars
   ImageBackground, View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { useLocation } from 'react-router-dom';
@@ -92,7 +92,6 @@ function Dashboard() {
       fontSize: 16,
     },
   });
-
 
   const [message, setMessage] = useState(`Welcome ${name}. Your role is ${role}.`);
   const getMessage = () => message;
