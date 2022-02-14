@@ -44,6 +44,22 @@ npm run start (or `npm start` for short)
 
 Notice how in the backend, the command is `npm run dev` and in frontend, the command is `npm run start`
 
+### Tests and Linter
+
+* Make sure to be either at `/repo/` for backend or `/repo/client` for frontend
+
+```
+npm run test (all tests)
+npm run <filename> (specific test file)
+```
+
+* For linting, there are several commands
+```
+npm run lint <filename> (specific test file)
+npm run lint:all (the whole directory)
+npm run lint:fix (lint the whole directory and autofix it)
+```
+
 ## Extensions
 * Vscode:
   * [VS Code ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
