@@ -22,7 +22,7 @@ jobs:
             echo 'MONGO_PASS=$MONGO_PASS' >> ./.env
       - run:
           name: "Build the frontend"
-          command: npm run build:client
+          command: npm run build
           working_directory: ./
       - run:
           name: "Run linter"
