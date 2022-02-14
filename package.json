@@ -7,8 +7,11 @@
     "lint:all": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "start": "cross-env NODE_ENV=production node ./bin/www",
-    "dev": "cross-env NODE_ENV=development nodemon -L ./bin/www --exec \"npm run lint:fix && node\"",
-    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
+    "dev": "cross-env NODE_ENV=development nodemon -L ./bin/www --ignore client --exec \"npm run lint:fix && node\"",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
+    "build:client": "cd ./client && npm install && npm run build",
+    "dev:build": "npm run build:client && npm run dev",
+    "start:build": "npm run build:client && npm run start"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
