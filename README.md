@@ -7,7 +7,7 @@ COVID App for SOEN-390
 
 ### Backend development
 
-* Make sure to create the `.env` file containing our secrets first
+*Important*: Make sure to create the `.env` file containing our secrets first
 
 Install the dependencies with:
 
@@ -24,7 +24,10 @@ npm run dev
 
 Make sure you are running the development server by checking that your database is `jevaisbienaller-dev`. It will be displayed in the console.
 
+The app will be running on `http://localhost:3001/`
+
 ### Fontend development
+
 
 * The frontend is inside the `./client` folder.
 
@@ -43,6 +46,8 @@ npm run start (or `npm start` for short)
 ```
 
 Notice how in the backend, the command is `npm run dev` and in frontend, the command is `npm run start`
+
+The app will be running on `http://localhost:3000/`
 
 ### Tests and Linter
 
