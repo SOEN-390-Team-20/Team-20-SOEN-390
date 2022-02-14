@@ -6,7 +6,7 @@ const app = require('../app');
 const api = supertest(app);
 
 describe('Static routes tests', () => {
-  test('GET / : accessible', async () => {
+  test('GET / : React app is accessible', async () => {
     await api
       .get('/')
       .expect(200);
