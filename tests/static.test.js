@@ -11,9 +11,14 @@ describe('Static routes tests', () => {
       .get('/')
       .expect(200);
   });
-  test('GET /status : is accessible', async () => {
+  test('GET /health : is accessible', async () => {
     await api
-      .get('/status')
+      .get('/health')
+      .expect(200);
+  });
+  test('GET /version: is accessible', async () => {
+    await api
+      .get('/version')
       .expect(200);
   });
 });

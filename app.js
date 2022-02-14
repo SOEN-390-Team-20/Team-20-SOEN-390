@@ -10,11 +10,14 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
 
-const reactRouter = require('./routes/react');
-const statusRouter = require('./routes/status');
 const oldapiRouter = require('./controllers/oldapi');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+
+// Static routes
+const healthRouter = require('./static_routes/healthcheck');
+const versionRouter = require('./static_routes/version');
+const reactRouter = require('./static_routes/react');
 
 const app = express();
 
@@ -46,7 +49,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 
 // Health Checker
-app.use('/status', statusRouter);
+app.use('/health', healthRouter);
+app.use('/version', versionRouter);
 
 // Serve the react app through express
 app.use(express.static(path.join(__dirname, 'client', 'build')));
