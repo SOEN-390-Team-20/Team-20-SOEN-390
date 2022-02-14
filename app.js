@@ -10,7 +10,7 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
 
-const indexRouter = require('./routes/index');
+const reactRouter = require('./routes/react');
 const statusRouter = require('./routes/status');
 const oldapiRouter = require('./controllers/oldapi');
 const usersRouter = require('./controllers/users');
@@ -23,7 +23,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 // Setting up request logger (hide the jsondata when in prod)
 if (config.env.isProd()) {
@@ -41,14 +40,17 @@ mongoose.connect(config.MONGO_URI, {
 logger.info(`Connected to db: ${config.DBNAME}`);
 logger.info(`Listening on port: ${config.PORT}`);
 
-// Static Pages Routes
-app.use('/', indexRouter);
-app.use('/status', statusRouter);
-
 // API Routes
 app.use('/rest/api', oldapiRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
+
+// Health Checker
+app.use('/status', statusRouter);
+
+// Serve the react app through express
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+app.use('/', reactRouter); // serves the built react app
 
 // Custom processing of errorMessage (mostly related to mongoose)
 // Using `express-async-errors` package, no need to wrap async
