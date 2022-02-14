@@ -14,20 +14,20 @@ jobs:
       - run:
           name: "Install Node"
           command: npm install
-          working_directory: ./backend
+          working_directory: ./
       - run:
           name: "Setup custom environment variables"
           command: |
-            echo 'MONGO_USER=$MONGO_USER' >> ./backend/.env
-            echo 'MONGO_PASS=$MONGO_PASS' >> ./backend/.env
+            echo 'MONGO_USER=$MONGO_USER' >> ./.env
+            echo 'MONGO_PASS=$MONGO_PASS' >> ./.env
       - run:
           name: "Run linter"
           command: npm run lint .
-          working_directory: ./backend/
+          working_directory: ./
       - run:
           name: "Run tests"
           command: npm run test
-          working_directory: ./backend/
+          working_directory: ./
   frontend-tests:
     docker:
       - image: 'cimg/node:17.4.0'
@@ -36,15 +36,15 @@ jobs:
       - run:
           name: "Install Node"
           command: npm install
-          working_directory: ./frontend
+          working_directory: ./client
       - run:
           name: "Run linter"
           command: npm run lint .
-          working_directory: ./frontend/
+          working_directory: ./client/
       - run:
           name: "Run tests"
           command: npm run test
-          working_directory: ./frontend/
+          working_directory: ./client/
 
 workflows:
   test_backend:
