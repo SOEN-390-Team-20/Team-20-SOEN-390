@@ -46,7 +46,7 @@ jobs:
           working_directory: ./
       - run:
           name: "Run tests on backend"
-          command: npm run test
+          command: npm run test:only
           working_directory: ./
   frontend-tests:
     docker:
