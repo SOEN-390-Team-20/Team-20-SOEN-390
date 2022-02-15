@@ -4,32 +4,48 @@ version: 2.1
 # Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  node: circleci/node@5.0.0
+  node: circleci/heroku@1.2.6
+
+workflows:
+  heroku_deploy:
+      jobs:
+        - build-app
+        - heroku/deploy-via-git:
+          requires:
+            - build-app
+          filters:
+            branches:
+              only: issue-4-heroku
+
+  test_frontend:
+      jobs:
+        - frontend-tests
+
 jobs:
-  backend-tests:
+  build-app:
     docker:
       - image: 'cimg/node:17.4.0'
     steps:
       - checkout
       - run:
-          name: "Install Node"
+          name: "Setup custom environment variables"
+          command: |
+            echo 'mongo_user=$mongo_user' >> ./.env
+            echo 'mongo_pass=$mongo_pass' >> ./.env
+      - run:
+          name: "Install Node for backend"
           command: npm install
           working_directory: ./
       - run:
-          name: "Setup custom environment variables"
-          command: |
-            echo 'MONGO_USER=$MONGO_USER' >> ./.env
-            echo 'MONGO_PASS=$MONGO_PASS' >> ./.env
+          name: "Run linter on backend"
+          command: npm run lint .
+          working_directory: ./
       - run:
           name: "Build the frontend"
           command: npm run build
           working_directory: ./
       - run:
-          name: "Run linter"
-          command: npm run lint .
-          working_directory: ./
-      - run:
-          name: "Run tests"
+          name: "Run tests on backend"
           command: npm run test
           working_directory: ./
   frontend-tests:
@@ -38,23 +54,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install Node"
+          name: "Install Node for frontend"
           command: npm install
           working_directory: ./client
       - run:
-          name: "Run linter"
+          name: "Run linter on frontend"
           command: npm run lint .
           working_directory: ./client/
       - run:
-          name: "Run tests"
+          name: "Run tests on frontend"
           command: npm run test
           working_directory: ./client/
-
-workflows:
-  test_backend:
-      jobs:
-        - backend-tests
-  test_frontend:
-      jobs:
-        - frontend-tests
-
