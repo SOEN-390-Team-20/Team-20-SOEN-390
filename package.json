@@ -15,6 +15,7 @@
     "start:build": "npm run build && npm run start"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -36,6 +37,8 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testPathIgnorePatterns": ["client"]
+    "testPathIgnorePatterns": [
+      "client"
+    ]
   }
 }
