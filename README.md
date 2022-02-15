@@ -18,7 +18,11 @@ npm install
 You can run the development server this way (or use `npm run dev:build`):
 
 ```
+<<<<<<< HEAD
 npm run build
+=======
+npm run build:client
+>>>>>>> main
 npm run dev
 ```
 
@@ -46,7 +50,10 @@ npm run start (or `npm start` for short)
 ```
 
 Notice how in the backend, the command is `npm run dev` and in frontend, the command is `npm run start`
+<<<<<<< HEAD
 Notice also that you did not need to `npm run build`
+=======
+>>>>>>> main
 
 The app will be running on `http://localhost:3000/`
 

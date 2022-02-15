@@ -32,6 +32,7 @@ jobs:
           command: |
             echo 'mongo_user=$mongo_user' >> ./.env
             echo 'mongo_pass=$mongo_pass' >> ./.env
+
       - run:
           name: "Install Node for backend"
           command: npm install
@@ -47,6 +48,7 @@ jobs:
       - run:
           name: "Run tests on backend"
           command: npm run test:only
+
           working_directory: ./
   frontend-tests:
     docker:
@@ -65,3 +67,4 @@ jobs:
           name: "Run tests on frontend"
           command: npm run test
           working_directory: ./client/
+

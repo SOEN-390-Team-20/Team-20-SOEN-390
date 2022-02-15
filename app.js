@@ -10,6 +10,11 @@ const config = require('./utils/config');
 const logger = require('./utils/logger');
 const middleware = require('./utils/middleware');
 
+<<<<<<< HEAD
+=======
+const reactRouter = require('./routes/react');
+const statusRouter = require('./routes/status');
+>>>>>>> main
 const oldapiRouter = require('./controllers/oldapi');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
@@ -49,8 +54,12 @@ app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 
 // Health Checker
+<<<<<<< HEAD
 app.use('/health', healthRouter);
 app.use('/version', versionRouter);
+=======
+app.use('/status', statusRouter);
+>>>>>>> main
 
 // Serve the react app through express
 app.use(express.static(path.join(__dirname, 'client', 'build')));
