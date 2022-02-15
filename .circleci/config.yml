@@ -4,18 +4,18 @@ version: 2.1
 # Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  node: circleci/heroku@1.2.6
+  heroku: circleci/heroku@1.2.6
 
 workflows:
   heroku_deploy:
       jobs:
         - build-app
         - heroku/deploy-via-git:
-          requires:
-            - build-app
-          filters:
-            branches:
-              only: issue-4-heroku
+            requires:
+                - build-app
+            filters:
+                branches:
+                    only: issue-4-heroku
 
   test_frontend:
       jobs:
