@@ -95,7 +95,7 @@ function HomePage() {
     // eslint-disable-next-line global-require
     <ImageBackground source={require('../public/images/login-background.png')} style={styles.image}>
       <View style={styles.card}>
-        <Text style={styles.heading}>Home Page</Text>
+        <Text style={styles.heading}>JeVaisBienAller</Text>
         <View style={styles.form}>
           <View style={styles.inputs}>
             <TouchableOpacity style={styles.button} onPress={Login}>

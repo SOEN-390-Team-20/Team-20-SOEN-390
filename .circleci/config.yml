@@ -7,7 +7,7 @@ orbs:
   heroku: circleci/heroku@1.2.6
 
 workflows:
-  heroku_deploy:
+  build_backend_then_deploy:
       jobs:
         - build-app
         - heroku/deploy-via-git:
@@ -15,7 +15,7 @@ workflows:
                 - build-app
             filters:
                 branches:
-                    only: issue-4-heroku
+                    only: main 
 
   test_frontend:
       jobs:
