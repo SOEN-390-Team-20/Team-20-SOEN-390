@@ -1,16 +1,13 @@
 import axios from 'axios';
+import config from '../utils/config';
 
 const devAxios = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
-const prodAxios = axios.create({
-  baseURL: 'http://ec2-15-223-77-239.ca-central-1.compute.amazonaws.com:3001',
-});
+const prodAxios = axios;
 
-// TODO: dynamic switch depending if dev or prod
-const isDev = true; // manual switch
-const axiosService = isDev ? devAxios : prodAxios;
+const axiosService = config.isDev() ? devAxios : prodAxios;
 
 const addUser = 'api/users';
 const logUser = 'api/login';
