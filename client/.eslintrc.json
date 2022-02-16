@@ -5,6 +5,8 @@
     "jest": true
   },
   "rules": {
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/style-prop-object" : [2, { "allow": ["StatusBar"] }]
   }
 }

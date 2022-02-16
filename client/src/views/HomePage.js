@@ -1,9 +1,10 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import {
   ImageBackground, View, Text, StyleSheet, TouchableOpacity,
 } from 'react-native';
 import { useNavigate } from 'react-router-dom';
+
+const imageBackground = require('../public/images/login-background.png');
 
 function HomePage() {
   const navigate = useNavigate();
@@ -92,8 +93,7 @@ function HomePage() {
   });
 
   return (
-    // eslint-disable-next-line global-require
-    <ImageBackground source={require('../public/images/login-background.png')} style={styles.image}>
+    <ImageBackground source={imageBackground} style={styles.image}>
       <View style={styles.card}>
         <Text style={styles.heading}>JeVaisBienAller</Text>
         <View style={styles.form}>
