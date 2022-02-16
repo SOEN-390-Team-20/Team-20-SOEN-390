@@ -22,14 +22,35 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
     await new User(TEST_DOCTOR1).save();
   });
 
-  test('POST /api/users : TEST_PATIENT2 can register', async () => {
+  test('OLD: POST /api/users : TEST_PATIENT2 can register', async () => {
     // Precondition: user should not already exist
     const isUserExist = await User.findOne({ email: TEST_PATIENT2.email });
-    expect(isUserExist).toBeNull();
+    if (isUserExist) {
+      await User.findByIdAndDelete(isUserExist.id);
+    }
 
     // Register using the patient payload
     await api
       .post('/api/users')
+      .send(TEST_PATIENT2)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    // Postcondition: user should exist in the mongodb database
+    const addedUser = await User.findOne({ email: TEST_PATIENT2.email });
+    expect(addedUser.email).toContain(TEST_PATIENT2.email);
+  });
+
+  test('JWT: POST /api/users : TEST_PATIENT2 can register', async () => {
+    // Precondition: user should not already exist
+    const isUserExist = await User.findOne({ email: TEST_PATIENT2.email });
+    if (isUserExist) {
+      await User.findByIdAndDelete(isUserExist.id);
+    }
+
+    // Register using the patient payload
+    await api
+      .post('/api/users/new') // TODO on frontend
       .send(TEST_PATIENT2)
       .expect(200)
       .expect('Content-Type', /application\/json/);

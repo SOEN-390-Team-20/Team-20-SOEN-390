@@ -13,7 +13,52 @@ const api = supertest(app);
 const { TEST_PATIENT1, TEST_PATIENT2 } = usersHelper.testPatients;
 const { TEST_DOCTOR1 } = usersHelper.testDoctors;
 const nonHashedPassword = TEST_PATIENT1.password;
-describe('REST API requests on /api/login (expects test users to be added)', () => {
+
+describe('OLD: REST API requests on /api/login (expects test users to be added)', () => {
+  beforeAll(async () => {
+    // Clean the test database first
+    await User.deleteMany({});
+
+    // Add the Test Users through Mongoose instead of API
+    await new User(TEST_PATIENT1).save();
+    await new User(TEST_DOCTOR1).save();
+  });
+
+  test('POST /api/login : TEST_PATIENT1 can login', async () => {
+    const result = await api
+      .post('/api/login')
+      .send({
+        email: TEST_PATIENT1.email,
+        password: TEST_PATIENT1.password,
+      })
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+
+    const { body } = result;
+    expect(body.email).toContain(TEST_PATIENT1.email);
+    expect(body.hin).toContain(TEST_PATIENT1.hin);
+    expect(body.password).toContain(TEST_PATIENT1.password);
+    expect(body.firstName).toContain(TEST_PATIENT1.firstName);
+    expect(body.lastName).toContain(TEST_PATIENT1.lastName);
+    expect(body.role).toContain(TEST_PATIENT1.role);
+  });
+
+  test('POST /api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {
+    const result = await api
+      .post('/api/login')
+      .send({
+        email: TEST_PATIENT2.email,
+        password: 'notlegit',
+      })
+      .expect(401)
+      .expect('Content-Type', /application\/json/);
+
+    const { body } = result;
+    expect(body.error).toContain('Invalid Username or Password');
+  });
+});
+
+describe('JWT Token: REST API requests on /api/login (expects test users to be added)', () => {
   beforeAll(async () => {
     // Clean the test database first
     await User.deleteMany({});
@@ -26,7 +71,7 @@ describe('REST API requests on /api/login (expects test users to be added)', () 
 
   test('POST /api/login : TEST_PATIENT1 can login', async () => {
     const result = await api
-      .post('/api/login')
+      .post('/api/login/new')
       .send({
         email: TEST_PATIENT1.email,
         password: nonHashedPassword,
@@ -43,7 +88,7 @@ describe('REST API requests on /api/login (expects test users to be added)', () 
 
   test('POST /api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {
     const result = await api
-      .post('/api/login')
+      .post('/api/login/new')
       .send({
         email: TEST_PATIENT2.email,
         password: 'notlegit',
