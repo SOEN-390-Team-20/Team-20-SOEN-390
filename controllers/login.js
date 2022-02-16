@@ -1,7 +1,7 @@
 const loginRouter = require('express').Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const Tokens = require('../models/activeTokens');
 
 // loginRouter.use(function(request,response,next){
 //   setTimeout(() => {
@@ -15,9 +15,19 @@ loginRouter.post('/', async (request, response) => {
   const { body } = request;
 
   // Query MongoDb with email and get matching user (will be null if none)
+
   const user = await User.findOne({
     email: body.email,
+  }).catch((err) => {
+    console.log(`${err}`);
   });
+
+  console.log(user);
+  if (user == null) {
+    return response.status(401).json({
+      error: 'Error: Invalid Username or Password',
+    });
+  }
 
   // Password Checking
   // const isCorrectPassword = user === null
@@ -33,35 +43,14 @@ loginRouter.post('/', async (request, response) => {
     });
   }
 
-  const generatedToken = await bcrypt.hash(await bcrypt.genSaltSync(), 9);
+  const claim = { email: user.email, role: user.role };
 
-  const newtoken = new Tokens({
-    email: user.email,
-    token: generatedToken,
-    role: user.role,
-    time: new Date().getTime().toString(),
+  const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
 
-  });
-
-  const savedUser = await newtoken.save();
-  setTimeout(async () => {
-    await Tokens.deleteOne({
-      email: newtoken.email,
-    });
-
-    console.log(newtoken);
-  }, 7200000);
-  response.json(savedUser.token);
+  console.log(jtoken);
 
   // OK 200
-  // return response.status(200).json({
-  //   email: user.email,
-  //   hin: user.hin,
-  //   password: user.password,
-  //   firstName: user.firstName,
-  //   lastName: user.lastName,
-  //   role: user.role,
-  // });
+  response.json(jtoken);
 });
 
 module.exports = loginRouter;

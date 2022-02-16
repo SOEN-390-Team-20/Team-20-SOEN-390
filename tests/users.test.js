@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
+const bcrypt = require('bcrypt');
 const app = require('../app');
 const User = require('../models/user');
 const usersHelper = require('./helperUsers');
-
 // Run our backend under test
 const api = supertest(app);
 
@@ -15,7 +15,8 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
   beforeAll(async () => {
     // Clean the test database first
     await User.deleteMany({});
-
+    TEST_PATIENT1.password = await bcrypt.hash(TEST_PATIENT1.password, 10);
+    TEST_DOCTOR1.password = await bcrypt.hash(TEST_DOCTOR1.password, 10);
     // Add the Test Users through Mongoose instead of API
     await new User(TEST_PATIENT1).save();
     await new User(TEST_DOCTOR1).save();
