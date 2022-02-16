@@ -15,6 +15,7 @@ function returnQuery(myCallback) {
   MongoClient.connect(url, (err, db) => {
     if (err) throw err;
     const dbVar = db.db(dbName);
+    // eslint-disable-next-line no-shadow
     dbVar.collection(collectionName).find().toArray((err, result) => {
       if (err) throw err;
       logger.info(result);
@@ -28,6 +29,7 @@ function returnQueryLoad(myCallback, load) {
   MongoClient.connect(url, (err, db) => {
     if (err) throw err;
     const dbVar = db.db(dbName);
+    // eslint-disable-next-line no-shadow
     dbVar.collection(collectionName).find({ email: load }).toArray((err, result) => {
       if (err) throw err;
       logger.info(result);
