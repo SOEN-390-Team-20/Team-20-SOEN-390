@@ -1,11 +1,9 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["airbnb-base", "plugin:cypress/recommended"],
   "env": {
     "jest": true
   },
   "rules": {
     "linebreak-style": "off"
-   
-  
   }
 }
