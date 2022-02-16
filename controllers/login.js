@@ -2,14 +2,7 @@ const loginRouter = require('express').Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-
-// loginRouter.use(function(request,response,next){
-//   setTimeout(() => {
-
-//   }, 9000);
-//   next()
-
-//   })
+/* eslint "consistent-return": "off" */
 
 loginRouter.post('/', async (request, response) => {
   const { body } = request;
@@ -29,11 +22,6 @@ loginRouter.post('/', async (request, response) => {
     });
   }
 
-  // Password Checking
-  // const isCorrectPassword = user === null
-  //   ? false
-  //   : body.password === user.password;
-
   const isCorrectPassword = await bcrypt.compareSync(body.password, user.password);
 
   // Bad username or Password: 401
@@ -45,9 +33,9 @@ loginRouter.post('/', async (request, response) => {
 
   const claim = { email: user.email, role: user.role };
 
-  const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
+  // creating the jw token
 
-  console.log(jtoken);
+  const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
 
   // OK 200
   response.json(jtoken);

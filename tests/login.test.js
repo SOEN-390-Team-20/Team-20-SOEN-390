@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const supertest = require('supertest');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const app = require('../app');
 const User = require('../models/user');
 const usersHelper = require('./helperUsers');
-const jwt= require('jsonwebtoken');
 
 // Run our backend under test
 const api = supertest(app);
@@ -33,13 +33,12 @@ describe('REST API requests on /api/login (expects test users to be added)', () 
       })
       .expect(200)
       .expect('Content-Type', /application\/json/);
-    console.log(`${result}--------------------------------------------------------------------`);
+
     const { body } = result;
-    console.log(result);
-    var claim = {email:TEST_PATIENT1.email, role: TEST_PATIENT1.role}
+
+    const claim = { email: TEST_PATIENT1.email, role: TEST_PATIENT1.role };
     const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
-     expect(body).toContain(jtoken);
-    
+    expect(body).toContain(jtoken);
   });
 
   test('POST /api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {

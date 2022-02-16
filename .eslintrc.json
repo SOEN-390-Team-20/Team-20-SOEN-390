@@ -4,8 +4,8 @@
     "jest": true
   },
   "rules": {
-    "linebreak-style": "off",
-    "consistent-return": "off"
+    "linebreak-style": "off"
+   
   
   }
 }
