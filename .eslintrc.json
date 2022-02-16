@@ -5,8 +5,5 @@
   },
   "rules": {
     "linebreak-style": "off",
-    "no-console": "off",
-    "no-shadow":  ["error", { "allow": ["err"] }]
-
   }
 }
