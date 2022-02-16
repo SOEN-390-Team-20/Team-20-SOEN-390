@@ -7,7 +7,7 @@ COVID App for SOEN-390
 
 ### Backend development
 
-*Important*: Make sure to create the `.env` file containing our secrets first
+**Important**: Make sure to create the `.env` file containing our secrets first under `/repo/.env` (copy/paste [this](https://github.com/SOEN-390-Team-20/.env/blob/main/.env))
 
 Install the dependencies with:
 
