@@ -1,6 +1,6 @@
+/* eslint-disable no-console */
 const config = require('./config');
 
-/* eslint-disable no-console */
 const info = (...params) => {
   if (!config.env.isTest()) {
     console.log(...params);

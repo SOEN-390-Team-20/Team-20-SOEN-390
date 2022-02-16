@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import {
   ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput,
@@ -12,6 +11,8 @@ const getInitialLoginState = () => {
   }
   return false;
 };
+
+const imageBackground = require('../public/images/login-background.png');
 
 function LoginScreen() {
   const navigate = useNavigate();
@@ -145,8 +146,7 @@ function LoginScreen() {
   });
 
   return (
-    // eslint-disable-next-line global-require
-    <ImageBackground source={require('../public/images/login-background.png')} style={styles.image}>
+    <ImageBackground source={imageBackground} style={styles.image}>
       <View style={styles.card}>
         <Text style={styles.heading}>{isLogin ? 'Login' : 'Signup'}</Text>
         <View style={styles.form}>

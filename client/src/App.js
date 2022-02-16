@@ -1,8 +1,6 @@
-/* eslint-disable react/jsx-filename-extension */
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from './views/HomePage';
@@ -28,7 +26,6 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
-      {/* eslint-disable-next-line react/style-prop-object */}
       <StatusBar style="auto" />
     </View>
   );

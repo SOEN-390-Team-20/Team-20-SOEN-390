@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 import {
-  ImageBackground, View, Text, StyleSheet, TouchableOpacity,
+  ImageBackground, View, Text, StyleSheet,
 } from 'react-native';
 import { useLocation } from 'react-router-dom';
 
@@ -12,6 +10,8 @@ const getInitialNameState = () => {
   }
   return { name: 'N/A', role: 'N/A' };
 };
+
+const imageBackground = require('../public/images/login-background.png');
 
 function Dashboard() {
   const { name, role } = getInitialNameState();
@@ -93,12 +93,11 @@ function Dashboard() {
     },
   });
 
-  const [message, setMessage] = useState(`Welcome ${name}. Your role is ${role}.`);
+  const [message] = useState(`Welcome ${name}. Your role is ${role}.`);
   const getMessage = () => message;
 
   return (
-    // eslint-disable-next-line global-require
-    <ImageBackground source={require('../public/images/login-background.png')} style={styles.image}>
+    <ImageBackground source={imageBackground} style={styles.image}>
       <View style={styles.card}>
         <Text style={styles.heading}>Dashboard</Text>
         <Text style={styles.message}>{getMessage()}</Text>
