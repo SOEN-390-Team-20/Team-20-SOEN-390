@@ -20,13 +20,23 @@ npm install
 You can run the development server this way (or use `npm run dev:build`):
 
 ```
-npm run build
+npm run build (build the static frontend)
 npm run dev
+
 ```
 
 Make sure you are running the development server by checking that your database is `jevaisbienaller-dev`. It will be displayed in the console.
 
 The app will be running on `http://localhost:3001/`
+
+#### Backend Unit tests
+
+To run the tests you must build before if you haven't already
+
+```
+npm run build
+npm run test
+```
 
 ### Fontend development
 
@@ -54,6 +64,8 @@ The app will be running on `http://localhost:3000/`
 
 ### Tests and Linter
 
+#### Unit tests
+
 * Make sure to be either at `/repo/` for backend or `/repo/client` for frontend
 
 ```
@@ -61,11 +73,29 @@ npm run test (all tests)
 npm run <filename> (specific test file)
 ```
 
-* For linting, there are several commands
+#### Linting
+
+* For linting, there are several commands. They work on both folders.
 ```
 npm run lint <filename> (specific test file)
 npm run lint:all (the whole directory)
 npm run lint:fix (lint the whole directory and autofix it)
+```
+
+#### End2end Testing with Cypress
+
+* You should be at `/repo/` to run these commands
+
+With UI:
+```
+npm run build
+npm run cy:start
+```
+
+Without UI:
+```
+npm run build
+npm run cy:run
 ```
 
 ## Extensions

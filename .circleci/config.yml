@@ -78,9 +78,9 @@ jobs:
         - checkout
         - run:
             name: "Install Backend dependencies and build Frontend"
-            command: npm run build:install
+            command: npm run build:all
             working_directory: ./
         - run:
             name: Run server and cypress/install
-            command: npm run cy:run:start  
+            command: npm run cy:run
             working_directory: ./
