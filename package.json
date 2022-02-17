@@ -11,10 +11,13 @@
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand --watch",
     "test:only": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "build": "cd ./client && npm install && npm run build",
+    "build:install": "npm install && npm run build",
     "dev:build": "npm run build && npm run dev",
     "start:build": "npm run build && npm run start",
     "start:test": "cross-env NODE_ENV=test node ./bin/www",
-    "cypress:open": "cypress open"
+    "cy:run:start": "start-server-and-test start:test http://localhost:3001 cy:run",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -38,6 +41,7 @@
     "eslint-plugin-import": "^2.25.4",
     "jest": "^27.5.0",
     "nodemon": "^2.0.15",
+    "start-server-and-test": "^1.14.0",
     "supertest": "^6.2.2"
   },
   "jest": {

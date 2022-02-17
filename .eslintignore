@@ -1,3 +1,4 @@
 client/
 client/*
-cypress/cypress_samples
+cypress/cypress_samples/
+cypress/cypress_samples/*
