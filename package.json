@@ -15,8 +15,10 @@
     "dev:build": "npm run build && npm run dev",
     "start:build": "npm run build && npm run start",
     "start:test": "cross-env NODE_ENV=test node ./bin/www",
-    "cy:run": "start-server-and-test start:test http://localhost:3001 cypress run",
-    "cy:start": "start-server-and-test start:test http://localhost:3001 cypress open"
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open",
+    "cy:run": "start-server-and-test start:test http://localhost:3001 cypress:run",
+    "cy:start": "start-server-and-test start:test http://localhost:3001 cypress:open"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
