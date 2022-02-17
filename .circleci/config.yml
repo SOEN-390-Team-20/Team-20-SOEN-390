@@ -74,12 +74,13 @@ jobs:
         - image: cypress/base:14.16.0
           environment:
             TERM: xterm
-      working_directory: ./
       steps:
         - checkout
         - run:
             name: "Install Backend dependencies and build Frontend"
             command: npm run build:install
+            working_directory: ./
         - run:
             name: Run server and cypress/install
-            command: npm run cy:run:start
+            command: npm run cy:run:start  
+            working_directory: ./
