@@ -17,6 +17,7 @@
     "start:test": "cross-env NODE_ENV=test node ./bin/www",
     "cy:run:start": "start-server-and-test start:test http://localhost:3001 cy:run",
     "cy:run": "cypress run",
+    "cy:start": "start-server-and-test start:test http://localhost:3001 cy:open",
     "cy:open": "cypress open"
   },
   "dependencies": {
