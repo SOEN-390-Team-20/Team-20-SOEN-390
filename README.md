@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/SOEN-390-Team-20/Team-20-SOEN-390/tree/main.svg?style=svg)](https://circleci.com/gh/SOEN-390-Team-20/Team-20-SOEN-390/tree/main)
+
 # SOEN-390
 COVID App for SOEN-390
 
