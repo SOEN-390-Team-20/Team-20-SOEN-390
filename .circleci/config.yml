@@ -21,6 +21,7 @@ workflows:
         - frontend-tests
   cypress_e2e:
       jobs:
+        - build-app
         - e2e-tests:
             requires:
               - build-app
