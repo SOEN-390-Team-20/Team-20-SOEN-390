@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 import MuiAppBar from '@mui/material/AppBar';
 import logoo from './images/BellLogo.png';
@@ -23,6 +24,13 @@ function Navbar() {
       width: `calc(100% - ${0}px)`,
     }),
   }));
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+  };
+
   return (
     <AppBar position="absolute" style={{ background: '#FFF' }}>
       <Toolbar
@@ -44,7 +52,7 @@ function Navbar() {
           <Typography style={{ color: '#FDC500' }}>Covid tracker </Typography>
         </Typography>
 
-        <Button variant="contained" style={{ color: '#00296B' }}>
+        <Button variant="contained" style={{ color: '#00296B' }} onClick={handleLogout}>
           <LogoutIcon style={{ color: '#FFFFFF' }}> </LogoutIcon>
           <Typography style={{ color: '#FFFFFF' }}>Logout </Typography>
         </Button>
