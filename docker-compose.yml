@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  jevaisbienallerapp:
+    build:
+      context: .
+      network: host
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3001:3001

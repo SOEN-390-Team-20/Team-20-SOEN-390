@@ -3,7 +3,13 @@
 # SOEN-390
 COVID App for SOEN-390
 
-## Installation
+## Docker (Production Server)
+* Warning: This can take 5 minutes...
+* You can get a production build running with Docker by:
+  * Putting [our .env](https://github.com/SOEN-390-Team-20/.env/blob/main/.env) in the `/repo/.env`
+  * Running `docker-compose up`
+
+## Development
 
 * You will need to install `nodejs` from here [Node](https://nodejs.org/en/) (and `npm`, but it is most likely installed with node)
 
