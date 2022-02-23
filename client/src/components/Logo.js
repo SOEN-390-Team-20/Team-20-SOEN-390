@@ -7,7 +7,7 @@ function Logo(props) {
   const { type } = props;
 
   switch (type) {
-    case 'extend':
+    case 'extended':
       return (
         <Box
           textAlign="center"

@@ -138,7 +138,7 @@ function RegisterScreen() {
 
   return (
     <Box>
-      <Logo type="extend" />
+      <Logo type="extended" />
       <br />
       <Paper
         sx={{ p: 2 }}

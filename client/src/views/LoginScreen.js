@@ -66,6 +66,7 @@ function LoginScreen() {
             sx={{ p: 0.75 }}
           >
             <Typography
+              name="error-message"
               color="error"
               align="center"
             >
@@ -81,7 +82,7 @@ function LoginScreen() {
 
   return (
     <Box>
-      <Logo type="extend" />
+      <Logo type="extended" />
       <br />
       <Paper
         sx={{ p: 2 }}
@@ -89,6 +90,7 @@ function LoginScreen() {
         <br />
         <Box>
           <TextField
+            name="email-field"
             id="filled-basic"
             placeholder="Email"
             fullWidth
@@ -104,6 +106,7 @@ function LoginScreen() {
         <br />
         <Box>
           <TextField
+            name="password-field"
             id="filled-password-input"
             type="password"
             placeholder="Password"
@@ -122,6 +125,7 @@ function LoginScreen() {
         <Box>{renderErrorMessage()}</Box>
         <Box>
           <Button
+            name="login-button"
             variant="contained"
             startIcon={<LoginIcon />}
             onClick={handleSubmit}
@@ -147,6 +151,7 @@ function LoginScreen() {
           textAlign="center"
         >
           <Button
+            name="register-button"
             variant="contained"
             startIcon={<CreateIcon />}
             onClick={handleSignUp}
