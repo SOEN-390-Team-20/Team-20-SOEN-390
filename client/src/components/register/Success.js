@@ -56,6 +56,7 @@ function Success(props) {
         <Box>
           <br />
           <Button
+            name="submit-button"
             variant="contained"
             onClick={onSubmit}
             fullWidth

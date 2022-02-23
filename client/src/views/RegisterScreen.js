@@ -164,6 +164,7 @@ function RegisterScreen() {
         >
           <br />
           <Button
+            name="back-button"
             sx={{ m: 1 }}
             variant="outlined"
             onClick={prevStep}
@@ -173,11 +174,12 @@ function RegisterScreen() {
           {step < steps.length - 1
             ? (
               <Button
+                name="next-button"
                 sx={{ m: 1 }}
                 variant="contained"
                 onClick={nextStep}
               >
-                Next
+                NEXT
               </Button>
             )
             : ''}
