@@ -5,7 +5,7 @@ const usersHelper = require('../../tests/helperUsers');
 const { TEST_PATIENT1, TEST_PATIENT2 } = usersHelper.testPatients;
 
 describe('Test Login page', () => {
-  before(() => {
+  beforeEach(() => {
     // Delete all previous users
     cy.request('DELETE', '/api/users');
 
@@ -14,7 +14,9 @@ describe('Test Login page', () => {
       'POST',
       '/api/users',
       TEST_PATIENT1,
-    );
+    ).then((response) => {
+      expect(response.status).to.eq(200);
+    });
   });
 
   it('Can login with proper user', () => {
