@@ -5,6 +5,7 @@ services:
     image: jevaisbienallerapp
     build:
       context: .
+      network: host
       dockerfile: ./Dockerfile
     environment:
       NODE_ENV: development
