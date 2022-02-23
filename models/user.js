@@ -42,9 +42,10 @@ const userSchema = new mongoose.Schema({
         ref: 'Symptom'
     }], */
   associated_users: [
-    // type: mongoose.Schema.Types.ObjectId,
-    // ref: 'User',
-    this,
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   ],
 });
 
