@@ -69,7 +69,7 @@ jobs:
           command: npm run test:only
           working_directory: ./
       - persist_to_workspace:
-          root: workspace
+          root: . 
           paths:
             - ./
   e2e-tests:
