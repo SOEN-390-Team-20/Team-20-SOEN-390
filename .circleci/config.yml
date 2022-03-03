@@ -7,7 +7,7 @@ orbs:
   heroku: circleci/heroku@1.2.6
 
 workflows:
-  build_backend_e2e_then_deploy:
+  build_backend_e2e_then_deploy_if_main:
       jobs:
         - build-app
         - e2e-tests:
