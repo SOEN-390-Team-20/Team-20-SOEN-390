@@ -7,6 +7,7 @@ function getDbName() {
   const PROD_DBNAME = 'jevaisbienaller';
   const DEV_DBNAME = 'jevaisbienaller-dev';
   const TEST_DBNAME = 'jevaisbienaller-test';
+  const CIRCLE_DBNAME = 'jevaisbienaller-circle';
 
   switch (process.env.NODE_ENV) {
     case 'production':
@@ -15,6 +16,8 @@ function getDbName() {
       return DEV_DBNAME;
     case 'test':
       return TEST_DBNAME;
+    case 'circle':
+      return CIRCLE_DBNAME;
     default:
       return DEV_DBNAME;
   }
@@ -52,7 +55,7 @@ const MONGO_URI = `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@cluster0.ef
 const env = {
   isDev: () => process.env.NODE_ENV === 'development',
   isProd: () => process.env.NODE_ENV === 'production',
-  isTest: () => process.env.NODE_ENV === 'test',
+  isTest: () => process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'circle',
 };
 
 module.exports = {

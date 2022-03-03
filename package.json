@@ -19,7 +19,8 @@
     "cypress:open": "cypress open",
     "cy:run": "start-server-and-test start:test http://localhost:3001 cypress:run",
     "cy:start": "start-server-and-test start:test http://localhost:3001 cypress:open",
-    "circle:install:cypress": "cypress install"
+    "circle:install:cypress": "cypress install",
+    "circle:test:backend": "cross-env NODE_ENV=circle jest --verbose --runInBand"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
