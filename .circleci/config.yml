@@ -82,6 +82,9 @@ jobs:
         - attach_workspace:
             at: ./
         - run:
-            name: Run server and cypress/install
+            name: Install cypress
+            command: npm run circle:install:cypress
+        - run:
+            name: Run server and cypress
             command: npm run cy:run
             working_directory: ./
