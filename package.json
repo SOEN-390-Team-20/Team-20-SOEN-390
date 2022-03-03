@@ -14,13 +14,15 @@
     "build:all": "npm install && cd ./client && npm install && CI=false npm run build",
     "dev:build": "npm run build && npm run dev",
     "start:build": "npm run build && npm run start",
-    "start:test": "cross-env NODE_ENV=test node ./bin/www",
+    "start:as:test": "cross-env NODE_ENV=test node ./bin/www",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open",
-    "cy:run": "start-server-and-test start:test http://localhost:3001 cypress:run",
-    "cy:start": "start-server-and-test start:test http://localhost:3001 cypress:open",
+    "cy:run": "start-server-and-test start:as:test http://localhost:3001 cypress:run",
+    "cy:start": "start-server-and-test start:as:test http://localhost:3001 cypress:open",
     "circle:install:cypress": "cypress install",
-    "circle:test:backend": "cross-env NODE_ENV=circle jest --verbose --runInBand"
+    "circle:test:backend": "cross-env NODE_ENV=circle jest --verbose --runInBand",
+    "circle:start:as:circle": "cross-env NODE_ENV=circle node ./bin/www",
+    "circle:cy:run": "start-server-and-test circle:start:as:circle http://localhost:3001 cypress:run"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
