@@ -7,53 +7,24 @@ orbs:
   heroku: circleci/heroku@1.2.6
 
 workflows:
-  build_backend_then_deploy:
+  build_backend_e2e_then_deploy:
       jobs:
         - build-app
+        - e2e-tests:
+            requires:
+              - build-app
         - heroku/deploy-via-git:
             requires:
                 - build-app
+                - e2e-tests
             filters:
                 branches:
                     only: main 
   test_frontend:
       jobs:
         - frontend-tests
-  cypress_e2e:
-      jobs:
-        - build-app
-        - e2e-tests:
-            requires:
-              - build-app
+
 jobs:
-  build-app:
-    docker:
-      - image: 'cimg/node:17.4.0'
-    steps:
-      - checkout
-      - run:
-          name: "Setup custom environment variables"
-          command: |
-            echo 'mongo_user=$mongo_user' >> ./.env
-            echo 'mongo_pass=$mongo_pass' >> ./.env
-
-      - run:
-          name: "Install Node for backend"
-          command: npm install
-          working_directory: ./
-      - run:
-          name: "Run linter on backend"
-          command: npm run lint .
-          working_directory: ./
-      - run:
-          name: "Build the frontend"
-          command: npm run build
-          working_directory: ./
-      - run:
-          name: "Run tests on backend"
-          command: npm run test:only
-
-          working_directory: ./
   frontend-tests:
     docker:
       - image: 'cimg/node:17.4.0'
@@ -71,13 +42,44 @@ jobs:
           name: "Run tests on frontend"
           command: npm run test
           working_directory: ./client/
+  build-app:
+    docker:
+      - image: 'cimg/node:17.4.0'
+    steps:
+      - checkout
+      - run:
+          name: "Setup custom environment variables"
+          command: |
+            echo 'mongo_user=$mongo_user' >> ./.env
+            echo 'mongo_pass=$mongo_pass' >> ./.env
+      - run:
+          name: "Install Node for backend"
+          command: npm install
+          working_directory: ./
+      - run:
+          name: "Run linter on backend"
+          command: npm run lint .
+          working_directory: ./
+      - run:
+          name: "Build the frontend"
+          command: npm run build
+          working_directory: ./
+      - run:
+          name: "Run tests on backend"
+          command: npm run test:only
+          working_directory: ./
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - ./
   e2e-tests:
       docker:
         - image: cypress/base:14.16.0
           environment:
             TERM: xterm
       steps:
-        - checkout
+        - attach_workspace:
+            at: ./
         - run:
             name: "Install Backend dependencies and build Frontend"
             command: npm run build:all
