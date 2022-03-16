@@ -83,7 +83,12 @@ describe('JWT Token: REST API requests on /api/login (expects test users to be a
 
     const claim = { email: TEST_PATIENT1.email, role: TEST_PATIENT1.role };
     const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
+
+    // Checking the response body
+    expect(body.auth).toBe(true);
     expect(body.token).toContain(jtoken);
+    expect(body.profile.firstName).toContain(TEST_PATIENT1.firstName);
+    expect(body.profile.role).toContain(TEST_PATIENT1.role);
   });
 
   test('POST /api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {
