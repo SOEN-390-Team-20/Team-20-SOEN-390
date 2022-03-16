@@ -6,67 +6,40 @@ const User = require('../models/user');
 loginRouter.post('/', async (request, response) => {
   const { body } = request;
 
-  // Query MongoDb with email and get matching user (will be null if none)
-  const user = await User.findOne({
-    email: body.email,
-  });
-
-  // Password Checking
-  const isCorrectPassword = user === null
-    ? false
-    : body.password === user.password;
-
-  // Bad username or Password: 401
-  if (!(user && isCorrectPassword)) {
-    return response.status(401).json({
-      error: 'Error: Invalid Username or Password',
-    });
-  }
-
-  // OK 200
-  return response.status(200).json({
-    email: user.email,
-    hin: user.hin,
-    password: user.password,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    role: user.role,
-    associated_users: user.associated_users,
-  });
-});
-
-loginRouter.post('/new', async (request, response) => {
-  const { body } = request;
-
-  // Query MongoDb with email and get matching user (will be null if none)
-
+  // Query MongoDb with email and get matching User (will be null if none)
   const user = await User.findOne({
     email: body.email,
   });
 
   // Bad Username: 401
   if (user == null) {
-    return response.status(401).json({
-      error: 'Error: Invalid Username or Password',
-    });
+    return response.json({ auth: false, message: 'Error: Invalid Username or Password' });
   }
 
   const isCorrectPassword = await bcrypt.compareSync(body.password, user.password);
-
   // Bad Password: 401
-  if (!(isCorrectPassword)) {
-    return response.status(401).json({
-      error: 'Error: Invalid Username or Password',
-    });
+  if (!isCorrectPassword) {
+    return response.json({ auth: false, message: 'Error: Incorrect Username or Password' });
   }
 
-  const claim = { email: user.email, role: user.role };
+  const tokenPayload = {
+    id: user.id,
+  };
 
-  // creating the jw token
-  const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
+  // generating the JWT token
+  const tokenJWT = jwt.sign(tokenPayload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' }, {});
+
+  const responsePayload = {
+    auth: true,
+    token: tokenJWT,
+    profile: {
+      firstName: user.firstName,
+      role: user.role,
+    },
+  };
 
   // OK 200
-  return response.status(200).json(jtoken);
+  return response.status(200).json(responsePayload);
 });
 
 module.exports = loginRouter;

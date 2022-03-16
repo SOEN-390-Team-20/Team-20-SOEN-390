@@ -13,6 +13,7 @@ const middleware = require('./utils/middleware');
 const oldapiRouter = require('./controllers/oldapi');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+const authRouter = require('./controllers/auth');
 const formsRouter = require('./controllers/formsRouter');
 
 // Static routes
@@ -48,6 +49,7 @@ logger.info(`Listening on port: ${config.PORT}`);
 app.use('/rest/api', oldapiRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/forms', formsRouter);
 
 // Health Checker

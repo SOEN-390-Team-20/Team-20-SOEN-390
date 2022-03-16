@@ -18,7 +18,7 @@ usersRouter.get('/', async (request, response) => {
 });
 
 // Register a new user
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/old', async (request, response) => {
   // Get request.body and put it in new var body
   const { body } = request;
 
@@ -39,24 +39,31 @@ usersRouter.post('/', async (request, response) => {
 });
 
 // Register a new user
-usersRouter.post('/new', async (request, response) => {
-  // Get request.body and put it in new var body
+usersRouter.post('/', async (request, response) => {
   const { body } = request;
-  const hashedpassword = await bcrypt.hash(body.password, 10);
-  // Using body, set new payload
-  const user = new User({
+
+  const user = await User.findOne({
+    email: body.email,
+  });
+
+  if (user) {
+    return response.status(400).json({ message: 'That email is already taken' });
+  }
+
+  const hashedPassword = await bcrypt.hash(body.password, 10);
+
+  const newUser = new User({
     email: body.email,
     hin: body.hin,
-    password: hashedpassword,
+    password: hashedPassword,
     firstName: body.firstName,
     lastName: body.lastName,
     role: body.role,
     associated_users: body.associated_users,
   });
 
-  // Send the payload via mongoose, wait for response then return it
-  await user.save();
-  response.json('User saved');
+  await newUser.save();
+  return response.status(200).json('User registration successful');
 });
 
 // Deletes user (does not work in prod)
