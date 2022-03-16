@@ -7,14 +7,14 @@ const config = require('../utils/config');
 
 // Gets a list of users (does not work in prod)
 usersRouter.get('/', async (request, response) => {
-  if (config.env.isDev() || config.env.isTest()) {
-    const users = await User.find();
-    response.json(users);
-  } else {
-    response.status(401).json({
-      error: 'Unauthorized operation',
-    });
-  }
+  // if (config.env.isDev() || config.env.isTest()) {
+  const users = await User.find();
+  response.json(users);
+  // } else {
+  //   response.status(401).json({
+  //     error: 'Unauthorized operation',
+  //   });
+  // }
 });
 
 // Register a new user
@@ -66,19 +66,6 @@ usersRouter.post('/', async (request, response) => {
   return response.status(200).json('User registration successful');
 });
 
-// Deletes user (does not work in prod)
-usersRouter.delete('/', async (request, response) => {
-  if (config.env.isDev() || config.env.isTest()) {
-    await User.deleteMany({});
-    response.status(204).end();
-  } else {
-    // Unauthorized
-    response.status(401).json({
-      error: 'Unauthorized operation',
-    });
-  }
-});
-
 // Get (the information of) a particular user.
 usersRouter.get('/:id', async (request, response) => {
   const { id } = request.params;
@@ -121,6 +108,19 @@ usersRouter.delete('/:id', async (request, response) => {
 
   await User.findByIdAndDelete(id);
   response.status(204).end();
+});
+
+// Deletes all users (does not work in prod, required for testing)
+usersRouter.delete('/', async (request, response) => {
+  if (config.env.isDev() || config.env.isTest()) {
+    await User.deleteMany({});
+    response.status(204).end();
+  } else {
+    // Unauthorized
+    response.status(401).json({
+      error: 'Unauthorized operation',
+    });
+  }
 });
 
 module.exports = usersRouter;

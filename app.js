@@ -58,7 +58,9 @@ app.use('/version', versionRouter);
 
 // Serve the react app through express
 app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.use('/', reactRouter); // serves the built react app
+// all unknown endpoints are now passed to the frontend
+// TODO 404 page on frontend
+app.use('/*', reactRouter); // serves the built react app
 
 // Custom processing of errorMessage (mostly related to mongoose)
 // Using `express-async-errors` package, no need to wrap async

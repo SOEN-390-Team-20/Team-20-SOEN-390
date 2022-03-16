@@ -30,7 +30,20 @@ const testDoctors = {
   },
 };
 
+const testAdmins = {
+  TEST_ADMIN1: {
+    email: 'testadmin1@gmail.com',
+    hin: 'ADMIN1',
+    password: 'TestAdminPass',
+    firstName: 'TestAdminOneFirst',
+    lastName: 'TestAdminOneLast',
+    role: 'admin',
+    associated_users: [],
+  },
+};
+
 module.exports = {
   testPatients,
   testDoctors,
+  testAdmins,
 };

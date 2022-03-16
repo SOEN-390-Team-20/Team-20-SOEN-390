@@ -34,6 +34,9 @@ function DashboardContent() {
   const goCheckIn = () => {
     navigate('/checkIn');
   };
+  const goListUsers = () => {
+    navigate('/listUsers');
+  };
   const primary = blue;
   const { name } = getInitialNameState();
   const welcomeMessage = `Hello, ${name}`;
@@ -66,6 +69,15 @@ function DashboardContent() {
           <Typography variant="h2" style={{ color: '#00296B' }}>
             {welcomeMessage}
           </Typography>
+          {getInitialNameState().role === 'admin'
+            ? (
+              <Button name="admin-button" variant="contained" style={{ bottom: 3, color: '#00296B' }} onClick={goListUsers}>
+                <Typography style={{ color: '#FFFFFF' }}>See Users </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
+            )
+            : ''}
+
           <Container maxWidth="lg" sx={{ mt: 10, mb: 6 }}>
             <Grid container rowSpacing={10} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
               <Grid item xs={6} sm={6} height={200}>
