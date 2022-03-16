@@ -10,7 +10,10 @@ const axiosService = config.isDev() ? devAxios : prodAxios;
 const endpoint = 'api/login';
 
 // calls are this easy for json formatted https://github.com/axios/axios#example
-const login = async (payload) => axiosService.post(endpoint, payload);
+const login = async (payload) => {
+  const response = await axiosService.post(endpoint, payload);
+  return response;
+};
 
 // For export
 const loginService = {
