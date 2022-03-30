@@ -21,8 +21,8 @@ describe('Test SignUp page', () => {
     // Roles
     cy.contains('JeVaisBienAller');
     cy.contains('ROLE');
-    cy.contains('Patient');
-    cy.contains('Doctor').click();
+    cy.contains('Patient').click();
+    cy.contains('Doctor');
     cy.contains('BACK');
     cy.contains('NEXT');
 

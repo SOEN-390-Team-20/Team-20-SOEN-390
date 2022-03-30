@@ -2,7 +2,7 @@ const authRouter = require('express').Router();
 const jwt = require('jsonwebtoken');
 
 const verifyJWTAuth = (request, response, next) => {
-  const headerToken = request.headers['x-access-token'];
+  const headerToken = request.headers.authorization;
   if (headerToken == null) {
     // No token: 401
     response.status(401).json({ auth: false, message: 'No token found in request' });
@@ -24,4 +24,4 @@ authRouter.get('/validate', verifyJWTAuth, async (request, response) => {
   response.status(200).json({ auth: true, message: 'User authentication successful' });
 });
 
-module.exports = authRouter;
+module.exports = { authRouter, verifyJWTAuth };

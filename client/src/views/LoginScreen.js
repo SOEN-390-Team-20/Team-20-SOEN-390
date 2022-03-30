@@ -1,4 +1,5 @@
 /* eslint-disable quotes */
+/*  eslint-disable quote-props */
 import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom'; //  useLocation??
@@ -19,6 +20,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 import CreateIcon from '@mui/icons-material/Create';
 
 import loginService from '../services/login';
+import doctorLogin from '../services/doctorLogin';
 import Logo from '../components/Logo';
 
 function LoginScreen() {
@@ -40,7 +42,19 @@ function LoginScreen() {
       if (response.data.auth) {
         setIsError(false);
         localStorage.setItem('token', `Bearer ${response.data.token}`);
-        navigate('/dashboard', { state: { name: response.data.profile.firstName, role: response.data.profile.role, hin: response.data.profile.hin } });
+        if (response.data.profile.role === "doctor") {
+          const patientsl = await doctorLogin.login({ "email": response.data.profile.email });
+          navigate('/doctordashboard', {
+            state: {
+              name: response.data.profile.firstName,
+              role: response.data.profile.role,
+              hin: response.data.profile.hin,
+              patients: patientsl.data,
+            },
+          });
+        } else if (response.data.profile.role === "patient") {
+          navigate('/dashboard', { state: { name: response.data.profile.firstName, role: response.data.profile.role, hin: response.data.profile.hin } });
+        }
       } else {
         setIsError(true);
         setMessage(response.data.message);

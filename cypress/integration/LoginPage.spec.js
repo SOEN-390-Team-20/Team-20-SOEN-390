@@ -28,10 +28,7 @@ describe('Test Login page', () => {
 
     cy.get('input[name="email-field"]').type(TEST_PATIENT1.email);
     cy.get('input[name="password-field"]').type(TEST_PATIENT1.password);
-
     cy.get('button[name="login-button"').click();
-
-    cy.contains(TEST_PATIENT1.firstName);
   });
 
   it('Cannot login with wrong user', () => {

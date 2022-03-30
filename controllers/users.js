@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const Doctor = require('../models/doctors');
 
 const usersRouter = express.Router();
 const User = require('../models/user');
@@ -61,6 +62,15 @@ usersRouter.post('/', async (request, response) => {
     role: body.role,
     associated_users: body.associated_users,
   });
+
+  if (body.role === 'doctor') {
+    const doc = new Doctor({
+      email: body.email,
+      patients: [],
+    });
+
+    await doc.save();
+  }
 
   await newUser.save();
   return response.status(200).json('User registration successful');

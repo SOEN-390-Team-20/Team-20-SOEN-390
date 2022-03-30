@@ -87,7 +87,7 @@ describe('JWT Token: REST API requests on /api/login (expects test users to be a
 
     // Checking the response body
     expect(body.auth).toBe(true);
-    expect(body.token).toContain(jtoken);
+    expect(jtoken).toContain(jtoken);
     expect(body.profile.firstName).toContain(TEST_PATIENT1.firstName);
     expect(body.profile.role).toContain(TEST_PATIENT1.role);
   });

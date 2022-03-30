@@ -10,6 +10,7 @@ import DailyCheckIn from './views/DailyCheckIn';
 import ListUsers from './views/ListUsers';
 import HistorySymptoms from './views/HistorySymptoms';
 import Dashboard from './views/Dashboard';
+import DoctorDashboard from './views/DoctorDashboard';
 
 // React-Native (will be deleted)
 const styles = StyleSheet.create({
@@ -45,6 +46,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/checkIn" element={<DailyCheckIn />} />
             <Route path="/listUsers" element={<ListUsers />} />
+            <Route path="/doctorDashboard" element={<DoctorDashboard />} />
             <Route path="/historySymptoms" element={<HistorySymptoms />} />
           </Routes>
         </Router>
