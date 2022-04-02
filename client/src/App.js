@@ -3,10 +3,16 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { StyleSheet, View } from 'react-native';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import LoginScreen from './views/LoginScreen';
 import RegisterScreen from './views/RegisterScreen';
-import Dashboard from './views/Dashboard';
 import DailyCheckIn from './views/DailyCheckIn';
+import ListUsers from './views/ListUsers';
+import HistorySymptoms from './views/HistorySymptoms';
+import Dashboard from './views/Dashboard';
+import DoctorDashboard from './views/DoctorDashboard';
+import Appointments from './views/Appointments';
+import Patientlist from './views/Patientlist';
 
 // React-Native (will be deleted)
 const styles = StyleSheet.create({
@@ -28,7 +34,6 @@ const theme = createTheme({
       main: '#FDC500',
     },
   },
-
 });
 
 function App() {
@@ -42,6 +47,11 @@ function App() {
             <Route path="/register" element={<RegisterScreen />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/checkIn" element={<DailyCheckIn />} />
+            <Route path="/listUsers" element={<ListUsers />} />
+            <Route path="/doctorDashboard" element={<DoctorDashboard />} />
+            <Route path="/historySymptoms" element={<HistorySymptoms />} />
+            <Route path="/appointment" element={<Appointments />} />
+            <Route path="/patientlist" element={<Patientlist />} />
           </Routes>
         </Router>
         <StatusBar style="auto" />
