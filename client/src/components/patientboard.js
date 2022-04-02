@@ -6,8 +6,9 @@ import {
 } from '@mui/material/';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { blue } from '@mui/material/colors';
-import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import map1 from './images/location-tracking-gps.jpg';
