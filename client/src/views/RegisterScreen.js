@@ -34,7 +34,7 @@ function RegisterScreen() {
   const navigate = useNavigate();
 
   const [inputs, setInputs] = useState({
-    role: '',
+    role: 'patient',
     firstName: '',
     lastName: '',
     hin: '',
@@ -109,7 +109,7 @@ function RegisterScreen() {
       case 1:
         return (
           <RegisterUserInfo
-            dataFromParent={inputs.role.value}
+            dataFromParent={inputs.role}
             nextStep={nextStep}
             handleChange={changeHandle}
             values={values}
