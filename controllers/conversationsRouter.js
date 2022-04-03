@@ -36,10 +36,17 @@ conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
 
 });
 
-conversationsRouter.post('/new-message', async (request, response) => {
-  const { body } = request;
+conversationsRouter.post('/:id', verifyJWTAuth, async (request, response) => {
+  const { targetId } = request.params;
+  const currentUser = await User.findById(request.userId).exec();
+  const targetUser = await User.findById(targetId).exec();
 
-  const currentUser = 123;
+  let updatedConversation = await Conversation.findOneAndUpdate(
+      { participants: { $all: [currentUser.__id, targetUser.__id] } },
+      { $push: { messages: { sender: currentUser.__id, content: request.body.content } }},
+      { new: true }
+  ).exec();
+  return response.status(200).json(updatedConversation);
 });
 
 module.exports = conversationsRouter;
