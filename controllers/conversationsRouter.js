@@ -2,15 +2,13 @@ const express = require('express');
 
 const conversationsRouter = express.Router();
 const User = require('../models/user');
-const config = require('../utils/config');
-const verifyJWTAuth = require('./auth').verifyJWTAuth;
+const { verifyJWTAuth } = require('./auth');
 
+/* eslint-disable */
 conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
-  const { id } = request.params;
-  // var currentUser = check JWT session token to find which user is logged in
-  var currentUser = User.find();
-  const targetUser = await User.findById(id);
-  var temp = 
+  const { targetId } = request.params;
+  const currentUser = await User.findById(request.userId);
+  const targetUser = await User.findById(targetId);
 });
 
 conversationsRouter.post('/new-message', async (request, response) => {
