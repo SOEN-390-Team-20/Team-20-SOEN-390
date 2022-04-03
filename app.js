@@ -13,9 +13,11 @@ const middleware = require('./utils/middleware');
 const oldapiRouter = require('./controllers/oldapi');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
+const { authRouter } = require('./controllers/auth');
 const formsRouter = require('./controllers/formsRouter');
 const conversationsRouter = require('./controllers/conversationsRouter');
-
+const getPatientRouter = require('./controllers/getpatients');
+const addPatientRouter = require('./controllers/addpatient');
 // Static routes
 const healthRouter = require('./static_routes/healthcheck');
 const versionRouter = require('./static_routes/version');
@@ -49,8 +51,11 @@ logger.info(`Listening on port: ${config.PORT}`);
 app.use('/rest/api', oldapiRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/forms', formsRouter);
 app.use('/api/conversations', conversationsRouter);
+app.use('/api/getpatient', getPatientRouter);
+app.use('/api/addpatient', addPatientRouter);
 
 // Health Checker
 app.use('/health', healthRouter);
@@ -58,7 +63,9 @@ app.use('/version', versionRouter);
 
 // Serve the react app through express
 app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.use('/', reactRouter); // serves the built react app
+// all unknown endpoints are now passed to the frontend
+// TODO 404 page on frontend
+app.use('/*', reactRouter); // serves the built react app
 
 // Custom processing of errorMessage (mostly related to mongoose)
 // Using `express-async-errors` package, no need to wrap async

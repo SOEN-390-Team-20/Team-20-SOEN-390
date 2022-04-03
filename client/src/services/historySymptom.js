@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import axios from 'axios';
 import config from '../utils/config';
 
@@ -7,17 +8,16 @@ const devAxios = axios.create({
 
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
-const endpoint = 'api/login';
+const getForm = 'api/forms/healthform';
 
 // calls are this easy for json formatted https://github.com/axios/axios#example
-const login = async (payload) => {
-  const response = await axiosService.post(endpoint, payload);
+const getList = async (hin) => {
+  const response = await axiosService.get(getForm + '/' + hin);
   return response;
 };
 
-// For export
-const loginService = {
-  login,
+const historySymptom = {
+  getList,
 };
 
-export default loginService;
+export default historySymptom;

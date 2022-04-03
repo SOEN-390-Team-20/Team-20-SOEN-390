@@ -33,6 +33,7 @@ function RegisterRole(props) {
           >
             <FormControlLabel value="patient" control={<Radio />} label="Patient" />
             <FormControlLabel value="doctor" control={<Radio />} label="Doctor" />
+            <FormControlLabel value="admin" control={<Radio />} label="Admin" />
           </RadioGroup>
         </FormControl>
       </Box>

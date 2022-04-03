@@ -84,6 +84,10 @@ jobs:
             name: Install cypress
             command: npm run circle:install:cypress
         - run:
-            name: Run server and cypress
+            name: Run server and E2E tests 
             command: npm run circle:cy:run
             working_directory: ./
+        - store_artifacts:
+            path: cypress/videos
+        - store_artifacts:
+            path: cypress/screenshots

@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const Doctor = require('../models/doctors');
 
 const usersRouter = express.Router();
 const User = require('../models/user');
@@ -7,18 +8,18 @@ const config = require('../utils/config');
 
 // Gets a list of users (does not work in prod)
 usersRouter.get('/', async (request, response) => {
-  if (config.env.isDev() || config.env.isTest()) {
-    const users = await User.find();
-    response.json(users);
-  } else {
-    response.status(401).json({
-      error: 'Unauthorized operation',
-    });
-  }
+  // if (config.env.isDev() || config.env.isTest()) {
+  const users = await User.find();
+  response.json(users);
+  // } else {
+  //   response.status(401).json({
+  //     error: 'Unauthorized operation',
+  //   });
+  // }
 });
 
 // Register a new user
-usersRouter.post('/', async (request, response) => {
+usersRouter.post('/old', async (request, response) => {
   // Get request.body and put it in new var body
   const { body } = request;
 
@@ -39,37 +40,40 @@ usersRouter.post('/', async (request, response) => {
 });
 
 // Register a new user
-usersRouter.post('/new', async (request, response) => {
-  // Get request.body and put it in new var body
+usersRouter.post('/', async (request, response) => {
   const { body } = request;
-  const hashedpassword = await bcrypt.hash(body.password, 10);
-  // Using body, set new payload
-  const user = new User({
+
+  const user = await User.findOne({
+    email: body.email,
+  });
+
+  if (user) {
+    return response.status(400).json({ message: 'That email is already taken' });
+  }
+
+  const hashedPassword = await bcrypt.hash(body.password, 10);
+
+  const newUser = new User({
     email: body.email,
     hin: body.hin,
-    password: hashedpassword,
+    password: hashedPassword,
     firstName: body.firstName,
     lastName: body.lastName,
     role: body.role,
     associated_users: body.associated_users,
   });
 
-  // Send the payload via mongoose, wait for response then return it
-  await user.save();
-  response.json('User saved');
-});
-
-// Deletes user (does not work in prod)
-usersRouter.delete('/', async (request, response) => {
-  if (config.env.isDev() || config.env.isTest()) {
-    await User.deleteMany({});
-    response.status(204).end();
-  } else {
-    // Unauthorized
-    response.status(401).json({
-      error: 'Unauthorized operation',
+  if (body.role === 'doctor') {
+    const doc = new Doctor({
+      email: body.email,
+      patients: [],
     });
+
+    await doc.save();
   }
+
+  await newUser.save();
+  return response.status(200).json('User registration successful');
 });
 
 // Get (the information of) a particular user.
@@ -114,6 +118,19 @@ usersRouter.delete('/:id', async (request, response) => {
 
   await User.findByIdAndDelete(id);
   response.status(204).end();
+});
+
+// Deletes all users (does not work in prod, required for testing)
+usersRouter.delete('/', async (request, response) => {
+  if (config.env.isDev() || config.env.isTest()) {
+    await User.deleteMany({});
+    response.status(204).end();
+  } else {
+    // Unauthorized
+    response.status(401).json({
+      error: 'Unauthorized operation',
+    });
+  }
 });
 
 module.exports = usersRouter;

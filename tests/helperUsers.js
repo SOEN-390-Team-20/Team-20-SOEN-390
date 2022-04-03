@@ -1,3 +1,5 @@
+const User = require('../models/user');
+
 const testPatients = {
   TEST_PATIENT1: {
     email: 'testpatient1@gmail.com',
@@ -30,7 +32,28 @@ const testDoctors = {
   },
 };
 
+const testAdmins = {
+  TEST_ADMIN1: {
+    email: 'testadmin1@gmail.com',
+    hin: 'ADMIN1',
+    password: 'TestAdminPass',
+    firstName: 'TestAdminOneFirst',
+    lastName: 'TestAdminOneLast',
+    role: 'admin',
+    associated_users: [],
+  },
+};
+
+const getUserId = async (userJson) => {
+  const user = await User.findOne({ email: userJson.email });
+
+  // eslint-disable-next-line no-underscore-dangle
+  return user.id;
+};
+
 module.exports = {
   testPatients,
   testDoctors,
+  testAdmins,
+  getUserId,
 };
