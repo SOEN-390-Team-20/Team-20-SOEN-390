@@ -5,8 +5,7 @@ import Fade from '@mui/material/Fade';
 // import Typography from '@mui/material/Typography';
 import '../../public/styles/Chat.css';
 import Paper from '@mui/material/Paper';
-// import { TextInput } from './TextInput.js';
-// import { MessageLeft, MessageRight } from './Message';
+import { MessageReceived, MessageSent } from './MessageItem';
 
 function ChatContainerModal({ handleChatClose, open }) {
   return (
@@ -26,11 +25,51 @@ function ChatContainerModal({ handleChatClose, open }) {
 
           <div className="container">
             <Paper className="paper" zDepth={2}>
-              <Paper id="style-1" className="messages-body" />
+              <Paper id="style-1" className="messages-body">
+                <MessageReceived
+                  message="hey i hope you got my messsage"
+                  timestamp="MM/DD 00:00"
+                  displayName="Oliver"
+                />
+                <MessageSent
+                  message="ya i did thanks"
+                  timestamp="MM/DD 00:00"
+                  displayName="Jonathan"
+                />
+                <MessageReceived
+                  message="hey i hope you got my messsage"
+                  timestamp="MM/DD 00:00"
+                  displayName="Oliver"
+                />
+                <MessageSent
+                  message="ya i did thanks"
+                  timestamp="MM/DD 00:00"
+                  displayName="Jonathan"
+                />
+                <MessageReceived
+                  message="hey i hope you got my messsage"
+                  timestamp="MM/DD 00:00"
+                  displayName="Oliver"
+                />
+                <MessageSent
+                  message="ya i did thanks"
+                  timestamp="MM/DD 00:00"
+                  displayName="Jonathan"
+                />
+                <MessageReceived
+                  message="hey i hope you got my messsage"
+                  timestamp="MM/DD 00:00"
+                  displayName="Oliver"
+                />
+                <MessageSent
+                  message="LAST MESSAGE"
+                  timestamp="MM/DD 00:00"
+                  displayName="Jonathan"
+                />
+              </Paper>
               {/* <TextInput /> */}
             </Paper>
           </div>
-
         </Fade>
       </Modal>
     </div>
