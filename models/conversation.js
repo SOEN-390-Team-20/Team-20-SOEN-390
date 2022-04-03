@@ -21,8 +21,8 @@ const conversationSchema = new mongoose.Schema({
         required: true,
       },
       timestamp: {
-        default: Date.now(),
-        required: true,
+        type: Date,
+        default: Date.now,
       },
     },
   ],

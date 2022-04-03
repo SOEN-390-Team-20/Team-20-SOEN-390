@@ -25,7 +25,12 @@ conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
         return response.status(200).json(savedNewConversation.messages);
       });
     } else {
-      return response.status(200).json(result.messages);
+      const responsePayload = {
+        currentId: currentUser.__id,
+        targetId: targetUser.__id,
+        messages: result.messages,
+      };
+      return response.status(200).json(responsePayload);
     }
   }).exec();
 
