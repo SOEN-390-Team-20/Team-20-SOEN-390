@@ -28,6 +28,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem('token');
     navigate('/');
   };
 

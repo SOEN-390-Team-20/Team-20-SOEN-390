@@ -6,6 +6,18 @@ const HealthForm = require('../models/healthform');
 const config = require('../utils/config');
 // TODO_LATER: const config = require('../utils/config');
 
+// Gets a list of health forms (does not work in prod)
+formsRouter.get('/healthforms', async (request, response) => {
+  if (config.env.isDev() || config.env.isTest()) {
+    const healthforms = await HealthForm.find();
+    response.json(healthforms);
+  } else {
+    response.status(401).json({
+      error: 'Unauthorized operation',
+    });
+  }
+});
+
 // Submit a new health form
 formsRouter.post('/healthform', async (request, response) => {
   // Get request.body and put it in new var body

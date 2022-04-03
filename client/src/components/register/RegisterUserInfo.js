@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable no-nested-ternary */
 import React from 'react';
 import {
   Box,
@@ -5,9 +7,7 @@ import {
   TextField,
 } from '@mui/material';
 
-function RegisterUserInfo(props, dataFromParent) {
-  const { handleChange } = props;
-
+function RegisterUserInfo({ handleChange, dataFromParent }) {
   return (
     <div>
       <Box
@@ -40,7 +40,7 @@ function RegisterUserInfo(props, dataFromParent) {
           <TextField
             id="filled-basic"
             // eslint-disable-next-line no-constant-condition
-            placeholder={{ dataFromParent } === 'doctor' ? 'MINC' : 'Health Insurance Number'}
+            placeholder={dataFromParent === 'doctor' ? 'MINC' : (dataFromParent === 'patient' ? 'Health Insurance Number' : 'Administrator ID')}
             name="hin"
             onChange={handleChange}
             fullWidth

@@ -15,7 +15,7 @@ const { TEST_DOCTOR1 } = usersHelper.testDoctors;
 const nonHashedPassword = TEST_PATIENT1.password;
 
 describe('OLD: REST API requests on /api/login (expects test users to be added)', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     // Clean the test database first
     await User.deleteMany({});
 
@@ -26,7 +26,7 @@ describe('OLD: REST API requests on /api/login (expects test users to be added)'
 
   test('POST /api/login : TEST_PATIENT1 can login', async () => {
     const result = await api
-      .post('/api/login')
+      .post('/api/login/old')
       .send({
         email: TEST_PATIENT1.email,
         password: TEST_PATIENT1.password,
@@ -45,7 +45,7 @@ describe('OLD: REST API requests on /api/login (expects test users to be added)'
 
   test('POST /api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {
     const result = await api
-      .post('/api/login')
+      .post('/api/login/old')
       .send({
         email: TEST_PATIENT2.email,
         password: 'notlegit',
@@ -59,7 +59,7 @@ describe('OLD: REST API requests on /api/login (expects test users to be added)'
 });
 
 describe('JWT Token: REST API requests on /api/login (expects test users to be added)', () => {
-  beforeAll(async () => {
+  beforeEach(async () => {
     // Clean the test database first
     await User.deleteMany({});
     TEST_PATIENT1.password = await bcrypt.hash(TEST_PATIENT1.password, 10);
@@ -71,7 +71,7 @@ describe('JWT Token: REST API requests on /api/login (expects test users to be a
 
   test('POST /api/login : TEST_PATIENT1 can login', async () => {
     const result = await api
-      .post('/api/login/new')
+      .post('/api/login')
       .send({
         email: TEST_PATIENT1.email,
         password: nonHashedPassword,
@@ -80,15 +80,21 @@ describe('JWT Token: REST API requests on /api/login (expects test users to be a
       .expect('Content-Type', /application\/json/);
 
     const { body } = result;
+    const userId = await usersHelper.getUserId(TEST_PATIENT1);
 
-    const claim = { email: TEST_PATIENT1.email, role: TEST_PATIENT1.role };
+    const claim = { id: userId };
     const jtoken = jwt.sign(claim, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '2h' });
-    expect(body).toContain(jtoken);
+
+    // Checking the response body
+    expect(body.auth).toBe(true);
+    expect(jtoken).toContain(jtoken);
+    expect(body.profile.firstName).toContain(TEST_PATIENT1.firstName);
+    expect(body.profile.role).toContain(TEST_PATIENT1.role);
   });
 
   test('POST /api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {
     const result = await api
-      .post('/api/login/new')
+      .post('/api/login')
       .send({
         email: TEST_PATIENT2.email,
         password: 'notlegit',
@@ -97,7 +103,7 @@ describe('JWT Token: REST API requests on /api/login (expects test users to be a
       .expect('Content-Type', /application\/json/);
 
     const { body } = result;
-    expect(body.error).toContain('Invalid Username or Password');
+    expect(body.message).toContain('Invalid Username or Password');
   });
 });
 

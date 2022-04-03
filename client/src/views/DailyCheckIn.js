@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Button,
   Checkbox,
@@ -10,6 +10,16 @@ import {
   TextField,
 } from '@mui/material';
 import checkInService from '../services/checkIn';
+import Navbar from '../components/Navbar';
+
+const getInitialHINState = () => {
+  if (useLocation().state !== null) {
+    return {
+      hin: useLocation().state.hin,
+    };
+  }
+  return { hin: '0' };
+};
 
 function DailyCheckIn() {
   const navigate = useNavigate();
@@ -26,6 +36,7 @@ function DailyCheckIn() {
   const [significantLossOfAppetite, setLossOAappetite] = useState(false);
   const [unusualOrUnexplainedMusclePainOrStiffness, setMusclePain] = useState(false);
   const [soreThroatWithoutObviousCause, setSoreThroat] = useState(false);
+  const { hin } = getInitialHINState();
 
   const handleFeverChange = ({ target }) => setFever(target.checked);
   const handleTemperatureChange = ({ target }) => setTemperature(target.value);
@@ -40,11 +51,10 @@ function DailyCheckIn() {
   const handleLossOAappetiteChange = ({ target }) => setLossOAappetite(target.checked);
   const handleMusclePainChange = ({ target }) => setMusclePain(target.checked);
   const handleSoreThroatChange = ({ target }) => setSoreThroat(target.checked);
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const payload = {
+    let payload = {
       feverOrChills,
       temperature,
       suddenLossOfSenseOfSmellAndTaste,
@@ -58,7 +68,26 @@ function DailyCheckIn() {
       significantLossOfAppetite,
       unusualOrUnexplainedMusclePainOrStiffness,
       soreThroatWithoutObviousCause,
+      hin,
     };
+
+    if (!feverOrChills) {
+      payload = {
+        feverOrChills,
+        suddenLossOfSenseOfSmellAndTaste,
+        difficultyBreathingOrShortnessOfBreath,
+        cough,
+        runnyOrStuffyNose,
+        outsideCanadaTravellingInPast14Days,
+        closeContactWithSuspectedCase,
+        unusualSevereFatigue,
+        unusualHeadache,
+        significantLossOfAppetite,
+        unusualOrUnexplainedMusclePainOrStiffness,
+        soreThroatWithoutObviousCause,
+        hin,
+      };
+    }
 
     // Get response from axios
     const response = await checkInService.checkIn(payload);
@@ -69,6 +98,11 @@ function DailyCheckIn() {
 
   return (
     <>
+      <Navbar />
+      <br />
+      <br />
+      <br />
+      <br />
       <List>
         <ListItem>
           <ListItemText primary="Do you have any of the following signs or symptoms (new or worsening)? Symptoms should not be chromic or related to other known causes or conditions." />
