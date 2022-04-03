@@ -1,17 +1,21 @@
 import * as React from 'react';
-
 import { useLocation } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
 } from '@mui/material/';
 import Sidebar from '../components/Sidebar';
-import Patientboard from '../components/patientboard';
+import Patientboard from '../components/Doctorboard';
 import user1 from '../components/images/user1.jpg';
+// import Doctorboard from '../components/Doctorboard';
 
 const getInitialNameState = () => {
   if (useLocation().state !== null) {
-    return { name: useLocation().state.name, role: useLocation().state.role };
+    return {
+      name: useLocation().state.name,
+      role: useLocation().state.role,
+      patients: useLocation().state.patients,
+    };
   }
   return { name: 'N/A', role: 'N/A' };
 };
@@ -19,18 +23,13 @@ const getInitialNameState = () => {
 function DashboardContent() {
   const { name } = getInitialNameState();
   const welcomeMessage = `Hello, ${name}`;
+  const { patients } = getInitialNameState();
   // const { role } = getInitialNameState();
   // const greeting = `Nice to see you back, ${role}`;
 
   const mdTheme = createTheme();
 
   // console.log(logo);
-
-  // These are the states that control the ChatContainerModal visibility
-  const [openChatModal, setOpenChatModal] = React.useState(false);
-  const handleOpenChatModal = () => setOpenChatModal(true);
-  const handleCloseChatModal = () => setOpenChatModal(false);
-
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -57,10 +56,11 @@ function DashboardContent() {
             <Stack direction="row" spacing={0}>
 
               <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />
+
             </Stack>
 
           </Box>
-          <Patientboard />
+          <Patientboard listOfPatients={patients} />
         </Box>
       </Box>
     </ThemeProvider>

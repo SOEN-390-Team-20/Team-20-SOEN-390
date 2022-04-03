@@ -20,6 +20,7 @@ const TEST_HEALTHFORM1 = {
   significantLossOfAppetite: false,
   unusualOrUnexplainedMusclePainOrStiffness: true,
   soreThroatWithoutObviousCause: false,
+  hin: '740WL3V01',
 };
 
 const TEST_HEALTHFORM2 = {
@@ -35,6 +36,7 @@ const TEST_HEALTHFORM2 = {
   significantLossOfAppetite: false,
   unusualOrUnexplainedMusclePainOrStiffness: true,
   soreThroatWithoutObviousCause: false,
+  hin: '740WL3V02',
 };
 
 const TEST_HEALTHFORM3 = {
@@ -51,6 +53,7 @@ const TEST_HEALTHFORM3 = {
   significantLossOfAppetite: false,
   unusualOrUnexplainedMusclePainOrStiffness: true,
   soreThroatWithoutObviousCause: false,
+  hin: '740WL3V03',
 };
 
 const TEST_HEALTHFORM4 = {
@@ -67,6 +70,24 @@ const TEST_HEALTHFORM4 = {
   significantLossOfAppetite: false,
   unusualOrUnexplainedMusclePainOrStiffness: true,
   soreThroatWithoutObviousCause: false,
+  hin: '740WL3V04',
+};
+
+const TEST_HEALTHFORM5 = {
+  feverOrChills: true,
+  temperature: 'notANumber',
+  suddenLossOfSenseOfSmellAndTaste: false,
+  difficultyBreathingOrShortnessOfBreath: true,
+  cough: false,
+  runnyOrStuffyNose: true,
+  outsideCanadaTravellingInPast14Days: false,
+  closeContactWithSuspectedCase: true,
+  unusualSevereFatigue: false,
+  unusualHeadache: true,
+  significantLossOfAppetite: false,
+  unusualOrUnexplainedMusclePainOrStiffness: true,
+  soreThroatWithoutObviousCause: false,
+  hin: '740WL3V05',
 };
 
 describe('REST API request on /api/forms/healthform', () => {
@@ -97,9 +118,19 @@ describe('REST API request on /api/forms/healthform', () => {
       .send(TEST_HEALTHFORM4)
       .expect(200);
   });
+
+  test('POST /api/forms/healthform with feverOrChills being true and temperature being included but not as a number is not successful', async () => {
+    await api
+      .post('/api/forms/healthform')
+      .send(TEST_HEALTHFORM5)
+      .expect(400);
+  });
 });
 
 // Close mongoose connection from supertest(app)
-afterAll(() => {
+afterAll(async () => {
+  await api
+    .delete('/api/forms/healthform')
+    .expect(204);
   mongoose.connection.close();
 });

@@ -7,17 +7,17 @@ const devAxios = axios.create({
 
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
-const endpoint = 'api/login';
+const addCheckInToUser = 'api/forms/healthform';
 
 // calls are this easy for json formatted https://github.com/axios/axios#example
-const login = async (payload) => {
-  const response = await axiosService.post(endpoint, payload);
+const checkIn = async (payload) => {
+  const response = await axiosService.post(addCheckInToUser, payload);
   return response;
 };
 
 // For export
-const loginService = {
-  login,
+const checkInService = {
+  checkIn,
 };
 
-export default loginService;
+export default checkInService;

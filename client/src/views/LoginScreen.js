@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/*  eslint-disable quote-props */
 import React, { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom'; //  useLocation??
@@ -18,6 +20,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 import CreateIcon from '@mui/icons-material/Create';
 
 import loginService from '../services/login';
+import doctorLogin from '../services/doctorLogin';
 import Logo from '../components/Logo';
 
 function LoginScreen() {
@@ -30,19 +33,31 @@ function LoginScreen() {
   const [message, setMessage] = useState('');
 
   const handleSubmit = async (event) => {
-    // for <form>s
     event.preventDefault();
-    try {
-      const payload = {
-        email,
-        password,
-      };
 
+    try {
+      const payload = { email, password };
       // Get response from axios
       const response = await loginService.login(payload);
-      if (response.status === 200) {
+      if (response.data.auth) {
         setIsError(false);
-        navigate('/dashboard', { state: { name: response.data.firstName, role: response.data.role } });
+        localStorage.setItem('token', `Bearer ${response.data.token}`);
+        if (response.data.profile.role === "doctor") {
+          const patientsl = await doctorLogin.login({ "email": response.data.profile.email });
+          navigate('/doctordashboard', {
+            state: {
+              name: response.data.profile.firstName,
+              role: response.data.profile.role,
+              hin: response.data.profile.hin,
+              patients: patientsl.data,
+            },
+          });
+        } else if (response.data.profile.role === "patient") {
+          navigate('/dashboard', { state: { name: response.data.profile.firstName, role: response.data.profile.role, hin: response.data.profile.hin } });
+        }
+      } else {
+        setIsError(true);
+        setMessage(response.data.message);
       }
     } catch (exception) {
       setIsError(true);

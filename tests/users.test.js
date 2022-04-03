@@ -31,7 +31,7 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
 
     // Register using the patient payload
     await api
-      .post('/api/users')
+      .post('/api/users/old')
       .send(TEST_PATIENT2)
       .expect(200)
       .expect('Content-Type', /application\/json/);
@@ -50,7 +50,7 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
 
     // Register using the patient payload
     await api
-      .post('/api/users/new') // TODO on frontend
+      .post('/api/users/')
       .send(TEST_PATIENT2)
       .expect(200)
       .expect('Content-Type', /application\/json/);

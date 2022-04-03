@@ -32,6 +32,20 @@ COVID App for SOEN-390
  
 </details>
 
+<details>
+  <summary>Sprint 3</summary>
+
+ * User Stories: [Issues Tag](https://github.com/SOEN-390-Team-20/Team-20-SOEN-390/issues?q=is%3Aopen+is%3Aissue+label%3A%22feature+%3E+user+story%22)
+ * Release Plan: [Plan](https://github.com/SOEN-390-Team-20/docs/blob/main/Sprint3/SOEN390_-_Sprint_4_Release_Plan.png)
+ * SAD: [Link](https://docs.google.com/document/d/1z5Zp1h2nGR5YRsJ79_eRrdXYR3Qjq-d1jTJzB77jLn0/edit?usp=sharing)
+ * Risk Assessment: \[[Log](https://drive.google.com/file/d/1FaSYLnefWOfhL-vrM0vt_L6hoi-LULyJ/view?usp=sharing)] \[[Plan](https://drive.google.com/file/d/1L_fwWG9uB8ZKOLMHIDcN1LGY8PA7mBK5/view?usp=sharing)]
+ * UI Prototype: \[[Doc](https://docs.google.com/document/d/1ioOWWBV1DAAFoo4dNsgcTvcy9aioLAmHEmCJ4JaIENY/edit?usp=sharing)]  \[[Figma](https://www.figma.com/file/MDvw0VTmIiFWOpSgTsgFPw/JeVaisBienAller?node-id=3%3A6)]
+ * Testing Plan: [Link](https://github.com/SOEN-390-Team-20/docs/blob/main/Sprint3/TestingPlan.md)
+ * Running Prototype: [Link](https://jevaisbienaller.herokuapp.com/)
+ * Sprint Retrospective: [Link](https://docs.google.com/document/d/1i4UDUWYD7oHoNKelZ7YdoYK8w0lS7pnr5HOhztf3i-k/edit?usp=sharing)
+ 
+</details>
+
 ## Docker (Production Server)
 * Warning: This can take 5 minutes...
 * You can get a production build running with Docker by:
