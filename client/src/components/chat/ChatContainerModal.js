@@ -8,14 +8,14 @@ import Paper from '@mui/material/Paper';
 // import { TextInput } from './TextInput.js';
 // import { MessageLeft, MessageRight } from './Message';
 
-function ChatContainerModal({ handleClose, open }) {
+function ChatContainerModal({ handleChatClose, open }) {
   return (
     <div>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={handleChatClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{

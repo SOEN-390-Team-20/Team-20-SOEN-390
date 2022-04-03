@@ -8,6 +8,7 @@ import {
 import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/patientboard';
 import user1 from '../components/images/user1.jpg';
+import ChatContainerModal from '../components/chat/ChatContainerModal';
 
 const getInitialNameState = () => {
   if (useLocation().state !== null) {
@@ -36,7 +37,7 @@ function DashboardContent() {
       <Box sx={{ display: 'flex' }}>
 
         <CssBaseline />
-        <Sidebar />
+        <Sidebar handleChatOpen={handleOpenChatModal} />
 
         <Box
           component="main"
@@ -62,6 +63,7 @@ function DashboardContent() {
           </Box>
           <Patientboard />
         </Box>
+        <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
       </Box>
     </ThemeProvider>
   );
