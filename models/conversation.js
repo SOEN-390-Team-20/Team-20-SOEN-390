@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Flat architecture
 const conversationSchema = new mongoose.Schema({
   participants: [
     {
