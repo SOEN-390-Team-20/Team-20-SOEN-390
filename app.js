@@ -15,6 +15,7 @@ const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const { authRouter } = require('./controllers/auth');
 const formsRouter = require('./controllers/formsRouter');
+const conversationsRouter = require('./controllers/conversationsRouter');
 const getPatientRouter = require('./controllers/getpatients');
 const addPatientRouter = require('./controllers/addpatient');
 // Static routes
@@ -52,6 +53,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/forms', formsRouter);
+app.use('/api/conversations', conversationsRouter);
 app.use('/api/getpatient', getPatientRouter);
 app.use('/api/addpatient', addPatientRouter);
 
