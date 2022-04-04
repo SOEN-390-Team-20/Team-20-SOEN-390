@@ -8,15 +8,17 @@ const devAxios = axios.create({
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
 const endpoint = 'api/conversations';
-const id = 123;
+// temp hardcoded ID of a doctor user
+const id = '6249f7833ec170ce6ede751d';
+const token = localStorage.getItem('token');
 
 const getMessages = async () => {
-  const response = await axiosService.get(`${endpoint}/${id}`);
+  const response = await axiosService.get(`${endpoint}/${id}`, { headers: { authorization: token } });
   return response;
 };
 
 const sendMessage = async (payload) => {
-  const response = await axiosService.post(`${endpoint}/${id}`, payload);
+  const response = await axiosService.post(`${endpoint}/${id}`, payload, { headers: { authorization: token } });
   return response;
 };
 

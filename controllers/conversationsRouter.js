@@ -7,41 +7,38 @@ const { verifyJWTAuth } = require('./auth');
 
 /* eslint-disable */
 conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
-  const { targetId } = request.params;
+  const targetId = request.params.id;
   const currentUser = await User.findById(request.userId).exec();
   const targetUser = await User.findById(targetId).exec();
-  await Conversation.findOne({
-    participants: { $all: [currentUser._id, targetUser._id] }
-  }, async function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    // findOne() returns null if there are no matches
-    if (!result) {
-      const newConversation = new Conversation({
-        participants: [currentUser._id, targetUser._id],
-      });
-      await newConversation.save().then(savedNewConversation => {
-        const responsePayload = {
-          currentId: currentUser._id,
-          targetId: targetUser._id,
-          messages: savedNewConversation.messages,
-        };
-        return response.status(200).json(responsePayload);
-      });
-    } else {
+  const conversation = await Conversation.findOne({ participants: { $all: [currentUser._id, targetUser._id] } }).exec();
+
+  // findOne() returns null if there are no matches
+  if (!conversation) {
+    const newConversation = new Conversation({
+      participants: [currentUser._id, targetUser._id],
+    });
+    await newConversation.save().then(savedNewConversation => {
       const responsePayload = {
         currentId: currentUser._id,
         targetId: targetUser._id,
-        messages: result.messages,
+        targetFirstName: targetUser.firstName,
+        messages: savedNewConversation.messages,
       };
       return response.status(200).json(responsePayload);
-    }
-  }).exec();
+    });
+  } else {
+    const responsePayload = {
+      currentId: currentUser._id,
+      targetId: targetUser._id,
+      targetFirstName: targetUser.firstName,
+      messages: conversation.messages,
+    };
+    return response.status(200).json(responsePayload);
+  }
 });
 
 conversationsRouter.post('/:id', verifyJWTAuth, async (request, response) => {
-  const { targetId } = request.params;
+  const targetId = request.params.id;
   const currentUser = await User.findById(request.userId).exec();
   const targetUser = await User.findById(targetId).exec();
 
