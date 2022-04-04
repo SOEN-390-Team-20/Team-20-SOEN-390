@@ -5,7 +5,7 @@ import {
   CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
 } from '@mui/material/';
 import Sidebar from '../components/Sidebar';
-import Patientboard from '../components/Doctorboard';
+import Doctorboard from '../components/Doctorboard';
 import user1 from '../components/images/user1.jpg';
 // import Doctorboard from '../components/Doctorboard';
 
@@ -60,7 +60,7 @@ function DashboardContent() {
             </Stack>
 
           </Box>
-          <Patientboard listOfPatients={patients} />
+          <Doctorboard listOfPatients={patients} />
         </Box>
       </Box>
     </ThemeProvider>

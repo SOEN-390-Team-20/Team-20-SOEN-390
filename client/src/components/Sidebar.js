@@ -20,6 +20,8 @@ import FactCheckIcon from '@mui/icons-material/FactCheck';
 import ChatIcon from '@mui/icons-material/Chat';
 // import { Avatar } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import logoo from './images/BellLogowhite.png';
 
 const drawerWidth = 240;
@@ -70,6 +72,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerRight() {
+  const navigate = useNavigate();
+  const handleExit = () => {
+    navigate('/');
+  };
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -91,6 +97,13 @@ export default function PersistentDrawerRight() {
           <Typography variant="h3" noWrap sx={{ flexGrow: 1 }}>
             JeVaisBienAller
           </Typography>
+          <Button
+            variant="contained"
+            float="left"
+            onClick={handleExit}
+          >
+            Logout
+          </Button>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -100,6 +113,7 @@ export default function PersistentDrawerRight() {
           >
             <MenuIcon />
           </IconButton>
+
         </Toolbar>
       </AppBar>
       <Main open={open}>
@@ -137,7 +151,7 @@ export default function PersistentDrawerRight() {
         </List>
         <Divider />
         <List>
-          {['Settings', 'Profile'].map((text, index) => (
+          {['Settings', 'Logout'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <SettingsIcon /> : <MailIcon />}
