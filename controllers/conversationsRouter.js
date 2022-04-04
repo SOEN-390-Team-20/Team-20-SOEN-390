@@ -47,7 +47,7 @@ conversationsRouter.post('/:id', verifyJWTAuth, async (request, response) => {
       { $push: { messages: { sender: currentUser._id, content: request.body.content } }},
       { new: true }
   ).exec();
-  return response.status(200).json(updatedConversation);
+  return response.status(200);
 });
 
 module.exports = conversationsRouter;

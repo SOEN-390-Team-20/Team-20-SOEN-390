@@ -7,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import chatService from '../../services/chat';
 import { MessageReceived, MessageSent } from './MessageItem';
-import TextInput from './ChatInput';
+import ChatInput from './ChatInput';
 
 /* eslint-disable no-console */
 function ChatContainerModal({ handleChatClose, open }) {
@@ -15,6 +15,7 @@ function ChatContainerModal({ handleChatClose, open }) {
   const [targetId, setTargetId] = useState('');
   const [targetFirstName, setTargetFirstName] = useState('');
   const [messages, setMessages] = useState([]);
+  const [newMessageDummyListener, setNewMessageDummyListener] = useState(false);
 
   React.useEffect(async () => {
     await chatService.getMessages().then((response) => {
@@ -25,7 +26,7 @@ function ChatContainerModal({ handleChatClose, open }) {
     }).catch((error) => {
       console.error(`Error${error}`);
     });
-  }, []);
+  }, [newMessageDummyListener]);
 
   return (
     <div>
@@ -50,14 +51,14 @@ function ChatContainerModal({ handleChatClose, open }) {
                     return (
                       <MessageSent
                         message={message.content}
-                        timestamp={message.timestamp}
+                        timestamp={new Date(message.timestamp).toUTCString()}
                       />
                     );
                   } if (message.sender === targetId) {
                     return (
                       <MessageReceived
                         message={message.content}
-                        timestamp={message.timestamp}
+                        timestamp={new Date(message.timestamp).toUTCString()}
                         displayName={targetFirstName}
                       />
                     );
@@ -65,7 +66,10 @@ function ChatContainerModal({ handleChatClose, open }) {
                   return (<div />);
                 })}
               </Paper>
-              <TextInput />
+              <ChatInput
+                dummyListener={newMessageDummyListener}
+                setDummyListener={setNewMessageDummyListener}
+              />
             </Paper>
           </div>
         </Fade>
