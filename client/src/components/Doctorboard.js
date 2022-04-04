@@ -57,6 +57,7 @@ function Doctorboard() {
   const gopatient = () => {
     navigate('/patientlist');
   };
+  console.log("I am in a new branch");
   return (
     <Container maxWidth="200%">
       <Grid container spacing={20} rowSpacing={6} columnSpacing={30}>
