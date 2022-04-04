@@ -2,12 +2,12 @@ import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-// import Typography from '@mui/material/Typography';
 import '../../public/styles/Chat.css';
 import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import chatService from '../../services/chat';
 import { MessageReceived, MessageSent } from './MessageItem';
+import TextInput from './ChatInput';
 
 /* eslint-disable no-console */
 function ChatContainerModal({ handleChatClose, open }) {
@@ -65,7 +65,7 @@ function ChatContainerModal({ handleChatClose, open }) {
                   return (<div />);
                 })}
               </Paper>
-              {/* <TextInput /> */}
+              <TextInput />
             </Paper>
           </div>
         </Fade>
