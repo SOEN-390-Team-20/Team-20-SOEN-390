@@ -69,7 +69,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function PersistentDrawerRight() {
+export default function PersistentDrawerRight({ handleChatOpen }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -126,14 +126,18 @@ export default function PersistentDrawerRight() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Condition', 'Chat'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <FactCheckIcon /> : <ChatIcon /> }
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button key="Condition">
+            <ListItemIcon>
+              <FactCheckIcon />
+            </ListItemIcon>
+            <ListItemText primary="Condition" />
+          </ListItem>
+          <ListItem button key="Chat" onClick={handleChatOpen}>
+            <ListItemIcon>
+              <ChatIcon />
+            </ListItemIcon>
+            <ListItemText primary="Chat" />
+          </ListItem>
         </List>
         <Divider />
         <List>

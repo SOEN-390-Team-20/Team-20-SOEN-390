@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { useLocation } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
@@ -7,7 +8,7 @@ import {
 import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/patientboard';
 import user1 from '../components/images/user1.jpg';
-// import Doctorboard from '../components/Doctorboard';
+import ChatContainerModal from '../components/chat/ChatContainerModal';
 
 const getInitialNameState = () => {
   if (useLocation().state !== null) {
@@ -25,12 +26,18 @@ function DashboardContent() {
   const mdTheme = createTheme();
 
   // console.log(logo);
+
+  // These are the states that control the ChatContainerModal visibility
+  const [openChatModal, setOpenChatModal] = React.useState(false);
+  const handleOpenChatModal = () => setOpenChatModal(true);
+  const handleCloseChatModal = () => setOpenChatModal(false);
+
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
 
         <CssBaseline />
-        <Sidebar />
+        <Sidebar handleChatOpen={handleOpenChatModal} />
 
         <Box
           component="main"
@@ -51,12 +58,12 @@ function DashboardContent() {
             <Stack direction="row" spacing={0}>
 
               <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />
-
             </Stack>
 
           </Box>
           <Patientboard />
         </Box>
+        <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
       </Box>
     </ThemeProvider>
   );
