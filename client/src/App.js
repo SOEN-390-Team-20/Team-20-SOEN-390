@@ -11,6 +11,7 @@ import ListUsers from './views/ListUsers';
 import HistorySymptoms from './views/HistorySymptoms';
 import Dashboard from './views/Dashboard';
 import DoctorDashboard from './views/DoctorDashboard';
+import PublicProfile from './views/PublicProfile';
 
 // React-Native (will be deleted)
 const styles = StyleSheet.create({
@@ -48,6 +49,10 @@ function App() {
             <Route path="/listUsers" element={<ListUsers />} />
             <Route path="/doctorDashboard" element={<DoctorDashboard />} />
             <Route path="/historySymptoms" element={<HistorySymptoms />} />
+            <Route path="/temp" element={<PublicProfile />} />
+            <Route path="public" element={<PublicProfile />}>
+              <Route path=":id" element={<PublicProfile />} />
+            </Route>
           </Routes>
         </Router>
         <StatusBar style="auto" />

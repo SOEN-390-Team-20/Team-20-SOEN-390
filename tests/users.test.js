@@ -116,12 +116,19 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
       .expect('Content-Type', /application\/json/);
 
     const { body } = result;
-    expect(body.email).toContain(TEST_PATIENT1.email);
-    expect(body.hin).toContain(TEST_PATIENT1.hin);
-    expect(body.password).toContain(TEST_PATIENT1.password);
+    // Private information should not be sent
+    expect(body.email).toEqual(undefined);
+    expect(body.hin).toEqual(undefined);
+    expect(body.password).toEqual(undefined);
+    expect(body.role).toEqual(undefined);
+
+    // Public information is accessible
     expect(body.firstName).toContain(TEST_PATIENT1.firstName);
     expect(body.lastName).toContain(TEST_PATIENT1.lastName);
-    expect(body.role).toContain(TEST_PATIENT1.role);
+    expect(body.covidStatus).toBeDefined();
+    expect(body.vaccine1).toBeDefined();
+    expect(body.vaccine2).toBeDefined();
+    expect(body.vaccine3).toBeDefined();
   });
 });
 
