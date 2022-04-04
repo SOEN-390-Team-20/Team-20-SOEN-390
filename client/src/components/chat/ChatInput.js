@@ -10,12 +10,12 @@ function ChatInput({ dummyListener, setDummyListener }) {
   const [message, setMessage] = useState('');
   const handleMessageChange = ({ target }) => setMessage(target.value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const payload = { content: message };
-      const response = chatService.sendMessage(payload);
+      const response = await chatService.sendMessage(payload);
       if (response.status === 200) {
         setDummyListener(!dummyListener);
         document.getElementById('input-text').value = '';

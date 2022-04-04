@@ -42,12 +42,12 @@ conversationsRouter.post('/:id', verifyJWTAuth, async (request, response) => {
   const currentUser = await User.findById(request.userId).exec();
   const targetUser = await User.findById(targetId).exec();
 
-  let updatedConversation = await Conversation.findOneAndUpdate(
+  await Conversation.findOneAndUpdate(
       { participants: { $all: [currentUser._id, targetUser._id] } },
       { $push: { messages: { sender: currentUser._id, content: request.body.content } }},
       { new: true }
   ).exec();
-  return response.status(200);
+  return response.sendStatus(200);
 });
 
 module.exports = conversationsRouter;
