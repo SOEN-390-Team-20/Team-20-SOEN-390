@@ -11,7 +11,7 @@ conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
   const currentUser = await User.findById(request.userId).exec();
   const targetUser = await User.findById(targetId).exec();
   await Conversation.findOne({
-    participants: { $all: [currentUser.__id, targetUser.__id] }
+    participants: { $all: [currentUser._id, targetUser._id] }
   }, async function (err, result) {
     if (err) {
       console.log(err);
@@ -19,21 +19,25 @@ conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
     // findOne() returns null if there are no matches
     if (!result) {
       const newConversation = new Conversation({
-        participants: [currentUser.__id, targetUser.__id],
+        participants: [currentUser._id, targetUser._id],
       });
       await newConversation.save().then(savedNewConversation => {
-        return response.status(200).json(savedNewConversation.messages);
+        const responsePayload = {
+          currentId: currentUser._id,
+          targetId: targetUser._id,
+          messages: savedNewConversation.messages,
+        };
+        return response.status(200).json(responsePayload);
       });
     } else {
       const responsePayload = {
-        currentId: currentUser.__id,
-        targetId: targetUser.__id,
+        currentId: currentUser._id,
+        targetId: targetUser._id,
         messages: result.messages,
       };
       return response.status(200).json(responsePayload);
     }
   }).exec();
-
 });
 
 conversationsRouter.post('/:id', verifyJWTAuth, async (request, response) => {
@@ -42,8 +46,8 @@ conversationsRouter.post('/:id', verifyJWTAuth, async (request, response) => {
   const targetUser = await User.findById(targetId).exec();
 
   let updatedConversation = await Conversation.findOneAndUpdate(
-      { participants: { $all: [currentUser.__id, targetUser.__id] } },
-      { $push: { messages: { sender: currentUser.__id, content: request.body.content } }},
+      { participants: { $all: [currentUser._id, targetUser._id] } },
+      { $push: { messages: { sender: currentUser._id, content: request.body.content } }},
       { new: true }
   ).exec();
   return response.status(200).json(updatedConversation);

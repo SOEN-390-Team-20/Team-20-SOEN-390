@@ -5,9 +5,21 @@ import Fade from '@mui/material/Fade';
 // import Typography from '@mui/material/Typography';
 import '../../public/styles/Chat.css';
 import Paper from '@mui/material/Paper';
+import { useState } from 'react';
 import { MessageReceived, MessageSent } from './MessageItem';
+import chatService from '../../services/chat';
 
+/* eslint-disable no-console */
 function ChatContainerModal({ handleChatClose, open }) {
+  const [messages, setMessages] = useState([]);
+  React.useEffect(async () => {
+    await chatService.getMessages().then((response) => {
+      setMessages(response);
+    }).catch((error) => {
+      console.error(`Error${error}`);
+    }, []);
+  });
+
   return (
     <div>
       <Modal
