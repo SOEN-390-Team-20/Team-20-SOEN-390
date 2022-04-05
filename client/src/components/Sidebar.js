@@ -101,6 +101,7 @@ export default function PersistentDrawerRight() {
             variant="contained"
             float="left"
             onClick={handleExit}
+
           >
             Logout
           </Button>
@@ -161,6 +162,7 @@ export default function PersistentDrawerRight() {
           ))}
         </List>
       </Drawer>
+
     </Box>
   );
 }
