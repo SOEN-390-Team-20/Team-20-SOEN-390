@@ -22,12 +22,27 @@ const getInitialState = () => {
 };
 
 function DashboardContent() {
+  const [nam, setnam]= useState(null);
   const { name } = getInitialState();
-  const welcomeMessage = `Hello, ${name}`;
+  const welcomeMessage = `Hello, ${nam}`;
   const { role } = getInitialState();
   // const greeting = `Nice to see you back, ${role}`;
   const { hin } = getInitialState();
   const infoSaved = { nameSaved: `${name}`, roleSaved: `${role}`, hinSaved: `${hin}` };
+  
+  useEffect(() => {
+    
+      async function fetchMyAPI() {
+        
+        const namee = localStorage.getItem('name');
+        setnam(namee)
+        console.log( patientsl)
+        
+      }
+      fetchMyAPI()
+    console.log('hola todos');
+  },[]);
+
   const mdTheme = createTheme();
 
   console.log(name);

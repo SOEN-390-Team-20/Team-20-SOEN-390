@@ -69,7 +69,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function PersistentDrawerRight({ handleChatOpen }) {
+export default function PersistentDrawerRight() {
+  const navigate = useNavigate();
+  const handleExit = () => {
+    navigate('/');
+  };
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
