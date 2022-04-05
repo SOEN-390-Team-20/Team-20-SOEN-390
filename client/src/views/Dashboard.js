@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
@@ -23,42 +23,24 @@ const getInitialState = () => {
 };
 
 function DashboardContent() {
-  const [nam, setnam]= useState(null);
+  const [nam, setnam] = useState(null);
   const { name } = getInitialState();
   const welcomeMessage = `Hello, ${nam}`;
   const { role } = getInitialState();
   // const greeting = `Nice to see you back, ${role}`;
   const { hin } = getInitialState();
   const infoSaved = { nameSaved: `${name}`, roleSaved: `${role}`, hinSaved: `${hin}` };
-  
-  useEffect(() => {
-    
-      async function fetchMyAPI() {
-        
-        const namee = localStorage.getItem('name');
-        setnam(namee)
-        console.log( patientsl)
-        
-      }
-      fetchMyAPI()
-    console.log('hola todos');
-  },[]);
 
   useEffect(() => {
-  
     async function fetchMyAPI() {
-      
       const namee = localStorage.getItem('name');
-      setnam(namee)
-      console.log( patientsl)
-
-      
+      setnam(namee);
+      console.log(patientsl);
     }
-    fetchMyAPI()
-  console.log('hola todos');
-},[]);
-  
 
+    fetchMyAPI();
+    console.log('hola todos');
+  }, []);
   const mdTheme = createTheme();
 
   console.log(name);
@@ -91,9 +73,10 @@ function DashboardContent() {
         >
           <Toolbar />
           <Box>
-          {nam&&<Typography variant="h2" style={{ color: '#00296B' }}>
-              {welcomeMessage}
-            </Typography>}
+            {nam
+              && <Typography variant="h2" style={{ color: '#00296B' }}>
+                {welcomeMessage}
+              </Typography>}
             <Stack direction="row" spacing={0}>
 
               <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />

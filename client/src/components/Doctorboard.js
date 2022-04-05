@@ -49,7 +49,6 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 function Doctorboard(props) {
-  
   const navigate = useNavigate();
   const goappt = () => {
     navigate('/appointment');
@@ -89,14 +88,15 @@ function Doctorboard(props) {
               }}
             >
 
-{props.listOfPatients.map((element) => (<ListItem disablePadding>
-                <ListItemButton>
-                    <ListItemText primary ={element.firstName +" "+ element.firstName} />
-                </ListItemButton>
-              </ListItem>))}
-
-              
+              {props.listOfPatients.map((element) => (
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={`${element.firstName} ${element.firstName}`} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
             </List>
+
             <ColorButton
               onClick={gopatient}
               variant="contained"

@@ -146,7 +146,7 @@ export default function PersistentDrawerRight() {
             </ListItemIcon>
             <ListItemText primary="Condition" />
           </ListItem>
-          <ListItem button key="Chat" onClick={handleChatOpen}>
+          <ListItem button key="Chat">
             <ListItemIcon>
               <ChatIcon />
             </ListItemIcon>
