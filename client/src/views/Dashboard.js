@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useEffect,useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
@@ -17,10 +18,26 @@ const getInitialNameState = () => {
 };
 
 function DashboardContent() {
+  const [nam, setnam]= useState(null);
   const { name } = getInitialNameState();
-  const welcomeMessage = `Hello, ${name}`;
+  const welcomeMessage = `Hello, ${nam}`;
   // const { role } = getInitialNameState();
   // const greeting = `Nice to see you back, ${role}`;
+
+  useEffect(() => {
+  
+    async function fetchMyAPI() {
+      
+      const namee = localStorage.getItem('name');
+      setnam(namee)
+      console.log( patientsl)
+
+      
+    }
+    fetchMyAPI()
+  console.log('hola todos');
+},[]);
+  
 
   const mdTheme = createTheme();
 
@@ -45,9 +62,9 @@ function DashboardContent() {
         >
           <Toolbar />
           <Box>
-            <Typography variant="h2" style={{ color: '#00296B' }}>
+          {nam&&<Typography variant="h2" style={{ color: '#00296B' }}>
               {welcomeMessage}
-            </Typography>
+            </Typography>}
             <Stack direction="row" spacing={0}>
 
               <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />

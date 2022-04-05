@@ -75,7 +75,7 @@ useEffect(() => {
         >
           <Toolbar />
           <Box>
-           {nam && <Typography variant="h2" style={{ color: '#00296B' }}>
+          {nam && <Typography variant="h2" style={{ color: '#00296B' }}>
               { welcomeMessage}
             </Typography>} 
             <Stack direction="row" spacing={0}>
