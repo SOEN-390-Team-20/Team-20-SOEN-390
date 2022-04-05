@@ -24,15 +24,9 @@ const getInitialState = () => {
 
 function DashboardContent() {
   const [nam, setnam]= useState(null);
-<<<<<<< HEAD
   const { name } = getInitialState();
   const welcomeMessage = `Hello, ${nam}`;
   const { role } = getInitialState();
-=======
-  const { name } = getInitialNameState();
-  const welcomeMessage = `Hello, ${nam}`;
-  // const { role } = getInitialNameState();
->>>>>>> 15e4de0b1faf771d598ea52d513ae08207446bf3
   // const greeting = `Nice to see you back, ${role}`;
   const { hin } = getInitialState();
   const infoSaved = { nameSaved: `${name}`, roleSaved: `${role}`, hinSaved: `${hin}` };
