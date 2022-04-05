@@ -11,7 +11,7 @@ const dil = require('../models/user');
 getPatientRouter.post('/', TokenVerify , async (req, res) => {
   const { body } = req;
 
-  
+console.log(req)
 
 
     const doctorEmail = body.email;

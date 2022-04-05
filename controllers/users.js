@@ -70,6 +70,36 @@ usersRouter.post('/', async (request, response) => {
     });
 
     await doc.save();
+  } else if (body.role === 'patient') {
+    const piii = await Doctor.aggregate([
+      {
+        $addFields: {
+          size: { $size: '$patients' },
+        },
+      },
+      {
+        $sort: { size: 1 },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+
+    const patientslist = piii[0].patients;
+    console.log(patientslist);
+    patientslist.push(body.email);
+    Doctor.updateOne(
+      { email: piii[0].email },
+      { patients: patientslist },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated Docs : ', docs);
+        }
+      },
+    );
+    console.log(piii);
   }
 
   await newUser.save();
