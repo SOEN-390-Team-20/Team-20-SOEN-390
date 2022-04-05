@@ -13,12 +13,15 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import map1 from './images/location-tracking-gps.jpg';
 
-export default function Patientboard() {
+export default function Patientboard(props) {
   const navigate = useNavigate();
+  const { data } = props;
   const goCheckIn = () => {
-    navigate('/checkIn');
+    navigate('/checkIn', { state: { name: data.nameSaved, role: data.roleSaved, hin: data.hinSaved } });
   };
-
+  const goHistory = () => {
+    navigate('/historySymptoms', { state: { name: data.nameSaved, role: data.roleSaved, hin: data.hinSaved } });
+  };
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -58,6 +61,11 @@ export default function Patientboard() {
 
             </div>
             <br />
+
+            <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goHistory}>
+              <Typography style={{ color: '#FFFFFF' }}>History </Typography>
+              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+            </Button>
 
             <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goCheckIn}>
               <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>

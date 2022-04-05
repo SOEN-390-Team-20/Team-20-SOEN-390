@@ -12,16 +12,21 @@ import {
 import checkInService from '../services/checkIn';
 import Navbar from '../components/Navbar';
 
-const getInitialHINState = () => {
+const getInitialState = () => {
   if (useLocation().state !== null) {
     return {
+      name: useLocation().state.name,
+      role: useLocation().state.role,
       hin: useLocation().state.hin,
     };
   }
-  return { hin: '0' };
+  return { name: 'N/A', role: 'N/A', hin: '0' };
 };
 
 function DailyCheckIn() {
+  const { name } = getInitialState();
+  const { role } = getInitialState();
+
   const navigate = useNavigate();
   const [feverOrChills, setFever] = useState(false);
   const [temperature, setTemperature] = useState(0);
@@ -36,7 +41,7 @@ function DailyCheckIn() {
   const [significantLossOfAppetite, setLossOAappetite] = useState(false);
   const [unusualOrUnexplainedMusclePainOrStiffness, setMusclePain] = useState(false);
   const [soreThroatWithoutObviousCause, setSoreThroat] = useState(false);
-  const { hin } = getInitialHINState();
+  const { hin } = getInitialState();
 
   const handleFeverChange = ({ target }) => setFever(target.checked);
   const handleTemperatureChange = ({ target }) => setTemperature(target.value);
@@ -92,7 +97,7 @@ function DailyCheckIn() {
     // Get response from axios
     const response = await checkInService.checkIn(payload);
     if (response.status === 200) {
-      navigate('/dashboard');
+      navigate('/dashboard', { state: { name: `${name}`, role: `${role}`, hin: `${hin}` } });
     }
   };
 

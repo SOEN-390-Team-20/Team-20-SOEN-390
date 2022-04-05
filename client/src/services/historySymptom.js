@@ -8,11 +8,11 @@ const devAxios = axios.create({
 
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
-const getForm = 'api/forms/healthform';
+const getForm = 'api/forms/healthforms';
 
 // calls are this easy for json formatted https://github.com/axios/axios#example
-const getList = async (hin) => {
-  const response = await axiosService.get(getForm + '/' + hin);
+const getList = async () => {
+  const response = await axiosService.get(getForm);
   return response;
 };
 

@@ -10,21 +10,29 @@ import Patientboard from '../components/patientboard';
 import user1 from '../components/images/user1.jpg';
 import ChatContainerModal from '../components/chat/ChatContainerModal';
 
-const getInitialNameState = () => {
+const getInitialState = () => {
   if (useLocation().state !== null) {
-    return { name: useLocation().state.name, role: useLocation().state.role };
+    return {
+      name: useLocation().state.name,
+      role: useLocation().state.role,
+      hin: useLocation().state.hin,
+    };
   }
-  return { name: 'N/A', role: 'N/A' };
+  return { name: 'N/A', role: 'N/A', hin: '0' };
 };
 
 function DashboardContent() {
-  const { name } = getInitialNameState();
+  const { name } = getInitialState();
   const welcomeMessage = `Hello, ${name}`;
-  // const { role } = getInitialNameState();
+  const { role } = getInitialState();
   // const greeting = `Nice to see you back, ${role}`;
-
+  const { hin } = getInitialState();
+  const infoSaved = { nameSaved: `${name}`, roleSaved: `${role}`, hinSaved: `${hin}` };
   const mdTheme = createTheme();
 
+  console.log(name);
+  console.log(role);
+  console.log(hin);
   // console.log(logo);
 
   // These are the states that control the ChatContainerModal visibility
@@ -61,7 +69,7 @@ function DashboardContent() {
             </Stack>
 
           </Box>
-          <Patientboard />
+          <Patientboard data={infoSaved} />
         </Box>
         <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
       </Box>

@@ -34,6 +34,11 @@ function SymptomModal() {
       { /* Need to Loop ListItem & Modal for each symptom data from the GET request */ }
       <ListItem disablePadding>
         <ListItemButton onClick={handleOpen}>
+          <ListItemText sx={{ textAlign: 'center' }} primary="March 22, 2022" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton onClick={handleOpen}>
           <ListItemText sx={{ textAlign: 'center' }} primary="March 20, 2022" />
         </ListItemButton>
       </ListItem>
