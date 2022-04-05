@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
+import { useEffect,useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
 } from '@mui/material/';
 import Sidebar from '../components/Sidebar';
-import Doctorboard from '../components/Doctorboard';
+import Patientboard from '../components/Doctorboard';
 import user1 from '../components/images/user1.jpg';
+import doctorLogin from '../services/doctorLogin';
+
 // import Doctorboard from '../components/Doctorboard';
+
 
 const getInitialNameState = () => {
   if (useLocation().state !== null) {
+    const nameee = localStorage.getItem('name');
     return {
-      name: useLocation().state.name,
+      name:nameee,
       role: useLocation().state.role,
       patients: useLocation().state.patients,
     };
@@ -21,13 +26,33 @@ const getInitialNameState = () => {
 };
 
 function DashboardContent() {
+  const [pat, setpat]= useState(null);
+  const [nam, setnam]= useState(null);
   const { name } = getInitialNameState();
-  const welcomeMessage = `Hello, ${name}`;
+  const welcomeMessage = `Hello, ${nam}`;
   const { patients } = getInitialNameState();
+  console.log(patients)
   // const { role } = getInitialNameState();
   // const greeting = `Nice to see you back, ${role}`;
 
   const mdTheme = createTheme();
+
+  
+useEffect(() => {
+  
+  async function fetchMyAPI() {
+    const email = localStorage.getItem('email');
+    const namee = localStorage.getItem('name');
+    const patientsl = await doctorLogin.login({ "email": email });
+    setpat(patientsl.data)
+    setnam(namee)
+    console.log( patientsl)
+    
+  }
+
+  fetchMyAPI()
+  console.log('hola todos');
+},[]);
 
   // console.log(logo);
   return (
@@ -50,9 +75,9 @@ function DashboardContent() {
         >
           <Toolbar />
           <Box>
-            <Typography variant="h2" style={{ color: '#00296B' }}>
-              {welcomeMessage}
-            </Typography>
+           {nam && <Typography variant="h2" style={{ color: '#00296B' }}>
+              { welcomeMessage}
+            </Typography>} 
             <Stack direction="row" spacing={0}>
 
               <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />
@@ -60,7 +85,7 @@ function DashboardContent() {
             </Stack>
 
           </Box>
-          <Doctorboard listOfPatients={patients} />
+        { pat && <Patientboard listOfPatients={pat} />} 
         </Box>
       </Box>
     </ThemeProvider>
