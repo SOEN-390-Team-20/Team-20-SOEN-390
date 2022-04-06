@@ -139,7 +139,32 @@ export default function Patientboard() {
             <br />
           </Item>
         </Grid>
+        <Grid item xs={12} color={primary}>
+          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            <h1 style={{ color: '#00296B' }}>Statistics About Covid-19</h1>
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            {/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
+            <br />
+            <br />
+            <iframe style={{ width: '80%', borderRadius: '25px' }} title="General Statistics" src="https://covid19canada.maps.arcgis.com/apps/opsdashboard/index.html#/2772c0489f43411ca9493fc5888fbe67" height="550" width="100%" />
+            <br />
+            <br />
+            <iframe style={{ width: '80%', borderRadius: '25px' }} title="Vaccinated Statistics" src="https://covid19canada.maps.arcgis.com/apps/opsdashboard/index.html#/cfbd8528810042d38d4e184e6731f2f9" height="550" width="100%" />
+            <br />
+            <br />
+            <iframe style={{ width: '80%', borderRadius: '25px' }} title="Daily Cases Statistics" src="https://covid19canada.maps.arcgis.com/apps/opsdashboard/index.html#/7856c4762c7443bab2caba8b3c16af64" height="500" width="100%" />
+            <br />
+            <br />
+            <br />
+          </Item>
+        </Grid>
       </Grid>
+      <br />
+      <br />
     </Container>
   );
 }
