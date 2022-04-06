@@ -57,6 +57,8 @@ function LoginScreen() {
           });
         } else if (response.data.profile.role === "patient") {
           navigate('/dashboard', { state: { name: response.data.profile.firstName, role: response.data.profile.role, hin: response.data.profile.hin } });
+        } else if (response.data.profile.role === "admin") {
+          navigate('/listUsers');
         }
       } else {
         setIsError(true);
