@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 const express = require('express');
 const bcrypt = require('bcrypt');
 const Doctor = require('../models/doctors');
@@ -84,7 +85,22 @@ usersRouter.get('/:id', async (request, response) => {
   // or anonymize the data
 
   const result = await User.findById(id);
-  response.json(result);
+
+  console.log(result);
+
+  // Remove private information
+  // Temp covid status force as false
+  const cleanResult = {
+    _id: result._id,
+    firstName: result.firstName,
+    lastName: result.lastName,
+    covidStatus: 'false',
+    vaccine1: 'yes',
+    vaccine2: 'yes',
+    vaccine3: 'no',
+  };
+
+  response.json(cleanResult);
 });
 
 // Modify (the information of) a particular user.
