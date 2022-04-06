@@ -1,4 +1,6 @@
 import * as React from 'react';
+import QRCode from 'qrcode';
+import { useState, useEffect } from 'react';
 import {
   Grid, Divider, Paper, Box,
 } from '@mui/material/';
@@ -14,6 +16,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function QRcode() {
+const [src, setSrc] = useState('jkjlkjlkj lkjlj kj');
+useEffect(()=>{
+QRCode.toDataURL('te amo marimar').then((data)=>{
+
+  setSrc(data)
+})
+
+
+})
+
   return (
     <>
 
@@ -23,6 +35,9 @@ function QRcode() {
           <Grid item xs={10}>
             <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
               <h1 style={{ color: '#00296B' }}> QR Code...</h1>
+               <div>
+                 <img src={src}/>
+               </div>
 
               <Divider
                 style={{ background: '#00296B' }}
