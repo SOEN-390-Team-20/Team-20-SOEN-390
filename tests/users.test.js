@@ -123,9 +123,23 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
     expect(body.lastName).toContain(TEST_PATIENT1.lastName);
     expect(body.role).toContain(TEST_PATIENT1.role);
   });
+
+  test('PUT /api/users/:id/add_associated_user : parent user adds child user', async () => {
+    const parentUser = await User.findOne({ email: TEST_DOCTOR1.email });
+    const { id } = parentUser;
+
+    await api
+      .put(`/api/users/${id}/add_associated_user`)
+      .send(TEST_PATIENT1)
+      .expect(200)
+      .expect('Content-Type', /application\/json/);
+  });
 });
 
 // Close mongoose connection from supertest(app)
-afterAll(() => {
+afterAll(async () => {
+  await api
+    .delete('/api/users')
+    .expect(204);
   mongoose.connection.close();
 });
