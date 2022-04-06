@@ -36,6 +36,27 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  selfQuarantine: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  vaccinationstatus: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  covidStatus: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  associated_doctor: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
   /* Eventually we will have something like this
     symptoms: [{
         type: mongoose.Schema.Types.ObjectId,

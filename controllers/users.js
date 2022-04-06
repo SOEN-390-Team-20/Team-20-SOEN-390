@@ -60,6 +60,11 @@ usersRouter.post('/', async (request, response) => {
     firstName: body.firstName,
     lastName: body.lastName,
     role: body.role,
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    associated_doctor: 'none',
+
     associated_users: body.associated_users,
   });
 
@@ -100,6 +105,7 @@ usersRouter.post('/', async (request, response) => {
       },
     );
     console.log(piii);
+    newUser.set({ associated_doctor: piii[0].email });
   }
 
   await newUser.save();
