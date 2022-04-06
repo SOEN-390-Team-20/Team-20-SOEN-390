@@ -24,13 +24,13 @@ function QRcode() {
       const num = 0;
       const patientsl = await doctorLogin.login({ email, num });
       console.log(patientsl);
-      QRCode.toDataURL(JSON.stringify({
-        firstName: patientsl.data.firstName,
-        lastName: patientsl.data.lastName,
-        vaccineDoses: patientsl.data.vaccinationstatus,
-        covidStatus: patientsl.data.covidStatus,
-        selfQuarantine: patientsl.data.selfQuarantine,
-      })).then((data) => {
+      QRCode.toDataURL(
+        `firstname: ${patientsl.data.firstName}
+     lastname: ${patientsl.data.lastName}  
+     vaccine Doses: ${patientsl.data.vaccinationstatus} 
+     covid status: ${patientsl.data.covidStatus}  
+     selfQuarantine: ${patientsl.data.selfQuarantine} `,
+      ).then((data) => {
         setSrc(data);
       });
     } fetchMyAPI();
