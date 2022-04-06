@@ -20,17 +20,25 @@ import { Paper, Grid, Divider, Box } from '@mui/material';
 import adminService from '../services/admin';
 import Sidebar from '../components/Sidebar';
 import user1 from '../components/images/user1.jpg';
-
+import doctorLogin from '../services/doctorLogin';
 
 
 
 function ListUsers() {
   const [data, setData] = useState([]);
+  const [accountData, setAccount]=useState(null);
   useEffect(() => {
     getUsers();
+    fetchMyAPI();
   }, []);
+ 
+  async function fetchMyAPI() {
+    const email = localStorage.getItem('email');
+    const num = 0;
+    const patientsl = await doctorLogin.login({ email, num });
+    setAccount(patientsl.data)
 
-
+  }
   async function getUsers() {
     await adminService.getAll().then((response) => {
       setData(response.data);
@@ -149,16 +157,16 @@ function ListUsers() {
               variant="middle"
               sx={{ borderBottomWidth: 4 }}
             />
-            <h2 style={{ color: '#00296B' }}>Welcome back Admin! </h2><Grid item xs={3}>
-<h3 style={{ color: '#00296B' }}>First name:</h3>
+            <h2 style={{ color: '#00296B' }}>Welcome back Admin! </h2>{accountData&&<Grid item xs={3}>
+<h3 style={{ color: '#00296B' }}>First name:  {accountData.firstName}</h3>
 <h3 style={{ color: '#00296B' }}>
-  Last name:
+  Last name: {accountData.lastName}
 </h3>
-<h3 style={{ color: '#00296B' }}>Email:</h3>
-<h3 style={{ color: '#00296B' }}>ID:</h3>
+<h3 style={{ color: '#00296B' }}>Email:{accountData.email}</h3>
+<h3 style={{ color: '#00296B' }}>ID:{accountData._id}</h3>
 <h3 style={{ color: '#00296B' }}> Date:</h3>
 
-              </Grid>
+              </Grid>}
             
               <br/>
               
