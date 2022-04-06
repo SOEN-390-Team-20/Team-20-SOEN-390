@@ -59,13 +59,24 @@ function Patientlist() {
                   sx={{ borderBottomWidth: 4 }}
                 />
                 <h3>
-                  {`${element.firstName} ${element.lastName}`}
+                  {` ${element.firstName} ${element.lastName}`}
                 </h3>
                 <br />
-                <h3>Last check in: March 16 at 3:00pm</h3>
-                <h3>Status:neg</h3>
-                <h3>Vaccinated: 2nd dose</h3>
-                <h3>Upcomign appts: none</h3>
+                <h3>
+                  Last check in:
+                  {` ${element.lastUpdate}`}
+                </h3>
+                <h3>
+                  Status:
+                  {` ${element.covidStatus}`}
+                </h3>
+                <h3>
+                  Vaccinated:
+                  {` ${element.vaccinationstatus}`}
+                </h3>
+                <h3>
+                  Upcomign appts: none
+                </h3>
                 <Stack
                   spacing={3}
                   direction="row"

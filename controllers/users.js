@@ -63,8 +63,8 @@ usersRouter.post('/', async (request, response) => {
     selfQuarantine: 'negative',
     vaccinationstatus: 0,
     covidStatus: 'negative',
+    lastUpdate: Date.now(),
     associated_doctor: 'none',
-
     associated_users: body.associated_users,
   });
 

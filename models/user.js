@@ -51,6 +51,12 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  lastUpdate: {
+    type: Date,
+    default: Date.now,
+    required: true,
+    trim: true,
+  },
   associated_doctor: {
     type: String,
     required: true,
