@@ -71,7 +71,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function PersistentDrawerRight() {
+export default function PersistentDrawerRight({ handleChatOpen }) {
   const navigate = useNavigate();
   const handleExit = () => {
     navigate('/');
@@ -146,7 +146,7 @@ export default function PersistentDrawerRight() {
             </ListItemIcon>
             <ListItemText primary="Condition" />
           </ListItem>
-          <ListItem button key="Chat">
+          <ListItem button key="Chat" onClick={handleChatOpen}>
             <ListItemIcon>
               <ChatIcon />
             </ListItemIcon>

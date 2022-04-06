@@ -9,6 +9,8 @@
     "linebreak-style": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/style-prop-object" : [2, { "allow": ["StatusBar"] }],
-    "react/prop-types" : [0]
+    "react/prop-types" : [0],
+    "no-plusplus" : "off",
+    "no-console": "off"
   }
 }

@@ -35,7 +35,6 @@ function DashboardContent() {
     async function fetchMyAPI() {
       const namee = localStorage.getItem('name');
       setnam(namee);
-      console.log(patientsl);
     }
 
     fetchMyAPI();
@@ -74,9 +73,11 @@ function DashboardContent() {
           <Toolbar />
           <Box>
             {nam
-              && <Typography variant="h2" style={{ color: '#00296B' }}>
+              && (
+              <Typography variant="h2" style={{ color: '#00296B' }}>
                 {welcomeMessage}
-              </Typography>}
+              </Typography>
+              )}
             <Stack direction="row" spacing={0}>
 
               <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />
