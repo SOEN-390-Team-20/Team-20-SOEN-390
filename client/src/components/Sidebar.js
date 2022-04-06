@@ -103,6 +103,7 @@ export default function PersistentDrawerRight({ handleChatOpen }) {
           <Button
             variant="contained"
             float="left"
+            style={{ background: '#00296B' }}
             onClick={handleExit}
           >
             Logout

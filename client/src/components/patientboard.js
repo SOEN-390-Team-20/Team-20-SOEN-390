@@ -63,12 +63,12 @@ export default function Patientboard(props) {
             </div>
             <br />
             <Stack direction="row" spacing={15}>
-              <Button variant="contained" style={{ bottom: 3, right: -300, color: '#00296B !important' }} onClick={goHistory}>
+              <Button variant="contained" style={{ bottom: 3, right: -300, background: '#00296B' }} onClick={goHistory}>
                 <Typography style={{ color: '#FFFFFF' }}>History </Typography>
                 <NavigateNextIcon style={{ color: '#FFFFFF' }} />
               </Button>
 
-              <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goCheckIn}>
+              <Button variant="contained" style={{ bottom: 3, left: 190, background: '#00296B' }} onClick={goCheckIn}>
                 <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
                 <NavigateNextIcon style={{ color: '#FFFFFF' }} />
               </Button>
@@ -87,7 +87,7 @@ export default function Patientboard(props) {
             <br />
             <br />
             <br />
-            <Button variant="contained" style={{ bottom: 3, left: 180, color: '#00296B !important' }}>
+            <Button variant="contained" style={{ bottom: 3, left: 180, background: '#00296B' }}>
               <Typography style={{ color: '#FFFFFF' }}>Book Now </Typography>
               <NavigateNextIcon style={{ color: '#FFFFFF' }} />
             </Button>
@@ -103,7 +103,7 @@ export default function Patientboard(props) {
             />
             <img src={map1} alt="map" width="500px" height="250px" />
             <br />
-            <Button variant="contained" style={{ bottom: 4, left: 200, color: '#00296B !important' }}>
+            <Button variant="contained" style={{ bottom: 4, left: 200, background: '#00296B' }}>
               <Typography style={{ color: '#FFFFFF' }}>Track </Typography>
               <NavigateNextIcon style={{ color: '#FFFFFF' }} />
             </Button>
@@ -138,7 +138,7 @@ export default function Patientboard(props) {
               <ListItem />
             </List>
 
-            <Button variant="contained" style={{ bottom: -75, left: 180, color: '#00296B !important' }}>
+            <Button variant="contained" style={{ bottom: -75, left: 180, background: '#00296B' }}>
               <Typography style={{ color: '#FFFFFF' }}>More Info </Typography>
               <NavigateNextIcon style={{ color: '#FFFFFF' }} />
             </Button>

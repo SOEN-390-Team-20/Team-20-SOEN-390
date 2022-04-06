@@ -61,10 +61,11 @@ function Appointments() {
       </h1>
       <Box
         sx={{
-          width: 1500,
-          height: 600,
+          width: '85%',
+          height: '60%',
           boxShadow: 10,
           borderRadius: '25px',
+          'margin-bottom': '25px',
         }}
       >
         <TableContainer component={Paper}>
@@ -93,7 +94,7 @@ function Appointments() {
                   <StyledTableCell align="right">{row.status}</StyledTableCell>
                   <StyledTableCell align="right">
                     {row.action}
-                    <Stack spacing={4} direction="row">
+                    <Stack spacing={2} direction="row-reverse">
 
                       <Button variant="outlined">Previous</Button>
                       <Button variant="outlined">Next</Button>
