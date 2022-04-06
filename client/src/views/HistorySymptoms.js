@@ -12,7 +12,7 @@ import {
   TableBody,
 } from '@mui/material';
 
-import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
 // import SymptomModal from '../components/historySymptoms/SymptomModal';
 import historyService from '../services/historySymptom';
 
@@ -117,9 +117,7 @@ function HistorySymptoms() {
 
   return (
     <>
-      <Navbar />
-      <br />
-      <br />
+      <Sidebar />
       <br />
       <br />
       <Typography variant="h2" style={{ color: '#00296B' }}>

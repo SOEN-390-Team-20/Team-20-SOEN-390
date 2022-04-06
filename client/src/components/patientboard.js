@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
-  Paper, Divider, Container, Grid, Button, Typography, List, ListItem, ListItemText, ListItemAvatar,
+  Paper, Divider, Container, Grid, Button, Typography, List,
+  ListItem, ListItemText, ListItemAvatar, Stack,
 } from '@mui/material/';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { blue } from '@mui/material/colors';
@@ -61,16 +62,17 @@ export default function Patientboard(props) {
 
             </div>
             <br />
+            <Stack direction="row" spacing={15}>
+              <Button variant="contained" style={{ bottom: 3, right: -300, color: '#00296B !important' }} onClick={goHistory}>
+                <Typography style={{ color: '#FFFFFF' }}>History </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
 
-            <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goHistory}>
-              <Typography style={{ color: '#FFFFFF' }}>History </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
-
-            <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goCheckIn}>
-              <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+              <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goCheckIn}>
+                <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
+            </Stack>
           </Item>
         </Grid>
         <Grid item xs={6} color={primary}>

@@ -5,11 +5,24 @@
 /* eslint-disable no-console */
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
+import {
+   LineChart, Legend, XAxis, YAxis, CartesianGrid, Tooltip, Line
+} from 'recharts';
+import Avatar from '@mui/material/Avatar';
+// import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+// import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Box, Paper, Container } from '@mui/material';
+import { Paper, Grid, Divider, Box } from '@mui/material';
 import adminService from '../services/admin';
-import Navbar from '../components/Navbar';
+import Sidebar from '../components/Sidebar';
+import user1 from '../components/images/user1.jpg';
+
+
+
 
 function ListUsers() {
   const [data, setData] = useState([]);
@@ -59,16 +72,108 @@ function ListUsers() {
     padding: theme.spacing(1),
     textAlign: 'center',
   }));
+  
+  const d = [
+    {
+      "name": "Febuary 2022",
+      "Patients": 4000,
+      "Doctors": 2400,
+      "Admin": 2400
+    },
+    {
+      "name": "March 2022",
+      "Patients": 3000,
+      "Doctors": 1398,
+      "Admin": 2210
+    },
+    {
+      "name": "April 2022",
+      "Patients": 2000,
+      "Doctors": 9800,
+      "Admin": 2290
+    },
+    
+  ]
   return (
     <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: "flex", width: '90%' }}>
-        <CssBaseline />
-        <Navbar />
-        <Container
-          sx={{ mt: 10, mb: 6 }}
-          style={{ paddingTop: "50px", width: '90%' }}
-        >
-          <Item sx={{ boxShadow: 10, padding: '50px' }}>
+      <CssBaseline />
+        <Sidebar />
+        <Box sx={{flexGrow:11, maxWidth:3000 }}>
+          <Grid container spacing={2}>
+        <Grid item xs={7}>
+        <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            <h1 style={{ color: '#00296B' }}> Active user trends</h1>
+
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            <br />
+            <br />
+            <br />
+            <br />
+           <LineChart width={730} height={250} data={d}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+           <CartesianGrid strokeDasharray="3 3" />
+           <XAxis dataKey="name" />
+           <YAxis />
+           <Tooltip />
+           <Legend />
+           <Line type="monotone" dataKey="Doctors" stroke="#8884d8" />
+           <Line type="monotone" dataKey="Patients" stroke="#82ca9d" />
+           <Line type="monotone" dataKey="Admin" stroke="#00296B" />
+          </LineChart> 
+          
+          </Item>
+       </Grid>
+       <Grid item xs={5}>
+          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            
+            <ListItem>
+                  <ListItemAvatar>
+                    <Avatar
+        alt="Remy Sharp"
+        src={user1}
+        sx={{ width: 106, height: 106 }}
+              />
+                  </ListItemAvatar>
+                  <ListItemText>
+                    <h1 style={{ color: '#00296B' }}> Profile</h1>
+                  </ListItemText>
+                    
+                  
+                </ListItem>
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            <h2 style={{ color: '#00296B' }}>Welcome back Admin! </h2><Grid item xs={3}>
+<h3 style={{ color: '#00296B' }}>First name:</h3>
+<h3 style={{ color: '#00296B' }}>
+  Last name:
+</h3>
+<h3 style={{ color: '#00296B' }}>Email:</h3>
+<h3 style={{ color: '#00296B' }}>ID:</h3>
+<h3 style={{ color: '#00296B' }}> Date:</h3>
+
+              </Grid>
+            
+              <br/>
+              
+      </Item>
+          </Grid>
+
+        <Grid item xs={19}>
+        <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            <h1 style={{ color: '#00296B' }}> List of Users</h1>
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            <br />
             <table style={{ marginLeft: 'auto', marginRight: 'auto', width: '90%' }}>
               <thead>
                 <tr>
@@ -82,9 +187,15 @@ function ListUsers() {
                 {userRows}
               </tbody>
             </table>
-          </Item>
-        </Container>
+            </Item>
+            
+        </Grid>
+       </Grid>
       </Box>
+      <br />
+      <br />
+      <br />
+      <br />
     </ThemeProvider>
   );
 }

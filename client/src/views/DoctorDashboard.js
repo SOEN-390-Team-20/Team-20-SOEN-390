@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
-  CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
+  CssBaseline, Box, Toolbar, ListItem, ListItemAvatar, ListItemText, Avatar,
 } from '@mui/material/';
 import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/Doctorboard';
@@ -71,15 +71,23 @@ function DashboardContent() {
           <Toolbar />
           <Box>
             {nam && (
-            <Typography variant="h2" style={{ color: '#00296B' }}>
-              { welcomeMessage}
-            </Typography>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={user1}
+                  sx={{ width: 106, height: 106 }}
+                />
+              </ListItemAvatar>
+              <ListItemText>
+                <h1 style={{ color: '#00296B' }}>
+                  {' '}
+                  {welcomeMessage}
+                </h1>
+              </ListItemText>
+
+            </ListItem>
             )}
-            <Stack direction="row" spacing={0}>
-
-              <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />
-
-            </Stack>
 
           </Box>
           { pat && <Patientboard listOfPatients={pat} />}
