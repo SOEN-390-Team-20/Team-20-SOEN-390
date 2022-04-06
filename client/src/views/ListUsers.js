@@ -6,7 +6,7 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
 import {
-   LineChart, Legend, XAxis, YAxis, CartesianGrid, Tooltip, Line
+   BarChart, Legend, XAxis, YAxis, CartesianGrid, Tooltip, Bar
 } from 'recharts';
 import Avatar from '@mui/material/Avatar';
 // import List from '@mui/material/List';
@@ -83,23 +83,21 @@ function ListUsers() {
   
   const d = [
     {
-      "name": "Febuary 2022",
-      "Patients": 4000,
-      "Doctors": 2400,
-      "Admin": 2400
+      "name": "Doctors",
+      "users": 4000,
+      
     },
     {
-      "name": "March 2022",
-      "Patients": 3000,
-      "Doctors": 1398,
-      "Admin": 2210
+      "name": "Patients",
+      "users": 3000,
+      
     },
     {
-      "name": "April 2022",
-      "Patients": 2000,
-      "Doctors": 9800,
-      "Admin": 2290
-    },
+      "name": "Admin",
+      "users": 2000,
+      
+    }
+    
     
   ]
   return (
@@ -121,17 +119,15 @@ function ListUsers() {
             <br />
             <br />
             <br />
-           <LineChart width={730} height={250} data={d}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-           <CartesianGrid strokeDasharray="3 3" />
-           <XAxis dataKey="name" />
-           <YAxis />
-           <Tooltip />
-           <Legend />
-           <Line type="monotone" dataKey="Doctors" stroke="#8884d8" />
-           <Line type="monotone" dataKey="Patients" stroke="#82ca9d" />
-           <Line type="monotone" dataKey="Admin" stroke="#00296B" />
-          </LineChart> 
+            <BarChart width={500} height={250} data={d}>
+  <CartesianGrid strokeDasharray="2 2" />
+  <XAxis dataKey="name" />
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  
+  <Bar dataKey="users" fill="#82ca9d" />
+</BarChart>
           
           </Item>
        </Grid>
