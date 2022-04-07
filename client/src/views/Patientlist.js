@@ -93,7 +93,6 @@ function Patientlist() {
               </Item>
             </Grid>
           ))}
-
         </Grid>
       </Box>
     </>
