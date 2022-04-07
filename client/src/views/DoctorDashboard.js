@@ -65,7 +65,6 @@ function DashboardContent() {
               : theme.palette.white),
             flexGrow: 1,
             height: '100vh',
-            overflow: 'auto',
           }}
         >
           <Toolbar />

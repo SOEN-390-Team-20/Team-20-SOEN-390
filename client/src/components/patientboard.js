@@ -34,9 +34,9 @@ export default function Patientboard(props) {
 
   const primary = blue;
   return (
-    <Container maxWidth="lg">
-      <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
-        <Grid item xs={6} sm={6} height={200}>
+    <Container>
+      <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 6 }} marginBottom="45px">
+        <Grid item xs={10} sm={6}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}> Your Conditions</h1>
 
@@ -62,20 +62,20 @@ export default function Patientboard(props) {
 
             </div>
             <br />
-            <Stack direction="row" spacing={15}>
-              <Button variant="contained" style={{ bottom: 3, right: -300, background: '#00296B' }} onClick={goHistory}>
+            <Stack direction="row" spacing={2} justifyContent="right">
+              <Button variant="contained" style={{ bottom: 3, background: '#00296B' }} onClick={goHistory}>
                 <Typography style={{ color: '#FFFFFF' }}>History </Typography>
                 <NavigateNextIcon style={{ color: '#FFFFFF' }} />
               </Button>
 
-              <Button variant="contained" style={{ bottom: 3, left: 190, background: '#00296B' }} onClick={goCheckIn}>
+              <Button variant="contained" style={{ bottom: 3, background: '#00296B' }} onClick={goCheckIn}>
                 <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
                 <NavigateNextIcon style={{ color: '#FFFFFF' }} />
               </Button>
             </Stack>
           </Item>
         </Grid>
-        <Grid item xs={6} color={primary}>
+        <Grid item xs={10} sm={6} color={primary}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}>Your Appointments</h1>
             <Divider
@@ -87,13 +87,15 @@ export default function Patientboard(props) {
             <br />
             <br />
             <br />
-            <Button variant="contained" style={{ bottom: 3, left: 180, background: '#00296B' }}>
-              <Typography style={{ color: '#FFFFFF' }}>Book Now </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+            <Stack direction="row" justifyContent="right">
+              <Button variant="contained" style={{ bottom: 3, background: '#00296B' }}>
+                <Typography style={{ color: '#FFFFFF' }}>Book Now </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
+            </Stack>
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={10} sm={6}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}>Track Your Location</h1>
             <Divider
@@ -101,15 +103,17 @@ export default function Patientboard(props) {
               variant="middle"
               sx={{ borderBottomWidth: 4 }}
             />
-            <img src={map1} alt="map" width="500px" height="250px" />
+            <img src={map1} alt="map" width="90%" />
             <br />
-            <Button variant="contained" style={{ bottom: 4, left: 200, background: '#00296B' }}>
-              <Typography style={{ color: '#FFFFFF' }}>Track </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+            <Stack direction="row" justifyContent="right">
+              <Button variant="contained" style={{ bottom: 3, background: '#00296B' }}>
+                <Typography style={{ color: '#FFFFFF' }}>Track </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
+            </Stack>
           </Item>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={10} sm={6}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}> Vaccination Status</h1>
 
@@ -118,7 +122,7 @@ export default function Patientboard(props) {
               variant="middle"
               sx={{ borderBottomWidth: 4 }}
             />
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <List sx={{ maxWidth: 360, maxHeight: 150, bgcolor: 'background.paper' }}>
               <ListItem>
                 <ListItemAvatar>
 
@@ -137,11 +141,14 @@ export default function Patientboard(props) {
               </ListItem>
               <ListItem />
             </List>
-
-            <Button variant="contained" style={{ bottom: -75, left: 180, background: '#00296B' }}>
-              <Typography style={{ color: '#FFFFFF' }}>More Info </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+            <Stack direction="row" justifyContent="right">
+              <br />
+              <br />
+              <Button variant="contained" style={{ bottom: -95, background: '#00296B' }}>
+                <Typography style={{ color: '#FFFFFF' }}>More Info </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
+            </Stack>
             <br />
             <br />
             <br />
