@@ -1,30 +1,49 @@
 import * as React from 'react';
 
 import { useLocation } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+// import { createTheme } from '@mui/material/styles';
 import {
-  CssBaseline, Box, Toolbar, Typography, Avatar, Stack,
+  CssBaseline, Box, Toolbar, ListItem, ListItemAvatar, ListItemText, Avatar,
 } from '@mui/material/';
 import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/patientboard';
 import user1 from '../components/images/user1.jpg';
 import ChatContainerModal from '../components/chat/ChatContainerModal';
 
-const getInitialNameState = () => {
+const getInitialState = () => {
   if (useLocation().state !== null) {
-    return { name: useLocation().state.name, role: useLocation().state.role };
+    return {
+      name: useLocation().state.name,
+      role: useLocation().state.role,
+      hin: useLocation().state.hin,
+    };
   }
-  return { name: 'N/A', role: 'N/A' };
+  return { name: 'N/A', role: 'N/A', hin: '0' };
 };
 
 function DashboardContent() {
-  const { name } = getInitialNameState();
-  const welcomeMessage = `Hello, ${name}`;
-  // const { role } = getInitialNameState();
+  const [nam, setnam] = useState(null);
+  const { name } = getInitialState();
+  const welcomeMessage = `Hello, ${nam}`;
+  const { role } = getInitialState();
   // const greeting = `Nice to see you back, ${role}`;
+  const { hin } = getInitialState();
+  const infoSaved = { nameSaved: `${name}`, roleSaved: `${role}`, hinSaved: `${hin}` };
 
-  const mdTheme = createTheme();
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const namee = localStorage.getItem('name');
+      setnam(namee);
+    }
 
+    fetchMyAPI();
+    console.log('hola todos');
+  }, []);
+
+  console.log(name);
+  console.log(role);
+  console.log(hin);
   // console.log(logo);
 
   // These are the states that control the ChatContainerModal visibility
@@ -33,39 +52,51 @@ function DashboardContent() {
   const handleCloseChatModal = () => setOpenChatModal(false);
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
 
-        <CssBaseline />
-        <Sidebar handleChatOpen={handleOpenChatModal} />
+    <Box sx={{ display: 'flex' }}>
 
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) => (theme.palette.mode === 'light'
-              ? theme.palette.white
-              : theme.palette.white),
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Box>
-            <Typography variant="h2" style={{ color: '#00296B' }}>
-              {welcomeMessage}
-            </Typography>
-            <Stack direction="row" spacing={0}>
+      <CssBaseline />
+      <Sidebar handleChatOpen={handleOpenChatModal} />
 
-              <Avatar alt="Remy Sharp" src={user1} sx={{ width: 60, height: 60 }} position="inline" />
-            </Stack>
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) => (theme.palette.mode === 'light'
+            ? theme.palette.white
+            : theme.palette.white),
+          flexGrow: 1,
+          height: '200vh',
+          overflow: 'auto',
+        }}
+      >
+        <Toolbar />
+        <Box>
+          {nam
+              && (
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src={user1}
+                    sx={{ width: 106, height: 106 }}
+                  />
+                </ListItemAvatar>
+                <ListItemText>
+                  <h1 style={{ color: '#00296B' }}>
+                    {' '}
+                    {welcomeMessage}
+                  </h1>
+                </ListItemText>
 
-          </Box>
-          <Patientboard />
+              </ListItem>
+              )}
+
         </Box>
-        <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
+        <Patientboard data={infoSaved} />
       </Box>
-    </ThemeProvider>
+      <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
+    </Box>
+
   );
 }
 export default function Dashboard() {

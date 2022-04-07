@@ -4,6 +4,7 @@ const express = require('express');
 const formsRouter = express.Router();
 const HealthForm = require('../models/healthform');
 const config = require('../utils/config');
+const dil = require('../models/user');
 // TODO_LATER: const config = require('../utils/config');
 
 // Gets a list of health forms (does not work in prod)
@@ -43,6 +44,17 @@ formsRouter.post('/healthform', async (request, response) => {
 
     // Send the payload via mongoose, wait for response then return it
     const savedHealthForm = await healthform.save();
+    dil.updateOne(
+      { hin: body.hin },
+      { lastUpdate: Date.now() },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated Docs : ', docs);
+        }
+      },
+    );
     response.json(savedHealthForm);
   } else if (Object.keys(body).length === 14 && body.feverOrChills === true) {
     // Using body, set new payload
@@ -64,7 +76,19 @@ formsRouter.post('/healthform', async (request, response) => {
     });
 
     // Send the payload via mongoose, wait for response then return it
+
     const savedHealthForm = await healthform.save();
+    dil.updateOne(
+      { hin: body.hin },
+      { lastUpdate: Date.now() },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated Docs : ', docs);
+        }
+      },
+    );
     response.json(savedHealthForm);
   } else {
     response.status(422).json({

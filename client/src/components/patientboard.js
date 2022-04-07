@@ -2,7 +2,8 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
-  Paper, Divider, Container, Grid, Button, Typography, List, ListItem, ListItemText, ListItemAvatar,
+  Paper, Divider, Container, Grid, Button, Typography, List,
+  ListItem, ListItemText, ListItemAvatar, Stack,
 } from '@mui/material/';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { blue } from '@mui/material/colors';
@@ -13,12 +14,17 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
 import map1 from './images/location-tracking-gps.jpg';
 
-export default function Patientboard() {
-  const navigate = useNavigate();
-  const goCheckIn = () => {
-    navigate('/checkIn');
-  };
+import Graph from './patientGraph/graph';
 
+export default function Patientboard(props) {
+  const navigate = useNavigate();
+  const { data } = props;
+  const goCheckIn = () => {
+    navigate('/checkIn', { state: { name: data.nameSaved, role: data.roleSaved, hin: data.hinSaved } });
+  };
+  const goHistory = () => {
+    navigate('/historySymptoms', { state: { name: data.nameSaved, role: data.roleSaved, hin: data.hinSaved } });
+  };
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -29,6 +35,7 @@ export default function Patientboard() {
   const percentage = 66;
 
   const primary = blue;
+
   return (
     <Container maxWidth="lg">
       <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
@@ -58,11 +65,17 @@ export default function Patientboard() {
 
             </div>
             <br />
+            <Stack direction="row" spacing={15}>
+              <Button variant="contained" style={{ bottom: 3, right: -300, color: '#00296B !important' }} onClick={goHistory}>
+                <Typography style={{ color: '#FFFFFF' }}>History </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
 
-            <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goCheckIn}>
-              <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+              <Button variant="contained" style={{ bottom: 3, left: 200, color: '#00296B !important' }} onClick={goCheckIn}>
+                <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
+                <NavigateNextIcon style={{ color: '#FFFFFF' }} />
+              </Button>
+            </Stack>
           </Item>
         </Grid>
         <Grid item xs={6} color={primary}>
@@ -137,6 +150,17 @@ export default function Patientboard() {
             <br />
             <br />
             <br />
+          </Item>
+        </Grid>
+        <Grid item xs={12} color={primary}>
+          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            <h1 style={{ color: '#00296B' }}>Statistics About Covid-19</h1>
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            <Graph />
           </Item>
         </Grid>
       </Grid>

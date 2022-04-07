@@ -10,7 +10,10 @@ const axiosService = config.isDev() ? devAxios : prodAxios;
 const logUser = 'api/getpatient';
 
 const token = localStorage.getItem('token');
+console.log(token);
+
 const configuration = {
+
   headers: { 'authorization': token },
 };
 // calls are this easy for json formatted https://github.com/axios/axios#example

@@ -11,6 +11,9 @@ import ListUsers from './views/ListUsers';
 import HistorySymptoms from './views/HistorySymptoms';
 import Dashboard from './views/Dashboard';
 import DoctorDashboard from './views/DoctorDashboard';
+import Appointments from './views/Appointments';
+import Patientlist from './views/Patientlist';
+import QRcode from './views/Qrcode';
 
 // React-Native (will be deleted)
 const styles = StyleSheet.create({
@@ -48,6 +51,10 @@ function App() {
             <Route path="/listUsers" element={<ListUsers />} />
             <Route path="/doctorDashboard" element={<DoctorDashboard />} />
             <Route path="/historySymptoms" element={<HistorySymptoms />} />
+            <Route path="/appointment" element={<Appointments />} />
+            <Route path="/patientlist" element={<Patientlist />} />
+            <Route path="/QRcode" element={<QRcode />} />
+
           </Routes>
         </Router>
         <StatusBar style="auto" />

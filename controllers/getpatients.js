@@ -11,9 +11,17 @@ const dil = require('../models/user');
 getPatientRouter.post('/', TokenVerify , async (req, res) => {
   const { body } = req;
 
-  
+ if(body.num==0){
 
+  const user = await dil.findOne({
+    email: body.email,
+  });
+  console.log(user)
+  return res.status(200).json(user);
 
+  }
+
+else{
     const doctorEmail = body.email;
     console.log(doctorEmail);
 
@@ -29,7 +37,7 @@ getPatientRouter.post('/', TokenVerify , async (req, res) => {
     const records = await dil.find().where('email').in(patientslist).exec();
     console.log(records)
     return res.status(200).json(records);
-  
+  }
 });
 
 module.exports = getPatientRouter;

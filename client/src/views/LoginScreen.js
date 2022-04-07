@@ -42,6 +42,9 @@ function LoginScreen() {
       if (response.data.auth) {
         setIsError(false);
         localStorage.setItem('token', `Bearer ${response.data.token}`);
+        localStorage.setItem('email', response.data.profile.email);
+        localStorage.setItem('name', response.data.profile.firstName);
+
         if (response.data.profile.role === "doctor") {
           const patientsl = await doctorLogin.login({ "email": response.data.profile.email });
           navigate('/doctordashboard', {
@@ -54,6 +57,8 @@ function LoginScreen() {
           });
         } else if (response.data.profile.role === "patient") {
           navigate('/dashboard', { state: { name: response.data.profile.firstName, role: response.data.profile.role, hin: response.data.profile.hin } });
+        } else if (response.data.profile.role === "admin") {
+          navigate('/listUsers');
         }
       } else {
         setIsError(true);

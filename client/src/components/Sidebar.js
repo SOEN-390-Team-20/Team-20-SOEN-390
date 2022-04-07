@@ -16,10 +16,12 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import ChatIcon from '@mui/icons-material/Chat';
 // import { Avatar } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import logoo from './images/BellLogowhite.png';
 
 const drawerWidth = 240;
@@ -70,6 +72,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function PersistentDrawerRight({ handleChatOpen }) {
+  const navigate = useNavigate();
+  const handleExit = () => {
+    localStorage.clear();
+    navigate('/');
+  };
+  const QRcode = () => {
+    navigate('/QRcode');
+  };
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -91,6 +101,13 @@ export default function PersistentDrawerRight({ handleChatOpen }) {
           <Typography variant="h3" noWrap sx={{ flexGrow: 1 }}>
             JeVaisBienAller
           </Typography>
+          <Button
+            variant="contained"
+            float="left"
+            onClick={handleExit}
+          >
+            Logout
+          </Button>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -100,6 +117,7 @@ export default function PersistentDrawerRight({ handleChatOpen }) {
           >
             <MenuIcon />
           </IconButton>
+
         </Toolbar>
       </AppBar>
       <Main open={open}>
@@ -126,11 +144,11 @@ export default function PersistentDrawerRight({ handleChatOpen }) {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem button key="Condition">
+          <ListItem button key="QR Code" onClick={QRcode}>
             <ListItemIcon>
-              <FactCheckIcon />
+              <QrCodeScannerIcon />
             </ListItemIcon>
-            <ListItemText primary="Condition" />
+            <ListItemText primary="QR Code" />
           </ListItem>
           <ListItem button key="Chat" onClick={handleChatOpen}>
             <ListItemIcon>
@@ -141,7 +159,7 @@ export default function PersistentDrawerRight({ handleChatOpen }) {
         </List>
         <Divider />
         <List>
-          {['Settings', 'Profile'].map((text, index) => (
+          {['Settings', 'Email us'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <SettingsIcon /> : <MailIcon />}

@@ -1,20 +1,26 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import {
-  Grid, Divider, Container, Typography, Button, Table, TableBody, TableCell,
-  TableContainer, TableHead,
-  TableRow, Paper,
+  Grid, Divider, Container, Paper, Button, List, ListItemIcon, ListItem,
+  ListItemButton, ListItemText,
 } from '@mui/material/';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { blue } from '@mui/material/colors';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+// import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { indigo } from '@mui/material/colors';
+// import CircleIcon from '@mui/icons-material/Circle';
+// import { textAlign } from '@mui/system';
+import SendIcon from '@mui/icons-material/Send';
+import Doctorchart from './doctorchart';
 
-function createData(element) {
+/* function createData(element) {
   const temp = {
-    name: `${element.firstName} ${element.lastName}`, age: ' ', sex: ' ', weight: ' ', lastappointment: ' ',
+    name: `${element.firstName} ${element.lastName}`, age: ' ', sex: ' ', weight: ' ',
+     lastappointment: ' ',
   };
   return temp;
 }
-/*  eslint-disable  react/destructuring-assignment */
+  eslint-disable  react/destructuring-assignment */
 // function createData(name, age, sex, weight, lastappointment) {
 //   return {
 //     name, age, sex, weight, lastappointment,
@@ -32,34 +38,81 @@ const Item = styled(Paper)(({ theme }) => ({
   textAlign: 'center',
   color: theme.palette.text.secondary,
 }));
-const primary = blue;
+const primary = indigo;
+
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(indigo[900]),
+  backgroundColor: indigo[900],
+  '&:hover': {
+    backgroundColor: indigo[50],
+  },
+}));
 
 function Doctorboard(props) {
-  const rows = props.listOfPatients.map((element) => createData(element));
+  const { listOfPatients } = props;
+  const navigate = useNavigate();
+  const goappt = () => {
+    navigate('/appointment');
+  };
+  const gopatient = () => {
+    navigate('/patientlist');
+  };
   return (
-    <Container maxWidth="lg">
-      <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
-        <Grid item xs={8}>
+    <Container maxWidth="200%">
+      <Grid container justifyContent="center" spacing={5}>
+        <br />
+        <Grid item xs={10}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
-            <h1 style={{ color: '#00296B' }}> Your Conditions</h1>
+            <h1 style={{ color: '#00296B' }}> Patients profile</h1>
 
             <Divider
               style={{ background: '#00296B' }}
               variant="middle"
               sx={{ borderBottomWidth: 4 }}
             />
-
-            <h3>Fill out the daily check in for your own good!</h3>
-
             <br />
-
-            <Button variant="contained" style={{ bottom: 3, left: 300, color: '#00296B !important' }}>
-              <Typography style={{ color: '#FFFFFF' }}>Fill </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+            <Doctorchart />
           </Item>
         </Grid>
-        <Grid item xs={4} color={primary}>
+        <Grid item xs={10} md={5}>
+          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            <h1 style={{ color: '#00296B' }}> Your Patients</h1>
+
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            <List
+              sx={{
+                width: '100%', maxWidth: 580, bgcolor: 'background.paper', color: '#00296B',
+              }}
+            >
+
+              {listOfPatients.map((element) => (
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary={`${element.firstName} ${element.firstName}`} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+
+            <ColorButton
+              onClick={gopatient}
+              variant="contained"
+              endIcon={<SendIcon />}
+              style={{
+                bottom: 10,
+                marginLeft: '65%',
+              }}
+
+            >
+              More Info
+            </ColorButton>
+          </Item>
+        </Grid>
+        <Grid item xs={10} md={5} alignItems="stretch" color={primary}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}>Your Appointments</h1>
             <Divider
@@ -67,54 +120,62 @@ function Doctorboard(props) {
               variant="middle"
               sx={{ borderBottomWidth: 4 }}
             />
-            <h3>No upcoming Appointments</h3>
-          </Item>
-        </Grid>
-        <Grid item xs={12}>
-          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
-            <h1 style={{ color: '#00296B' }}> Your Dashboard</h1>
+            <List
+              sx={{
+                width: '100%', maxWidth: 580, bgcolor: 'background.paper', color: '#00296B',
+              }}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {' '}
+                    <DateRangeIcon style={{ color: '#00296B' }} />
+                  </ListItemIcon>
+                  <ListItemText primary="March 17, 2022" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {' '}
+                    <DateRangeIcon style={{ color: '#00296B' }} />
+                  </ListItemIcon>
+                  <ListItemText primary="March 18, 2022" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {' '}
+                    <DateRangeIcon style={{ color: '#00296B' }} />
+                  </ListItemIcon>
+                  <ListItemText primary="March 27, 2022" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+            <ColorButton
+              variant="contained"
+              onClick={goappt}
+              endIcon={<SendIcon />}
+              style={{
+                bottom: 10,
 
-            <Divider
-              style={{ background: '#00296B' }}
-              variant="middle"
-              sx={{ borderBottomWidth: 4 }}
-            />
-            <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>First and Last name</TableCell>
-                    <TableCell align="right">Age</TableCell>
-                    <TableCell align="right">Sex</TableCell>
-                    <TableCell align="right">Weight&nbsp;(g)</TableCell>
-                    <TableCell align="right">Last appointment</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow
-                      key={row.name}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.age}</TableCell>
-                      <TableCell align="right">{row.sex}</TableCell>
-                      <TableCell align="right">{row.weight}</TableCell>
-                      <TableCell align="right">{row.lastappointment}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Button variant="contained" style={{ bottom: -5, left: 500, color: '#00296B !important' }}>
-              <Typography style={{ color: '#FFFFFF' }}>More </Typography>
-              <NavigateNextIcon style={{ color: '#FFFFFF' }} />
-            </Button>
+                marginLeft: '65%',
+              }}
+
+            >
+              More Info
+            </ColorButton>
+
           </Item>
         </Grid>
+
       </Grid>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </Container>
   );
 }

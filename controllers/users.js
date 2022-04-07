@@ -31,12 +31,17 @@ usersRouter.post('/old', async (request, response) => {
     firstName: body.firstName,
     lastName: body.lastName,
     role: body.role,
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
     associated_users: body.associated_users,
   });
 
   // Send the payload via mongoose, wait for response then return it
   const savedUser = await user.save();
-  response.json(savedUser);
+  response.status(200).json(savedUser);
 });
 
 // Register a new user
@@ -60,6 +65,11 @@ usersRouter.post('/', async (request, response) => {
     firstName: body.firstName,
     lastName: body.lastName,
     role: body.role,
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
     associated_users: body.associated_users,
   });
 
@@ -70,6 +80,37 @@ usersRouter.post('/', async (request, response) => {
     });
 
     await doc.save();
+  } else if (body.role === 'patient') {
+    const piii = await Doctor.aggregate([
+      {
+        $addFields: {
+          size: { $size: '$patients' },
+        },
+      },
+      {
+        $sort: { size: 1 },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+
+    const patientslist = piii[0].patients;
+    console.log(patientslist);
+    patientslist.push(body.email);
+    Doctor.updateOne(
+      { email: piii[0].email },
+      { patients: patientslist },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Updated Docs : ', docs);
+        }
+      },
+    );
+    console.log(piii);
+    newUser.set({ associated_doctor: piii[0].email });
   }
 
   await newUser.save();
