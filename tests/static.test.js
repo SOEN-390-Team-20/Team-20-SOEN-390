@@ -6,11 +6,11 @@ const app = require('../app');
 const api = supertest(app);
 
 describe('Static routes tests', () => {
-  test('GET / : React app is accessible', async () => {
-    await api
-      .get('/')
-      .expect(200);
-  });
+  // test('GET / : React app is accessible', async () => {
+  //   await api
+  //     .get('/')
+  //     .expect(200);
+  // });
   test('GET /health : is accessible', async () => {
     await api
       .get('/health')

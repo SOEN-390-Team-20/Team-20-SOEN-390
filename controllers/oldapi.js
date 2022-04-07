@@ -84,7 +84,7 @@ oldapiRouter.post('/login', (req, res) => {
   } else {
     returnQueryLoad((result) => {
       if (result[0] !== undefined && result[0].password === req.body.password) {
-        res.send(result);
+        res.json(result);
       } else {
         res.send('error: invalid password');
       }

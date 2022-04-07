@@ -9,7 +9,7 @@ const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
 const endpoint = 'api/conversations';
 // temp hardcoded ID of a doctor user
-const id = '6249f7833ec170ce6ede751d';
+const id = '624ef5fdc8cf8a99af22f09b';
 const token = localStorage.getItem('token');
 
 const getMessages = async () => {

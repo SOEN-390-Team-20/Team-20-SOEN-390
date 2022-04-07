@@ -176,7 +176,6 @@ export default function Patientboard(props) {
             <br />
           </Item>
         </Grid>
-
       </Grid>
     </Container>
   );

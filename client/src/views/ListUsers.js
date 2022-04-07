@@ -25,6 +25,7 @@ import doctorLogin from '../services/doctorLogin';
 
 
 function ListUsers() {
+  const [roles, getRoles] = useState(null);
   const [data, setData] = useState([]);
   const [accountData, setAccount]=useState(null);
   useEffect(() => {
@@ -40,7 +41,35 @@ function ListUsers() {
 
   }
   async function getUsers() {
+    let admins=0;
+    let doctors=0;
+    let patients=0;
     await adminService.getAll().then((response) => {
+         response.data.forEach(element => {
+           if (element.role=="admin"){
+                    admins++
+           } else if (element.role=="doctor"){
+                    doctors++
+          }  else if (element.role=="patient"){
+                    patients++
+          }
+         });
+      getRoles([{
+        "name": "Doctors",
+        "users": doctors,
+        
+      },
+      {
+        "name": "Patients",
+        "users": patients,
+        
+      },
+      {
+        "name": "Admin",
+        "users": admins,
+        
+      }
+      ])
       setData(response.data);
     }).catch((error) => {
       console.error('Error' + error);
@@ -81,25 +110,7 @@ function ListUsers() {
     textAlign: 'center',
   }));
   
-  const d = [
-    {
-      "name": "Doctors",
-      "users": 4000,
-      
-    },
-    {
-      "name": "Patients",
-      "users": 3000,
-      
-    },
-    {
-      "name": "Admin",
-      "users": 2000,
-      
-    }
-    
-    
-  ]
+ 
   return (
     <>
       <CssBaseline />
@@ -119,7 +130,7 @@ function ListUsers() {
             <br />
             <br />
             <br />
-            <BarChart width={500} height={250} data={d}>
+           {roles&&<BarChart width={500} height={250} data={roles}>
   <CartesianGrid strokeDasharray="2 2" />
   <XAxis dataKey="name" />
   <YAxis />
@@ -127,7 +138,7 @@ function ListUsers() {
   <Legend />
   
   <Bar dataKey="users" fill="#82ca9d" />
-</BarChart>
+</BarChart>}
           
           </Item>
        </Grid>

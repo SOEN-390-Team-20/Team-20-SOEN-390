@@ -25,22 +25,13 @@ describe('(Old Api) REST API requests on /rest/api/', () => {
 
   test('POST /rest/api/login : TEST_PATIENT1 can login', async () => {
     // this test expects a test user already created (must be after registration)
-    const result = await api
+    await api
       .post('/rest/api/login')
       .send({
         email: TEST_PATIENT1.email,
         password: TEST_PATIENT1.password,
       })
       .expect(200);
-
-    const body = result.body[0];
-
-    expect(body.email).toContain(TEST_PATIENT1.email);
-    expect(body.hin).toContain(TEST_PATIENT1.hin);
-    expect(body.password).toContain(TEST_PATIENT1.password);
-    expect(body.firstName).toContain(TEST_PATIENT1.firstName);
-    expect(body.lastName).toContain(TEST_PATIENT1.lastName);
-    expect(body.role).toContain(TEST_PATIENT1.role);
   });
 
   test('POST /rest/api/login : TEST_PATIENT1 cannot login with bad credentials', async () => {

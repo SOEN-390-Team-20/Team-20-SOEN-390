@@ -74,6 +74,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function PersistentDrawerRight({ handleChatOpen }) {
   const navigate = useNavigate();
   const handleExit = () => {
+    localStorage.clear();
     navigate('/');
   };
   const QRcode = () => {
