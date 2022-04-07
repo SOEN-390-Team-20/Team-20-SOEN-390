@@ -8,6 +8,11 @@ const testPatients = {
     firstName: 'Testpatientonefirst',
     lastName: 'Testpatientonelast',
     role: 'Patient',
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
     associated_users: [],
   },
   TEST_PATIENT2: {
@@ -17,6 +22,12 @@ const testPatients = {
     firstName: 'legit',
     lastName: 'legit',
     role: 'Patient',
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
+    associated_users: [],
   },
 };
 
@@ -28,6 +39,11 @@ const testDoctors = {
     firstName: 'Testdoctoronefirst',
     lastName: 'Testdoctoronelast',
     role: 'Doctor',
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
     associated_users: [],
   },
 };
@@ -40,6 +56,11 @@ const testAdmins = {
     firstName: 'TestAdminOneFirst',
     lastName: 'TestAdminOneLast',
     role: 'admin',
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
     associated_users: [],
   },
 };

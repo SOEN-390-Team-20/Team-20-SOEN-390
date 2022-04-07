@@ -31,12 +31,17 @@ usersRouter.post('/old', async (request, response) => {
     firstName: body.firstName,
     lastName: body.lastName,
     role: body.role,
+    selfQuarantine: 'negative',
+    vaccinationstatus: 0,
+    covidStatus: 'negative',
+    lastUpdate: Date.now(),
+    associated_doctor: 'none',
     associated_users: body.associated_users,
   });
 
   // Send the payload via mongoose, wait for response then return it
   const savedUser = await user.save();
-  response.json(savedUser);
+  response.status(200).json(savedUser);
 });
 
 // Register a new user
