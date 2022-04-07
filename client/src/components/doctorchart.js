@@ -1,61 +1,45 @@
 import * as React from 'react';
 import {
-  Bar, Legend, BarChart, XAxis, YAxis, CartesianGrid, Tooltip,
+  Bar, Legend, BarChart, XAxis, CartesianGrid,
 } from 'recharts';
 
 const data = [
   {
-    name: 'Patient 1',
-    uv: 4000,
-    pv: 2400,
+    name: 'noory',
+
+    dosages: 10000,
   },
   {
-    name: 'Patient 2',
-    uv: 3000,
-    pv: 1398,
+    name: 'uoiuoiu',
+
+    dosages: 0,
   },
   {
-    name: 'Patient 3',
-    uv: 2000,
-    pv: 9800,
+    name: 'patient 3',
+
+    dosages: 5000,
   },
   {
-    name: 'Patient 4',
-    uv: 2780,
-    pv: 3908,
+    name: 'patient',
+
+    dosages: 10000,
   },
   {
-    name: 'Patient 5',
-    uv: 1890,
-    pv: 4800,
+    name: 'ramzi',
+
+    dosages: 5000,
   },
   {
-    name: 'Patient 6',
-    uv: 2390,
-    pv: 3800,
+    name: 'patient',
+
+    dosages: 5000,
   },
   {
-    name: 'Patient 7',
-    uv: 3490,
-    pv: 4300,
-  },
-  {
-    name: 'Patient 8',
-    uv: 3490,
-    pv: 4300,
-  },
-  {
-    name: 'Patient 9',
-    uv: 3490,
-    pv: 4300,
-  },
-  {
-    name: 'Patient 10',
-    uv: 3490,
-    pv: 4300,
+    name: 'qqq',
+
+    dosages: 10000,
   },
 ];
-
 function Doctorchart() {
   return (
     <BarChart
@@ -68,11 +52,8 @@ function Doctorchart() {
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
       <Legend />
-      <Bar dataKey="pv" fill="#151ea6" />
-      <Bar dataKey="uv" fill="#cc9901" />
+      <Bar dataKey="dosages" fill="#151ea6" />
     </BarChart>
   );
 }
