@@ -51,8 +51,8 @@ export default function Patientboard(props) {
         </Grid>
         <Grid item xs={4} color={primary}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
-            <h1 style={{ color: '#00296B' }}>National Vaccine Status</h1>
-            <iframe style={{ width: '100%', borderRadius: '25px' }} title="National Vaccine Status" src="https://covid19canada.maps.arcgis.com/apps/opsdashboard/index.html#/2772c0489f43411ca9493fc5888fbe67" height="550" width="100%" />
+            <h1 style={{ color: '#00296B' }}>Daily trends</h1>
+            <iframe style={{ width: '100%', borderRadius: '25px' }} title="Daily Cases Statistics" src="https://covid19canada.maps.arcgis.com/apps/opsdashboard/index.html#/7856c4762c7443bab2caba8b3c16af64" height="550" width="100%" />
           </Item>
         </Grid>
         <Grid item xs={6} sm={6} height={200}>
