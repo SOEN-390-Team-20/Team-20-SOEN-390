@@ -59,7 +59,7 @@ function Doctorboard(props) {
   };
   return (
     <Container maxWidth="200%">
-      <Grid container spacing={20} rowSpacing={6} columnSpacing={30}>
+      <Grid container justifyContent="center" spacing={5}>
         <br />
         <Grid item xs={10}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
@@ -74,7 +74,7 @@ function Doctorboard(props) {
             <Doctorchart />
           </Item>
         </Grid>
-        <Grid item xs={1} md={5}>
+        <Grid item xs={10} md={5}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}> Your Patients</h1>
 
@@ -104,8 +104,7 @@ function Doctorboard(props) {
               endIcon={<SendIcon />}
               style={{
                 bottom: 10,
-                marginRight: -420,
-
+                marginLeft: '65%',
               }}
 
             >
@@ -113,7 +112,7 @@ function Doctorboard(props) {
             </ColorButton>
           </Item>
         </Grid>
-        <Grid item xs={3} md={5} alignItems="stretch" color={primary}>
+        <Grid item xs={10} md={5} alignItems="stretch" color={primary}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}>Your Appointments</h1>
             <Divider
@@ -160,8 +159,8 @@ function Doctorboard(props) {
               endIcon={<SendIcon />}
               style={{
                 bottom: 10,
-                marginRight: -420,
 
+                marginLeft: '65%',
               }}
 
             >

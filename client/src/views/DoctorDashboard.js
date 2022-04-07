@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme } from '@mui/material/styles';
 import {
   CssBaseline, Box, Toolbar, ListItem, ListItemAvatar, ListItemText, Avatar,
 } from '@mui/material/';
@@ -34,8 +34,6 @@ function DashboardContent() {
   // const { role } = getInitialNameState();
   // const greeting = `Nice to see you back, ${role}`;
 
-  const mdTheme = createTheme();
-
   useEffect(() => {
     async function fetchMyAPI() {
       const email = localStorage.getItem('email');
@@ -51,26 +49,25 @@ function DashboardContent() {
 
   // console.log(logo);
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex' }}>
 
-        <CssBaseline />
-        <Sidebar />
+      <CssBaseline />
+      <Sidebar />
 
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) => (theme.palette.mode === 'light'
-              ? theme.palette.white
-              : theme.palette.white),
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Box>
-            {nam && (
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) => (theme.palette.mode === 'light'
+            ? theme.palette.white
+            : theme.palette.white),
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
+        <Toolbar />
+        <Box>
+          {nam && (
             <ListItem>
               <ListItemAvatar>
                 <Avatar
@@ -87,13 +84,12 @@ function DashboardContent() {
               </ListItemText>
 
             </ListItem>
-            )}
+          )}
 
-          </Box>
-          { pat && <Patientboard listOfPatients={pat} />}
         </Box>
+        { pat && <Patientboard listOfPatients={pat} />}
       </Box>
-    </ThemeProvider>
+    </Box>
   );
 }
 export default function Dashboard() {

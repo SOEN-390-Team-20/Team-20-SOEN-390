@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme } from '@mui/material/styles';
 import {
   CssBaseline, Box, Toolbar, ListItem, ListItemAvatar, ListItemText, Avatar,
 } from '@mui/material/';
@@ -40,7 +40,6 @@ function DashboardContent() {
     fetchMyAPI();
     console.log('hola todos');
   }, []);
-  const mdTheme = createTheme();
 
   console.log(name);
   console.log(role);
@@ -53,26 +52,26 @@ function DashboardContent() {
   const handleCloseChatModal = () => setOpenChatModal(false);
 
   return (
-    <ThemeProvider theme={mdTheme}>
-      <Box sx={{ display: 'flex' }}>
 
-        <CssBaseline />
-        <Sidebar handleChatOpen={handleOpenChatModal} />
+    <Box sx={{ display: 'flex' }}>
 
-        <Box
-          component="main"
-          sx={{
-            backgroundColor: (theme) => (theme.palette.mode === 'light'
-              ? theme.palette.white
-              : theme.palette.white),
-            flexGrow: 1,
-            height: '100vh',
-            overflow: 'auto',
-          }}
-        >
-          <Toolbar />
-          <Box>
-            {nam
+      <CssBaseline />
+      <Sidebar handleChatOpen={handleOpenChatModal} />
+
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) => (theme.palette.mode === 'light'
+            ? theme.palette.white
+            : theme.palette.white),
+          flexGrow: 1,
+          height: '200vh',
+          overflow: 'auto',
+        }}
+      >
+        <Toolbar />
+        <Box>
+          {nam
               && (
               <ListItem>
                 <ListItemAvatar>
@@ -92,12 +91,12 @@ function DashboardContent() {
               </ListItem>
               )}
 
-          </Box>
-          <Patientboard data={infoSaved} />
         </Box>
-        <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
+        <Patientboard data={infoSaved} />
       </Box>
-    </ThemeProvider>
+      <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
+    </Box>
+
   );
 }
 export default function Dashboard() {

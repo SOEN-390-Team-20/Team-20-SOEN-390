@@ -101,7 +101,7 @@ function ListUsers() {
     
   ]
   return (
-    <ThemeProvider theme={mdTheme}>
+    <>
       <CssBaseline />
         <Sidebar />
         <Box sx={{flexGrow:11, maxWidth:3000 }}>
@@ -200,7 +200,7 @@ function ListUsers() {
       <br />
       <br />
       <br />
-    </ThemeProvider>
+    </>
   );
 }
 
