@@ -78,11 +78,13 @@ function Patientlist() {
                   Upcomign appts: none
                 </h3>
                 <Stack
-                  spacing={3}
+                  spacing={2}
                   direction="row"
                   alignItems="center"
                   justify="center"
                   style={{ minHeight: '10vh' }}
+                  justifyContent="center"
+                  overflow="auto"
                 >
                   <Button variant="contained">View</Button>
                   <Button variant="contained">Chat</Button>
