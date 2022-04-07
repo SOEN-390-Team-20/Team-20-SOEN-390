@@ -39,17 +39,6 @@ export default function Patientboard(props) {
   return (
     <Container maxWidth="lg">
       <Grid container rowSpacing={6} columnSpacing={{ xs: 1, sm: 2, md: 6 }}>
-        <Grid item xs={12} color={primary}>
-          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
-            <h1 style={{ color: '#00296B' }}>Symptoms In The Last 7 Days</h1>
-            <Divider
-              style={{ background: '#00296B' }}
-              variant="middle"
-              sx={{ borderBottomWidth: 4 }}
-            />
-            <Graph />
-          </Item>
-        </Grid>
         <Grid item xs={6} sm={6} height={200}>
           <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
             <h1 style={{ color: '#00296B' }}> Your Conditions</h1>
@@ -161,6 +150,17 @@ export default function Patientboard(props) {
             <br />
             <br />
             <br />
+          </Item>
+        </Grid>
+        <Grid item xs={12} color={primary}>
+          <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
+            <h1 style={{ color: '#00296B' }}>Statistics About Covid-19</h1>
+            <Divider
+              style={{ background: '#00296B' }}
+              variant="middle"
+              sx={{ borderBottomWidth: 4 }}
+            />
+            <Graph />
           </Item>
         </Grid>
       </Grid>
