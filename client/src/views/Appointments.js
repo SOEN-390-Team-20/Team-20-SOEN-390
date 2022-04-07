@@ -39,11 +39,14 @@ function createData(name, date, location, status, action) {
 }
 
 const rows = [
-  createData('Laurent Lao', 'March 17, 2022', 'In office', 'Status:neg'),
-  createData('Laurent Lao', 'March 17, 2022', 'In office', 'Status:neg'),
-  createData('Laurent Lao', 'March 17, 2022', 'In office', 'Status:neg'),
-  createData('Laurent Lao', 'March 17, 2022', 'In office', 'Status:neg'),
-  createData('Laurent Lao', 'March 17, 2022', 'In office', 'Status:neg'),
+  createData('noory noory', 'March 17, 2022', 'In Person', 'Status:neg'),
+  createData('uoiuoi dsdas', 'March 18, 2022', 'In office', 'Status:neg'),
+  createData('patient3 patient3', 'March 23, 2022', 'In office', 'Status:neg'),
+  createData('patient 4 patient 4', 'March 27, 2022', 'In office', 'Status:neg'),
+  createData('Ramzi patient', 'March 30, 2022', 'In office', 'Status:neg'),
+  createData('Ramzi patient', 'March 30, 2022', 'In office', 'Status:neg'),
+  createData('patient patio', 'March 30, 2022', 'In office', 'Status:neg'),
+  createData('qqq qqq', 'March 30, 2022', 'In office', 'Status:neg'),
 ];
 
 function Appointments() {
