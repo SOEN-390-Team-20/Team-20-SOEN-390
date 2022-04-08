@@ -22,7 +22,7 @@ function QRcode() {
     async function fetchMyAPI() {
       const email = localStorage.getItem('email');
       const num = 0;
-      const patientsl = await doctorPatients.login({ email, num });
+      const patientsl = await doctorPatients.getPatients({ email, num });
       console.log(patientsl);
       QRCode.toDataURL(
         `firstname: ${patientsl.data.firstName}

@@ -10,6 +10,7 @@ import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/patientboard';
 import user1 from '../components/images/user1.jpg';
 import ChatContainerModal from '../components/chat/ChatContainerModal';
+import userInfo from '../services/userInfo';
 
 const getInitialState = () => {
   if (useLocation().state !== null) {
@@ -17,9 +18,12 @@ const getInitialState = () => {
       name: useLocation().state.name,
       role: useLocation().state.role,
       hin: useLocation().state.hin,
+      id: useLocation().state.id,
     };
   }
-  return { name: 'N/A', role: 'N/A', hin: '0' };
+  return {
+    name: 'N/A', role: 'N/A', hin: '0', id: '',
+  };
 };
 
 function DashboardContent() {
@@ -29,30 +33,27 @@ function DashboardContent() {
   const { role } = getInitialState();
   // const greeting = `Nice to see you back, ${role}`;
   const { hin } = getInitialState();
+  const { id } = getInitialState();
   const infoSaved = { nameSaved: `${name}`, roleSaved: `${role}`, hinSaved: `${hin}` };
+
+  // These are the states that control the ChatContainerModal visibility
+  const [chatTargetId, setChatTargetId] = React.useState('');
+  const [openChatModal, setOpenChatModal] = React.useState(false);
+  const handleOpenChatModal = () => setOpenChatModal(true);
+  const handleCloseChatModal = () => setOpenChatModal(false);
 
   useEffect(() => {
     async function fetchMyAPI() {
       const namee = localStorage.getItem('name');
       setnam(namee);
+      const response = await userInfo.getUser(id);
+      const patientsDoctorId = response.data.doctorId;
+      setChatTargetId(patientsDoctorId);
     }
-
     fetchMyAPI();
-    console.log('hola todos');
   }, []);
 
-  console.log(name);
-  console.log(role);
-  console.log(hin);
-  // console.log(logo);
-
-  // These are the states that control the ChatContainerModal visibility
-  const [openChatModal, setOpenChatModal] = React.useState(false);
-  const handleOpenChatModal = () => setOpenChatModal(true);
-  const handleCloseChatModal = () => setOpenChatModal(false);
-
   return (
-
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
@@ -90,11 +91,14 @@ function DashboardContent() {
 
               </ListItem>
               )}
-
         </Box>
         <Patientboard data={infoSaved} />
       </Box>
-      <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
+      <ChatContainerModal
+        handleChatClose={handleCloseChatModal}
+        open={openChatModal}
+        chatTargetId={chatTargetId}
+      />
     </Box>
 
   );

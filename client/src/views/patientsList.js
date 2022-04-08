@@ -21,8 +21,8 @@ function PatientsList() {
   let patientsCounter = 0;
 
   // These are the states that control the ChatContainerModal visibility
-  const [openChatModal, setOpenChatModal] = React.useState(false);
   const [chatTargetId, setChatTargetId] = React.useState('');
+  const [openChatModal, setOpenChatModal] = React.useState(false);
   const handleOpenChatModal = (targetId) => {
     setChatTargetId(targetId);
     setOpenChatModal(true);

@@ -37,7 +37,7 @@ loginRouter.post('/', async (request, response) => {
       role: user.role,
       email: user.email,
       // eslint-disable-next-line no-underscore-dangle
-      id: user.__id,
+      id: user.id,
       hin: user.hin,
     },
   };

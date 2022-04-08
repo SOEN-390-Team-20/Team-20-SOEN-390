@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import { createTheme } from '@mui/material/styles';
 import {
@@ -12,27 +11,10 @@ import doctorPatients from '../services/doctorPatients';
 
 // import Doctorboard from '../components/Doctorboard';
 
-const getInitialNameState = () => {
-  if (useLocation().state !== null) {
-    const name = localStorage.getItem('name');
-    return {
-      name,
-      role: useLocation().state.role,
-      patients: useLocation().state.patients,
-    };
-  }
-  return { name: 'N/A', role: 'N/A' };
-};
-
 function DashboardContent() {
   const [pat, setpat] = useState(null);
   const [nam, setnam] = useState(null);
-  // const { name } = getInitialNameState();
   const welcomeMessage = `Hello, ${nam}`;
-  const { patients } = getInitialNameState();
-  console.log(patients);
-  // const { role } = getInitialNameState();
-  // const greeting = `Nice to see you back, ${role}`;
 
   useEffect(() => {
     async function fetchMyAPI() {
@@ -41,7 +23,6 @@ function DashboardContent() {
       const patientsl = await doctorPatients.getPatients({ email });
       setpat(patientsl.data);
       setnam(name);
-      console.log(patientsl);
     }
     fetchMyAPI();
   }, []);

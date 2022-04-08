@@ -20,7 +20,6 @@ import PasswordIcon from '@mui/icons-material/Password';
 import CreateIcon from '@mui/icons-material/Create';
 
 import loginService from '../services/login';
-import doctorPatients from '../services/doctorPatients';
 import Logo from '../components/Logo';
 
 function LoginScreen() {
@@ -46,17 +45,19 @@ function LoginScreen() {
         localStorage.setItem('name', response.data.profile.firstName);
 
         if (response.data.profile.role === "doctor") {
-          const patientsl = await doctorPatients.login({ "email": response.data.profile.email });
-          navigate('/doctordashboard', {
-            state: {
-              name: response.data.profile.firstName,
-              role: response.data.profile.role,
-              hin: response.data.profile.hin,
-              patients: patientsl.data,
-            },
-          });
+          navigate('/doctordashboard');
         } else if (response.data.profile.role === "patient") {
-          navigate('/dashboard', { state: { name: response.data.profile.firstName, role: response.data.profile.role, hin: response.data.profile.hin } });
+          navigate(
+            '/dashboard',
+            {
+              state: {
+                name: response.data.profile.firstName,
+                role: response.data.profile.role,
+                hin: response.data.profile.hin,
+                id: response.data.profile.id,
+              },
+            },
+          );
         } else if (response.data.profile.role === "admin") {
           navigate('/listUsers');
         }

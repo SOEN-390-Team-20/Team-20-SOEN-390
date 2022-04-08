@@ -19,10 +19,8 @@ function ChatContainerModal({ handleChatClose, open, chatTargetId }) {
 
   React.useEffect(async () => {
     if (open) {
-      console.log('the modal is detected as open');
-      console.log(`useEffect - targetId: ${chatTargetId}`);
-      await chatService.getMessages(chatTargetId).then((response) => {
-        console.log(`chat response: ${response.data.targetFirstName}`);
+      const token = localStorage.getItem('token');
+      await chatService.getMessages(token, chatTargetId).then((response) => {
         setCurrentId(response.data.currentId);
         setTargetId(response.data.targetId);
         setTargetFirstName(response.data.targetFirstName);
@@ -30,8 +28,6 @@ function ChatContainerModal({ handleChatClose, open, chatTargetId }) {
       }).catch((error) => {
         console.error(`Error${error}`);
       });
-    } else {
-      console.log('the modal is detected as closed');
     }
   }, [newMessageDummyListener, open]);
 

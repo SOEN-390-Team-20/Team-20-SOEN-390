@@ -8,14 +8,13 @@ const devAxios = axios.create({
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
 const endpoint = 'api/conversations';
-const token = localStorage.getItem('token');
 
-const getMessages = async (chatTargetId) => {
+const getMessages = async (token, chatTargetId) => {
   const response = await axiosService.get(`${endpoint}/${chatTargetId}`, { headers: { authorization: token } });
   return response;
 };
 
-const sendMessage = async (chatTargetId, payload) => {
+const sendMessage = async (token, chatTargetId, payload) => {
   const response = await axiosService.post(`${endpoint}/${chatTargetId}`, payload, { headers: { authorization: token } });
   return response;
 };
