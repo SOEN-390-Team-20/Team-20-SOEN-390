@@ -1,3 +1,4 @@
+/* eslint-disable */
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -18,7 +19,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 function PatientsList() {
   const [patients, setPatients] = useState([]);
-  const [name, setName] = useState('');
   let patientsCounter = 0;
 
   // These are the states that control the ChatContainerModal visibility
@@ -33,12 +33,8 @@ function PatientsList() {
   useEffect(() => {
     async function fetchMyAPI() {
       const storedEmail = localStorage.getItem('email');
-      const storedName = localStorage.getItem('name');
-      const getPatientsResponse = await doctorPatients.getPatients({ storedEmail });
+      const getPatientsResponse = await doctorPatients.getPatients({ email: storedEmail });
       setPatients(getPatientsResponse.data);
-      setName(storedName);
-      console.log(name);
-      console.log(patients);
     }
     fetchMyAPI();
   }, []);
@@ -102,11 +98,11 @@ function PatientsList() {
             </Grid>
           ))}
         </Grid>
-        <ChatContainerModal
-          handleChatClose={handleCloseChatModal}
-          open={openChatModal}
-          chatTargetId={chatTargetId}
-        />
+        {/* <ChatContainerModal */}
+        {/*  handleChatClose={handleCloseChatModal} */}
+        {/*  open={openChatModal} */}
+        {/*  chatTargetId={chatTargetId} */}
+        {/* /> */}
       </Box>
     </>
   );

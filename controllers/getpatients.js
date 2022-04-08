@@ -23,20 +23,19 @@ getPatientRouter.post('/', TokenVerify , async (req, res) => {
 
 else{
     const doctorEmail = body.email;
-    console.log(doctorEmail);
 
     // const patientEmail = body.patient;
 
-    const docc = await doc.findOne({
+    const doctor = await doc.findOne({
       email: doctorEmail,
     });
-    console.log(docc);
 
-    const patientslist = docc.patients;
+    if (!doctor) {
+        return res.sendStatus(404);
+    }
 
-    const records = await dil.find().where('email').in(patientslist).exec();
-    console.log(records)
-    return res.status(200).json(records);
+    const patients = await dil.find().where('email').in(doctor.patients).exec();
+    return res.status(200).json(patients);
   }
 });
 

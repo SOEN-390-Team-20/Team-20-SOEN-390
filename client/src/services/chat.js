@@ -8,7 +8,6 @@ const devAxios = axios.create({
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
 const endpoint = 'api/conversations';
-// temp hardcoded ID of a doctor user
 const token = localStorage.getItem('token');
 
 const getMessages = async (chatTargetId) => {
