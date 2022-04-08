@@ -20,7 +20,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 import CreateIcon from '@mui/icons-material/Create';
 
 import loginService from '../services/login';
-import doctorLogin from '../services/doctorLogin';
+import doctorPatients from '../services/doctorPatients';
 import Logo from '../components/Logo';
 
 function LoginScreen() {
@@ -46,7 +46,7 @@ function LoginScreen() {
         localStorage.setItem('name', response.data.profile.firstName);
 
         if (response.data.profile.role === "doctor") {
-          const patientsl = await doctorLogin.login({ "email": response.data.profile.email });
+          const patientsl = await doctorPatients.login({ "email": response.data.profile.email });
           navigate('/doctordashboard', {
             state: {
               name: response.data.profile.firstName,

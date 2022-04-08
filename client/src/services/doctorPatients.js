@@ -7,25 +7,23 @@ const devAxios = axios.create({
 
 const prodAxios = axios;
 const axiosService = config.isDev() ? devAxios : prodAxios;
-const logUser = 'api/getpatient';
+const apiGetPatients = 'api/getpatient';
 
 const token = localStorage.getItem('token');
 console.log(token);
 
 const configuration = {
-
   headers: { 'authorization': token },
 };
 // calls are this easy for json formatted https://github.com/axios/axios#example
-const login = async (payload) => {
-  const response = await axiosService.post(logUser, payload, configuration);
-  const rep = { data: response.data, status: response.status };
-  return rep;
+const getPatients = async (payload) => {
+  const response = await axiosService.post(apiGetPatients, payload, configuration);
+  return { data: response.data, status: response.status };
 };
 
 // For export
-const doctorLogin = {
-  login,
+const doctorPatients = {
+  getPatients,
 };
 
-export default doctorLogin;
+export default doctorPatients;

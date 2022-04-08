@@ -8,15 +8,15 @@ import {
 import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/Doctorboard';
 import user1 from '../components/images/user1.jpg';
-import doctorLogin from '../services/doctorLogin';
+import doctorPatients from '../services/doctorPatients';
 
 // import Doctorboard from '../components/Doctorboard';
 
 const getInitialNameState = () => {
   if (useLocation().state !== null) {
-    const nameee = localStorage.getItem('name');
+    const name = localStorage.getItem('name');
     return {
-      name: nameee,
+      name,
       role: useLocation().state.role,
       patients: useLocation().state.patients,
     };
@@ -37,14 +37,13 @@ function DashboardContent() {
   useEffect(() => {
     async function fetchMyAPI() {
       const email = localStorage.getItem('email');
-      const namee = localStorage.getItem('name');
-      const patientsl = await doctorLogin.login({ email });
+      const name = localStorage.getItem('name');
+      const patientsl = await doctorPatients.getPatients({ email });
       setpat(patientsl.data);
-      setnam(namee);
+      setnam(name);
       console.log(patientsl);
     }
     fetchMyAPI();
-    console.log('hola todos');
   }, []);
 
   // console.log(logo);

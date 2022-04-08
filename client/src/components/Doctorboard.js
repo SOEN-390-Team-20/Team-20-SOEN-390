@@ -106,7 +106,6 @@ function Doctorboard(props) {
                 bottom: 10,
                 marginLeft: '65%',
               }}
-
             >
               More Info
             </ColorButton>
