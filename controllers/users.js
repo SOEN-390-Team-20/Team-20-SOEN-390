@@ -126,10 +126,12 @@ usersRouter.get('/:id', async (request, response) => {
 
   const user = await User.findById(id);
   if (user) {
-    if (user.associated_doctor !== '') {
+    // if patient
+    if (user.associated_doctor !== '' && user.associated_doctor !== 'none') {
       const associatedDoctor = await User.findOne({ email: user.associated_doctor, role: 'doctor' });
       return response.status(200).json({ user, doctorId: associatedDoctor.id });
     }
+    // if doctor
     return response.status(200).json({ user });
   }
   return response.sendStatus(404);
