@@ -20,7 +20,7 @@ import { Paper, Grid, Divider, Box } from '@mui/material';
 import adminService from '../services/admin';
 import Sidebar from '../components/Sidebar';
 import user1 from '../components/images/user1.jpg';
-import doctorLogin from '../services/doctorLogin';
+import doctorPatients from '../services/doctorPatients';
 
 
 
@@ -36,7 +36,7 @@ function ListUsers() {
   async function fetchMyAPI() {
     const email = localStorage.getItem('email');
     const num = 0;
-    const patientsl = await doctorLogin.login({ email, num });
+    const patientsl = await doctorPatients.login({ email, num });
     setAccount(patientsl.data)
 
   }

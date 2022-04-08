@@ -116,12 +116,12 @@ describe('REST API requests on /api/users/ (expects test users to be added)', ()
       .expect('Content-Type', /application\/json/);
 
     const { body } = result;
-    expect(body.email).toContain(TEST_PATIENT1.email);
-    expect(body.hin).toContain(TEST_PATIENT1.hin);
-    expect(body.password).toContain(TEST_PATIENT1.password);
-    expect(body.firstName).toContain(TEST_PATIENT1.firstName);
-    expect(body.lastName).toContain(TEST_PATIENT1.lastName);
-    expect(body.role).toContain(TEST_PATIENT1.role);
+    expect(body.user.email).toContain(TEST_PATIENT1.email);
+    expect(body.user.hin).toContain(TEST_PATIENT1.hin);
+    expect(body.user.password).toContain(TEST_PATIENT1.password);
+    expect(body.user.firstName).toContain(TEST_PATIENT1.firstName);
+    expect(body.user.lastName).toContain(TEST_PATIENT1.lastName);
+    expect(body.user.role).toContain(TEST_PATIENT1.role);
   });
 });
 

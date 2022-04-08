@@ -12,7 +12,7 @@ import HistorySymptoms from './views/HistorySymptoms';
 import Dashboard from './views/Dashboard';
 import DoctorDashboard from './views/DoctorDashboard';
 import Appointments from './views/Appointments';
-import Patientlist from './views/Patientlist';
+import PatientsList from './views/patientsList';
 import QRcode from './views/Qrcode';
 
 // React-Native (will be deleted)
@@ -52,7 +52,7 @@ function App() {
             <Route path="/doctorDashboard" element={<DoctorDashboard />} />
             <Route path="/historySymptoms" element={<HistorySymptoms />} />
             <Route path="/appointment" element={<Appointments />} />
-            <Route path="/patientlist" element={<Patientlist />} />
+            <Route path="/patientlist" element={<PatientsList />} />
             <Route path="/QRcode" element={<QRcode />} />
 
           </Routes>

@@ -92,7 +92,7 @@ function Doctorboard(props) {
               {listOfPatients.map((element) => (
                 <ListItem disablePadding>
                   <ListItemButton>
-                    <ListItemText primary={`${element.firstName} ${element.firstName}`} />
+                    <ListItemText primary={`${element.firstName} ${element.lastName}`} />
                   </ListItemButton>
                 </ListItem>
               ))}
@@ -106,7 +106,6 @@ function Doctorboard(props) {
                 bottom: 10,
                 marginLeft: '65%',
               }}
-
             >
               More Info
             </ColorButton>

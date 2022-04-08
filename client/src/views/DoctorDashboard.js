@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import { createTheme } from '@mui/material/styles';
 import {
@@ -8,43 +7,24 @@ import {
 import Sidebar from '../components/Sidebar';
 import Patientboard from '../components/Doctorboard';
 import user1 from '../components/images/user1.jpg';
-import doctorLogin from '../services/doctorLogin';
+import doctorPatients from '../services/doctorPatients';
 
 // import Doctorboard from '../components/Doctorboard';
-
-const getInitialNameState = () => {
-  if (useLocation().state !== null) {
-    const nameee = localStorage.getItem('name');
-    return {
-      name: nameee,
-      role: useLocation().state.role,
-      patients: useLocation().state.patients,
-    };
-  }
-  return { name: 'N/A', role: 'N/A' };
-};
 
 function DashboardContent() {
   const [pat, setpat] = useState(null);
   const [nam, setnam] = useState(null);
-  // const { name } = getInitialNameState();
   const welcomeMessage = `Hello, ${nam}`;
-  const { patients } = getInitialNameState();
-  console.log(patients);
-  // const { role } = getInitialNameState();
-  // const greeting = `Nice to see you back, ${role}`;
 
   useEffect(() => {
     async function fetchMyAPI() {
       const email = localStorage.getItem('email');
-      const namee = localStorage.getItem('name');
-      const patientsl = await doctorLogin.login({ email });
+      const name = localStorage.getItem('name');
+      const patientsl = await doctorPatients.getPatients({ email });
       setpat(patientsl.data);
-      setnam(namee);
-      console.log(patientsl);
+      setnam(name);
     }
     fetchMyAPI();
-    console.log('hola todos');
   }, []);
 
   // console.log(logo);
@@ -52,7 +32,7 @@ function DashboardContent() {
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
-      <Sidebar />
+      <Sidebar isChatEnabled={false} />
 
       <Box
         component="main"

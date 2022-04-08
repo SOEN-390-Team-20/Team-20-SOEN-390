@@ -37,13 +37,12 @@ loginRouter.post('/', async (request, response) => {
       role: user.role,
       email: user.email,
       // eslint-disable-next-line no-underscore-dangle
-      id: user.__id,
+      id: user.id,
       hin: user.hin,
     },
   };
 
   // OK 200
-  console.log('hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh');
   console.log(responsePayload);
   return response.status(200).json(responsePayload);
 });

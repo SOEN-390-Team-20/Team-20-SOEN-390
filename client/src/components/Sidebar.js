@@ -71,7 +71,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-start',
 }));
 
-export default function PersistentDrawerRight({ handleChatOpen }) {
+export default function PersistentDrawerRight({ handleChatOpen, isChatEnabled }) {
   const navigate = useNavigate();
   const handleExit = () => {
     localStorage.clear();
@@ -150,12 +150,15 @@ export default function PersistentDrawerRight({ handleChatOpen }) {
             </ListItemIcon>
             <ListItemText primary="QR Code" />
           </ListItem>
-          <ListItem button key="Chat" onClick={handleChatOpen}>
-            <ListItemIcon>
-              <ChatIcon />
-            </ListItemIcon>
-            <ListItemText primary="Chat" />
-          </ListItem>
+          {isChatEnabled
+              && (
+              <ListItem button key="Chat" onClick={handleChatOpen}>
+                <ListItemIcon>
+                  <ChatIcon />
+                </ListItemIcon>
+                <ListItemText primary="Chat" />
+              </ListItem>
+              )}
         </List>
         <Divider />
         <List>

@@ -124,8 +124,17 @@ usersRouter.get('/:id', async (request, response) => {
   // TODO Should probably make sure it's the user first
   // or anonymize the data
 
-  const result = await User.findById(id);
-  response.json(result);
+  const user = await User.findById(id);
+  if (user) {
+    // if patient
+    if (user.associated_doctor !== '' && user.associated_doctor !== 'none') {
+      const associatedDoctor = await User.findOne({ email: user.associated_doctor, role: 'doctor' });
+      return response.status(200).json({ user, doctorId: associatedDoctor.id });
+    }
+    // if doctor
+    return response.status(200).json({ user });
+  }
+  return response.sendStatus(404);
 });
 
 // Modify (the information of) a particular user.

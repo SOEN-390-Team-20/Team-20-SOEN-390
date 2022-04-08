@@ -6,7 +6,7 @@ import '../../public/styles/Chat.css';
 import chatService from '../../services/chat';
 
 /* eslint-disable no-console */
-function ChatInput({ dummyListener, setDummyListener }) {
+function ChatInput({ chatTargetId, dummyListener, setDummyListener }) {
   const [message, setMessage] = useState('');
   const handleMessageChange = ({ target }) => setMessage(target.value);
 
@@ -15,7 +15,8 @@ function ChatInput({ dummyListener, setDummyListener }) {
 
     try {
       const payload = { content: message };
-      const response = await chatService.sendMessage(payload);
+      const token = localStorage.getItem('token');
+      const response = await chatService.sendMessage(token, chatTargetId, payload);
       if (response.status === 200) {
         setDummyListener(!dummyListener);
         document.getElementById('input-text').value = '';

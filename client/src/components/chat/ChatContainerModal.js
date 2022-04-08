@@ -10,7 +10,7 @@ import { MessageReceived, MessageSent } from './MessageItem';
 import ChatInput from './ChatInput';
 
 /* eslint-disable no-console */
-function ChatContainerModal({ handleChatClose, open }) {
+function ChatContainerModal({ handleChatClose, open, chatTargetId }) {
   const [currentId, setCurrentId] = useState('');
   const [targetId, setTargetId] = useState('');
   const [targetFirstName, setTargetFirstName] = useState('');
@@ -18,15 +18,18 @@ function ChatContainerModal({ handleChatClose, open }) {
   const [newMessageDummyListener, setNewMessageDummyListener] = useState(false);
 
   React.useEffect(async () => {
-    await chatService.getMessages().then((response) => {
-      setCurrentId(response.data.currentId);
-      setTargetId(response.data.targetId);
-      setTargetFirstName(response.data.targetFirstName);
-      setMessages(response.data.messages);
-    }).catch((error) => {
-      console.error(`Error${error}`);
-    });
-  }, [newMessageDummyListener]);
+    if (open) {
+      const token = localStorage.getItem('token');
+      await chatService.getMessages(token, chatTargetId).then((response) => {
+        setCurrentId(response.data.currentId);
+        setTargetId(response.data.targetId);
+        setTargetFirstName(response.data.targetFirstName);
+        setMessages(response.data.messages || []);
+      }).catch((error) => {
+        console.error(`Error${error}`);
+      });
+    }
+  }, [newMessageDummyListener, open]);
 
   return (
     <div>
@@ -67,6 +70,7 @@ function ChatContainerModal({ handleChatClose, open }) {
                 })}
               </Paper>
               <ChatInput
+                chatTargetId={targetId}
                 dummyListener={newMessageDummyListener}
                 setDummyListener={setNewMessageDummyListener}
               />

@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import {
   Box, Divider, Paper, Grid, Button, Stack,
 } from '@mui/material/';
-
+import ChatContainerModal from '../components/chat/ChatContainerModal';
 import Sidebar from '../components/Sidebar';
-import doctorLogin from '../services/doctorLogin';
+import doctorPatients from '../services/doctorPatients';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -16,24 +16,26 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Patientlist() {
-  const [pat, setpat] = useState(null);
-  const [nam, setnam] = useState(null);
-  let integ = 0;
+function PatientsList() {
+  const [patients, setPatients] = useState([]);
+  let patientsCounter = 0;
+
+  // These are the states that control the ChatContainerModal visibility
+  const [chatTargetId, setChatTargetId] = React.useState('');
+  const [openChatModal, setOpenChatModal] = React.useState(false);
+  const handleOpenChatModal = (targetId) => {
+    setChatTargetId(targetId);
+    setOpenChatModal(true);
+  };
+  const handleCloseChatModal = () => setOpenChatModal(false);
 
   useEffect(() => {
     async function fetchMyAPI() {
-      const email = localStorage.getItem('email');
-      const namee = localStorage.getItem('name');
-      const patientsl = await doctorLogin.login({ email });
-      setpat(patientsl.data);
-      setnam(namee);
-      console.log(nam);
-      console.log(patientsl);
+      const storedEmail = localStorage.getItem('email');
+      const getPatientsResponse = await doctorPatients.getPatients({ email: storedEmail });
+      setPatients(getPatientsResponse.data);
     }
-
     fetchMyAPI();
-    console.log('hola todos');
   }, []);
   return (
     <>
@@ -42,7 +44,7 @@ function Patientlist() {
       <Box sx={{ width: '80%' }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} marginBottom="25px">
 
-          {pat && pat.map((element) => (
+          {patients && patients.map((patient) => (
             <Grid item xs={6}>
 
               <Item sx={{ boxShadow: 10, borderRadius: '25px' }}>
@@ -50,7 +52,7 @@ function Patientlist() {
                   {' '}
                   Patient
 
-                  {++integ}
+                  {++patientsCounter}
                 </h2>
 
                 <Divider
@@ -59,23 +61,23 @@ function Patientlist() {
                   sx={{ borderBottomWidth: 4 }}
                 />
                 <h3>
-                  {` ${element.firstName} ${element.lastName}`}
+                  {` ${patient.firstName} ${patient.lastName}`}
                 </h3>
                 <br />
                 <h3>
                   Last check in:
-                  {` ${element.lastUpdate}`}
+                  {` ${patient.lastUpdate}`}
                 </h3>
                 <h3>
                   Status:
-                  {` ${element.covidStatus}`}
+                  {` ${patient.covidStatus}`}
                 </h3>
                 <h3>
                   Vaccinated:
-                  {` ${element.vaccinationstatus}`}
+                  {` ${patient.vaccinationstatus}`}
                 </h3>
                 <h3>
-                  Upcomign appts: none
+                  Upcoming appts: none
                 </h3>
                 <Stack
                   spacing={2}
@@ -87,16 +89,21 @@ function Patientlist() {
                   overflow="auto"
                 >
                   <Button variant="contained">View</Button>
-                  <Button variant="contained">Chat</Button>
+                  {/* eslint-disable-next-line no-underscore-dangle */}
+                  <Button variant="contained" onClick={() => handleOpenChatModal(patient._id)}>Chat</Button>
                   <Button variant="contained">Book Appt</Button>
                 </Stack>
               </Item>
             </Grid>
           ))}
-
         </Grid>
+        <ChatContainerModal
+          handleChatClose={handleCloseChatModal}
+          open={openChatModal}
+          chatTargetId={chatTargetId}
+        />
       </Box>
     </>
   );
 }
-export default Patientlist;
+export default PatientsList;

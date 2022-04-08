@@ -6,7 +6,7 @@ import {
 } from '@mui/material/';
 import { styled } from '@mui/material/styles';
 import Sidebar from '../components/Sidebar';
-import doctorLogin from '../services/doctorLogin';
+import doctorPatients from '../services/doctorPatients';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,7 +22,7 @@ function QRcode() {
     async function fetchMyAPI() {
       const email = localStorage.getItem('email');
       const num = 0;
-      const patientsl = await doctorLogin.login({ email, num });
+      const patientsl = await doctorPatients.getPatients({ email, num });
       console.log(patientsl);
       QRCode.toDataURL(
         `firstname: ${patientsl.data.firstName}

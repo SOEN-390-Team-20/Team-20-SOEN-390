@@ -10,6 +10,11 @@ conversationsRouter.get('/:id', verifyJWTAuth, async (request, response) => {
   const targetId = request.params.id;
   const currentUser = await User.findById(request.userId).exec();
   const targetUser = await User.findById(targetId).exec();
+
+  if (currentUser._id === targetUser._id) {
+    return response.sendStatus(404);
+  }
+
   const conversation = await Conversation.findOne({ participants: { $all: [currentUser._id, targetUser._id] } }).exec();
 
   // findOne() returns null if there are no matches
