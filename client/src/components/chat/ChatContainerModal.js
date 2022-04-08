@@ -12,21 +12,28 @@ import ChatInput from './ChatInput';
 /* eslint-disable no-console */
 function ChatContainerModal({ handleChatClose, open, chatTargetId }) {
   const [currentId, setCurrentId] = useState('');
-  const [targetId, setTargetId] = useState(chatTargetId || '');
+  const [targetId, setTargetId] = useState('');
   const [targetFirstName, setTargetFirstName] = useState('');
   const [messages, setMessages] = useState([]);
   const [newMessageDummyListener, setNewMessageDummyListener] = useState(false);
 
   React.useEffect(async () => {
-    await chatService.getMessages(targetId).then((response) => {
-      setCurrentId(response.data.currentId);
-      setTargetId(response.data.targetId);
-      setTargetFirstName(response.data.targetFirstName);
-      setMessages(response.data.messages);
-    }).catch((error) => {
-      console.error(`Error${error}`);
-    });
-  }, [newMessageDummyListener]);
+    if (open) {
+      console.log('the modal is detected as open');
+      console.log(`useEffect - targetId: ${chatTargetId}`);
+      await chatService.getMessages(chatTargetId).then((response) => {
+        console.log(`chat response: ${response.data.targetFirstName}`);
+        setCurrentId(response.data.currentId);
+        setTargetId(response.data.targetId);
+        setTargetFirstName(response.data.targetFirstName);
+        setMessages(response.data.messages || []);
+      }).catch((error) => {
+        console.error(`Error${error}`);
+      });
+    } else {
+      console.log('the modal is detected as closed');
+    }
+  }, [newMessageDummyListener, open]);
 
   return (
     <div>

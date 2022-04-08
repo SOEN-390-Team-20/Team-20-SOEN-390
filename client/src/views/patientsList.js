@@ -1,4 +1,3 @@
-/* eslint-disable */
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -89,20 +88,20 @@ function PatientsList() {
                   justifyContent="center"
                   overflow="auto"
                 >
+                  <Button variant="contained">View</Button>
                   {/* eslint-disable-next-line no-underscore-dangle */}
-                  <Button variant="contained" onClick={() => handleOpenChatModal(patient._id)}>View</Button>
-                  <Button variant="contained">Chat</Button>
+                  <Button variant="contained" onClick={() => handleOpenChatModal(patient._id)}>Chat</Button>
                   <Button variant="contained">Book Appt</Button>
                 </Stack>
               </Item>
             </Grid>
           ))}
         </Grid>
-        {/* <ChatContainerModal */}
-        {/*  handleChatClose={handleCloseChatModal} */}
-        {/*  open={openChatModal} */}
-        {/*  chatTargetId={chatTargetId} */}
-        {/* /> */}
+        <ChatContainerModal
+          handleChatClose={handleCloseChatModal}
+          open={openChatModal}
+          chatTargetId={chatTargetId}
+        />
       </Box>
     </>
   );
