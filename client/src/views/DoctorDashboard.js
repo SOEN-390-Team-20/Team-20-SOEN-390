@@ -32,7 +32,7 @@ function DashboardContent() {
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
-      <Sidebar />
+      <Sidebar isChatEnabled={false} />
 
       <Box
         component="main"

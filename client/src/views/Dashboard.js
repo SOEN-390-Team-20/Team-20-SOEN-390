@@ -57,7 +57,7 @@ function DashboardContent() {
     <Box sx={{ display: 'flex' }}>
 
       <CssBaseline />
-      <Sidebar handleChatOpen={handleOpenChatModal} />
+      <Sidebar handleChatOpen={handleOpenChatModal} isChatEnabled />
 
       <Box
         component="main"
