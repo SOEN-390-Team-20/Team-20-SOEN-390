@@ -16,14 +16,18 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function Patientlist() {
+function PatientsList() {
   const [patients, setPatients] = useState([]);
   const [name, setName] = useState('');
   let patientsCounter = 0;
 
   // These are the states that control the ChatContainerModal visibility
   const [openChatModal, setOpenChatModal] = React.useState(false);
-  const handleOpenChatModal = () => setOpenChatModal(true);
+  const [chatTargetId, setChatTargetId] = React.useState('');
+  const handleOpenChatModal = (targetId) => {
+    setChatTargetId(targetId);
+    setOpenChatModal(true);
+  };
   const handleCloseChatModal = () => setOpenChatModal(false);
 
   useEffect(() => {
@@ -89,7 +93,8 @@ function Patientlist() {
                   justifyContent="center"
                   overflow="auto"
                 >
-                  <Button variant="contained" onClick={handleOpenChatModal}>View</Button>
+                  {/* eslint-disable-next-line no-underscore-dangle */}
+                  <Button variant="contained" onClick={() => handleOpenChatModal(patient._id)}>View</Button>
                   <Button variant="contained">Chat</Button>
                   <Button variant="contained">Book Appt</Button>
                 </Stack>
@@ -97,9 +102,13 @@ function Patientlist() {
             </Grid>
           ))}
         </Grid>
-        <ChatContainerModal handleChatClose={handleCloseChatModal} open={openChatModal} />
+        <ChatContainerModal
+          handleChatClose={handleCloseChatModal}
+          open={openChatModal}
+          chatTargetId={chatTargetId}
+        />
       </Box>
     </>
   );
 }
-export default Patientlist;
+export default PatientsList;

@@ -10,7 +10,6 @@ const axiosService = config.isDev() ? devAxios : prodAxios;
 const apiGetPatients = 'api/getpatient';
 
 const token = localStorage.getItem('token');
-console.log(token);
 
 const configuration = {
   headers: { 'authorization': token },

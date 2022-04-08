@@ -10,15 +10,15 @@ import { MessageReceived, MessageSent } from './MessageItem';
 import ChatInput from './ChatInput';
 
 /* eslint-disable no-console */
-function ChatContainerModal({ handleChatClose, open }) {
+function ChatContainerModal({ handleChatClose, open, chatTargetId }) {
   const [currentId, setCurrentId] = useState('');
-  const [targetId, setTargetId] = useState('');
+  const [targetId, setTargetId] = useState(chatTargetId || '');
   const [targetFirstName, setTargetFirstName] = useState('');
   const [messages, setMessages] = useState([]);
   const [newMessageDummyListener, setNewMessageDummyListener] = useState(false);
 
   React.useEffect(async () => {
-    await chatService.getMessages().then((response) => {
+    await chatService.getMessages(targetId).then((response) => {
       setCurrentId(response.data.currentId);
       setTargetId(response.data.targetId);
       setTargetFirstName(response.data.targetFirstName);
@@ -67,6 +67,7 @@ function ChatContainerModal({ handleChatClose, open }) {
                 })}
               </Paper>
               <ChatInput
+                chatTargetId={targetId}
                 dummyListener={newMessageDummyListener}
                 setDummyListener={setNewMessageDummyListener}
               />
