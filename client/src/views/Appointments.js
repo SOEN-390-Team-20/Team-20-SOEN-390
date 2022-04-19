@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 // import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -11,7 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-
+import doctorPatients from '../services/doctorPatients';
 import Sidebar from '../components/Sidebar';
 
 const StyledTableCell = styled(TableCell)(() => ({
@@ -32,24 +33,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-function createData(name, date, location, status, action) {
-  return {
-    name, date, location, status, action,
-  };
-}
-
-const rows = [
-  createData('noory noory', 'March 17, 2022', 'In Person', 'Status:neg'),
-  createData('uoiuoi dsdas', 'March 18, 2022', 'In office', 'Status:neg'),
-  createData('patient3 patient3', 'March 23, 2022', 'In office', 'Status:neg'),
-  createData('patient 4 patient 4', 'March 27, 2022', 'In office', 'Status:neg'),
-  createData('Ramzi patient', 'March 30, 2022', 'In office', 'Status:neg'),
-  createData('Ramzi patient', 'March 30, 2022', 'In office', 'Status:neg'),
-  createData('patient patio', 'March 30, 2022', 'In office', 'Status:neg'),
-  createData('qqq qqq', 'March 30, 2022', 'In office', 'Status:neg'),
-];
 
 function Appointments() {
+  const [rows, setpat] = useState(null);
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const email = localStorage.getItem('email');
+      const patientsl = await doctorPatients.getPatients({ email });
+      setpat(patientsl.data);
+    }
+    fetchMyAPI();
+  }, []);
+
   return (
     <>
       <Sidebar />
@@ -80,20 +76,20 @@ function Appointments() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Name</StyledTableCell>
-                <StyledTableCell align="right">Date</StyledTableCell>
+                <StyledTableCell align="right">last appointement</StyledTableCell>
                 <StyledTableCell align="right">Location</StyledTableCell>
                 <StyledTableCell align="right">Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.name}>
+              {rows && rows.map((row) => (
+                <StyledTableRow key={row.firstName}>
                   <StyledTableCell component="th" scope="row">
-                    {row.name}
+                    {`${row.firstName} ${row.lastName}`}
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.date}</StyledTableCell>
-                  <StyledTableCell align="right">{row.location}</StyledTableCell>
-                  <StyledTableCell align="right">{row.status}</StyledTableCell>
+                  <StyledTableCell align="right">{row.lastUpdate}</StyledTableCell>
+                  <StyledTableCell align="right">in office</StyledTableCell>
+                  <StyledTableCell align="right">{row.covidStatus}</StyledTableCell>
                   <StyledTableCell align="right">
                     {row.action}
                     <Stack spacing={2} direction="row-reverse">
