@@ -55,7 +55,7 @@ describe('GET REST API request on /api/history', () => {
         // eslint-disable-next-line max-len
         expect(Object.keys(res.body).length).toBe(3); // makes sure that the test health form that's older than seven days (TEST_HEALTHFORM4) is not included
 
-        const fakeNow = new Date('2022-04-06T10:10:29.931Z'); // Hardcode the now (so that the test keeps working reliably in the future).
+        const fakeNow = new Date('2022-04-19T10:10:29.931Z'); // Hardcode the now (so that the test keeps working reliably in the future).
 
         const date0 = new Date(res.body[0].updatedAt);
         const date1 = new Date(res.body[1].updatedAt);
